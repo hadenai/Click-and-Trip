@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+
+</head>
+
+<body>
+
+<nav class="nav">
+    <div class="container">
+        <img id='mobileLogo' href="#" src='https://i.ibb.co/cNqdNvt/logo-click-and-trip-blanc-petit.png' alt='logo click & Trip'/>
+        <div id="mainListDiv" class="main_list">
+            <ul class="navlinks">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Events</a></li>
+                <li><img id='laptopLogo' href="#" src='https://i.ibb.co/cNqdNvt/logo-click-and-trip-blanc-petit.png' alt='logo click & Trip'/></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Internships</a></li>
+            </ul>
+        </div>
+        <span class="navTrigger">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+    </div>
+</nav>
+<img class="logo-big" src="https://cdn.jsdelivr.net/gh/miodragvukovic/Presentation/logo.svg" alt="big-logo">
+<img class="logo-small" src="https://cdn.jsdelivr.net/gh/miodragvukovic/Presentation/logo-small.svg" alt="small-logo">
+<section class="home">
+</section>
+<!-- Jquery needed -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/scripts.js"></script>
+
+<!-- Function used to shrink nav bar removing paddings and adding black background -->
+<script>
+    $(window).scroll(function() {
+        if ($(document).scrollTop() > 50) {
+            $('.nav').addClass('affix');
+            console.log("OK");
+        } else {
+            $('.nav').removeClass('affix');
+        }
+    });
+</script>
+
+</body>
+
+</html>
