@@ -55,7 +55,7 @@ class Stage
     private $history;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Theme", mappedBy="theme")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Theme", mappedBy="stage")
      */
     private $themes;
 
