@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SizeRepository")
@@ -19,7 +20,8 @@ class Size
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
+     * @Groups("api")
      */
     private $people;
 
@@ -38,12 +40,12 @@ class Size
         return $this->id;
     }
 
-    public function getPeople(): ?int
+    public function getPeople(): ?string
     {
         return $this->people;
     }
 
-    public function setPeople(int $people): self
+    public function setPeople(string $people): self
     {
         $this->people = $people;
 

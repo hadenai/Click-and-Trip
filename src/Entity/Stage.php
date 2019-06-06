@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StageRepository")
@@ -25,27 +26,32 @@ class Stage
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"api", "listing"})
      */
     private $destination;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("api")
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("api")
      */
     private $nameStage;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="integer")
+     * @Groups("api")
      */
     private $duration;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Agency", inversedBy="stages")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("api")
      */
     private $agency;
 
@@ -56,21 +62,25 @@ class Stage
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Theme", mappedBy="stage")
+     * @Groups("api")
      */
     private $themes;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Style", mappedBy="stage")
+     * @Groups("api")
      */
     private $styles;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Price", mappedBy="stage")
+     * @Groups("api")
      */
     private $prices;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Size", mappedBy="stage")
+     * @Groups("api")
      */
     private $sizes;
 
@@ -136,12 +146,12 @@ class Stage
         return $this;
     }
 
-    public function getDuration(): ?\DateTimeInterface
+    public function getDuration(): ?int
     {
         return $this->duration;
     }
 
-    public function setDuration(\DateTimeInterface $duration): self
+    public function setDuration(int $duration): self
     {
         $this->duration = $duration;
 
