@@ -10,8 +10,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 class AgencyFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
-    {   
-        for($i=1;$i<12;$i++){
+    {
+        for ($i=1; $i<12; $i++) {
             $faker  =  Faker\Factory::create('fr_FR');
             $agency = new Agency();
             $agency->setAddress($faker->address())

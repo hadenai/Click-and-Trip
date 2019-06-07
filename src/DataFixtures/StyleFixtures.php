@@ -11,7 +11,7 @@ class StyleFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $list=['Standard', "Chez l’habitant", "Charme", "Luxe", "Responsable"];
-        foreach($list as $key => $name){
+        foreach ($list as $key => $name) {
             $style = new Style();
             $style->setStyle($name);
             $manager->persist($style);

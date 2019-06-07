@@ -20,7 +20,7 @@ class ApiController extends AbstractController
      * )
      */
     public function index(StageRepository $stageRepository, SerializerInterface $serializer)
-    {   
+    {
         $stages = $stageRepository->findAll();
         $jsonStages = $serializer->serialize($stages, 'json', ['groups'=>'api']);
         return new JsonResponse(json_decode($jsonStages));

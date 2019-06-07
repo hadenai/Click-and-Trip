@@ -9,9 +9,15 @@ use Doctrine\Common\Persistence\ObjectManager;
 class ThemeFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
-    {   
-        $list=['Culture & Traditions', 'Sport & aventure', 'Bien être & Spiritualité', 'Nature & Vie sauvage', 'Fêtes et Festivals', 'Iles & Plages de rêves', 'Responsable'];
-        foreach($list as $key => $name){
+    {
+        $list=['Culture & Traditions',
+            'Sport & aventure',
+            'Bien être & Spiritualité',
+            'Nature & Vie sauvage',
+            'Fêtes et Festivals',
+            'Iles & Plages de rêves',
+            'Responsable'];
+        foreach ($list as $key => $name) {
             $theme = new Theme();
             $theme->setTheme($name);
             $manager->persist($theme);
