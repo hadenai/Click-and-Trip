@@ -34,47 +34,47 @@ class StageFixtures extends Fixture implements DependentFixtureInterface
             $stage = new Stage();
             $themes=explode("  ", $row["THEMATIQUES"]);
             foreach ($themes as $theme) {
-                if (strpos($theme, "CULTURE")!==FALSE) {
+                if (strpos($theme, "CULTURE")!==false) {
                     $stage->addTheme($this->getReference('theme_0'));
-                } elseif (strpos($theme, "SPORT")!==FALSE) {
+                } elseif (strpos($theme, "SPORT")!==false) {
                     $stage->addTheme($this->getReference('theme_1'));
-                } elseif (strpos($theme, "BIEN")!==FALSE) {
+                } elseif (strpos($theme, "BIEN")!==false) {
                     $stage->addTheme($this->getReference('theme_2'));
-                } elseif (strpos($theme, "NATURE")!==FALSE) {
+                } elseif (strpos($theme, "NATURE")!==false) {
                     $stage->addTheme($this->getReference('theme_3'));
-                } elseif (strpos($theme, "FESTIVAL")!==FALSE) {
+                } elseif (strpos($theme, "FESTIVAL")!==false) {
                     $stage->addTheme($this->getReference('theme_4'));
-                } elseif (strpos($theme, "ILE")!==FALSE) {
+                } elseif (strpos($theme, "ILE")!==false) {
                     $stage->addTheme($this->getReference('theme_5'));
-                } elseif (strpos($theme, "RESPONSABLE")!==FALSE) {
+                } elseif (strpos($theme, "RESPONSABLE")!==false) {
                     $stage->addTheme($this->getReference('theme_6'));
                 };
             };
             $sizes=explode("/", $row["AVEC QUI PARTIR"]);
             foreach ($sizes as $size) {
-                if (strpos($size, "SOLO")!==FALSE) {
+                if (strpos($size, "SOLO")!==false) {
                     $stage->addSize($this->getReference('size_0'));
-                } elseif (strpos($size, "COUPLE")!==FALSE) {
+                } elseif (strpos($size, "COUPLE")!==false) {
                     $stage->addSize($this->getReference('size_1'));
-                } elseif (strpos($size, "FAMILLE")!==FALSE) {
+                } elseif (strpos($size, "FAMILLE")!==false) {
                     $stage->addSize($this->getReference('size_2'));
-                } elseif (strpos($size, "AMIS")!==FALSE) {
+                } elseif (strpos($size, "AMIS")!==false) {
                     $stage->addSize($this->getReference('size_3'));
-                } elseif (strpos($size, "GROUPE")!==FALSE) {
+                } elseif (strpos($size, "GROUPE")!==false) {
                     $stage->addSize($this->getReference('size_4'));
                 };
             };
             $styles=explode("/", $row["STYLE"]);
             foreach ($styles as $style) {
-                if (strpos($style, "STANDARD")!==FALSE) {
+                if (strpos($style, "STANDARD")!==false) {
                     $stage->addStyle($this->getReference('style_0'));
-                } elseif (strpos($style, "CHEZ")!==FALSE) {
+                } elseif (strpos($style, "CHEZ")!==false) {
                     $stage->addStyle($this->getReference('style_1'));
-                } elseif (strpos($style, "CHARME")!==FALSE) {
+                } elseif (strpos($style, "CHARME")!==false) {
                     $stage->addStyle($this->getReference('style_2'));
-                } elseif (strpos($style, "LUXE")!==FALSE) {
+                } elseif (strpos($style, "LUXE")!==false) {
                     $stage->addStyle($this->getReference('style_3'));
-                } elseif (strpos($style, "RESPONSABLE")!==FALSE) {
+                } elseif (strpos($style, "RESPONSABLE")!==false) {
                     $stage->addStyle($this->getReference('style_4'));
                 };
             };

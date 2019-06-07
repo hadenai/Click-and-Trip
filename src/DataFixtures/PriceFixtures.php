@@ -26,7 +26,7 @@ class PriceFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         // // /!\ I had just put one price by stage instead of multiple for each specs (persons, season,...)
-        for($i=0;$i<50;$i++) {
+        for ($i=0; $i<50; $i++) {
             $price = new Price();
             $price->setStage($this->getReference('stage_'.strval($i)))
                   ->setDateBegin(new DateTime(2000-01-01))

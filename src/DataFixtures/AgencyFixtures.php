@@ -20,10 +20,10 @@ class AgencyFixtures extends Fixture
                    ->setCountry($faker->country())
                    ->setEmail($faker->freeEmail())
                    ->setPassword($faker->password())
-                   ->setUsername($faker->userName())
                    ->setRoles(['ROLE_AGENCY'])
                    ->setNameAgent($faker->firstNameMale())
                    ->setSurnameAgent($faker->lastname());
+                   //    ->setUsername($faker->userName())
             $manager->persist($agency);
             $this->addReference('agency_'.strval($i), $agency);
         };
