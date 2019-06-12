@@ -15,10 +15,14 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Etapes</h1>
       {
         etapes.map((etape, index) => {
           return (
-            <p>étape {index}</p>
+            <div key={index}>
+              <h3>{etape.nameStage}</h3>
+              <p><strong>Durée: </strong>{etape.duration} jours.</p>
+            </div>
           );
         })
       }
