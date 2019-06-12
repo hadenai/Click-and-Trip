@@ -36,5 +36,4 @@ class MonVoyageController extends AbstractController
 
         return $this->render('travelerDetailForm.html.twig');
     }
-
 }
