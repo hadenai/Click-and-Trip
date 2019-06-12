@@ -1,8 +1,13 @@
+<head>
+{% block stylesheets %}
+    {{ encore_entry_link_tags('travelerDetailForm') }}
+{% endblock %}
+</head>
+<form class="ui form">
 <h1>Commencez à créer votre projet voyage...</h1>
 <h2>Qui voyage ?</h2>
 <p class="userAge">Combien de participants ? Merci de fournir le nombre de participant et l’âge des voyageurs qui aide notre expert local à personnaliser votre voyage.</p>
 </br>
-
 <h3><p>Adultes</p></h3>
 <div class="adult">
     <p>18-34 ans &nbsp; 35-54 ans &nbsp; 55-69 ans &nbsp; 70+ ans</p>
@@ -30,7 +35,7 @@
 </div>
 </div>
 
-<form class="ui form">
+
     <div class="grouped fields">
         <h2>Quand souhaitez-vous partir ? Merci de cocher la réponse
         </h2>
