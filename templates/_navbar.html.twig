@@ -4,12 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <title>A Pen by  Badrinath Gopugari</title>
-  
-  
-  
-      <link rel="stylesheet" href="css/style.css">
-
-  
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('navCss') }}
+    {% endblock %}
 </head>
 
 <body>
@@ -56,16 +53,9 @@
     }
   });
 </script>
-  
-  
-
-    <script  src="js/index.js"></script>
-    
-    
-    
-
-
-
+  {% block javascripts %}
+      {{ encore_entry_script_tags('navJs') }}
+  {% endblock %}
 </body>
 
 </html>
