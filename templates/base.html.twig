@@ -3,30 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        {{ encore_entry_link_tags('navbarCss') }}
+        {{ encore_entry_link_tags('footerCss') }}
+        <link rel="stylesheet" type="text/css" href="node_modules/semantic-ui/dist/semantic.min.css">
+    {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 </head>
 <div class="container">
     <body>
-<<<<<<< HEAD
         <header>
             {% include "_navbar.html.twig" %}
         </header>
-        {% block body %}{% endblock %}
-        {% block javascripts %}
-            +     {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-=======
-    {% block body %}{% endblock %}
-    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
+    {% block body %}
     {% endblock %}
         <footer>
-           {% include '_footer.html.twig'  %}
+        {% include '_footer.html.twig'  %}
         </footer>
->>>>>>> M_footer
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('navbarJs') }}
+    {% endblock %}
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script src="node_modules/semantic-ui/dist/semantic.min.js"></script>
     </body>
 </div>
 </html>

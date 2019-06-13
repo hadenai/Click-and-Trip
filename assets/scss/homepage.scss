@@ -1,0 +1,27 @@
+body {margin:0}
+
+#host-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+
+#eye-catch-img {
+    width:100%;
+}
+
+#slogan {
+    position: absolute;
+    color:white;
+    display: block;
+    width:54%;
+    font-size: 2.6vw;
+    text-align: center;
+}
+
+#choice-buttons {
+    position: absolute;
+    top:5vw;
+}
+
