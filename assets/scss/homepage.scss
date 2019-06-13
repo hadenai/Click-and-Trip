@@ -1,13 +1,14 @@
+@import "vars";
 body {margin:0}
 
-#host-image {
+#host-video {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
 }
 
-#eye-catch-img {
+video, #video {
     width:100%;
 }
 
@@ -16,12 +17,32 @@ body {margin:0}
     color:white;
     display: block;
     width:54%;
-    font-size: 2.6vw;
     text-align: center;
+
+    & h2 {
+        font-size: 2.6vw;}
 }
 
-#choice-buttons {
-    position: absolute;
-    top:5vw;
+
+#button-voyage {background-color: #ff8080;
+    & a{color: white}
+}
+#button-inspiration {background-color: $white;
+    & a{color: black}
 }
 
+#tuto {
+    width: 100vw;
+    margin-top: 3%;
+}
+
+.block {
+    display: flex;
+    justify-content: center;
+    margin-top:2%;
+
+}
+
+#galerie {width: 70vw;margin:0 15vw}
+
+#commitment {width:80vw;margin: 3% 10vw;}
