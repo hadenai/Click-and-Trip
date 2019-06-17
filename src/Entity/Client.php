@@ -34,7 +34,7 @@ class Client extends User
     private $surname;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $dateOfBirth;
 
@@ -94,12 +94,12 @@ class Client extends User
         return $this;
     }
 
-    public function getDateOfBirth(): ?int
+    public function getDateOfBirth(): ?\DateTimeInterface
     {
         return $this->dateOfBirth;
     }
 
-    public function setDateOfBirth(?int $dateOfBirth): self
+    public function setDateOfBirth(\DateTimeInterface $dateOfBirth): self
     {
         $this->dateOfBirth = $dateOfBirth;
 
@@ -132,7 +132,6 @@ class Client extends User
             $this->histories[] = $history;
             $history->setClient($this);
         }
-
         return $this;
     }
 
@@ -145,7 +144,6 @@ class Client extends User
                 $history->setClient(null);
             }
         }
-
         return $this;
     }
 }

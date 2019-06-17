@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte{% endblock %}
+
+{% block body %}
+
+    <div id="form1">
+        <h3> inscription en tant que voyageur</h3>
+
+        {{ form_start(clientForm) }}
+
+        {{ form_row(clientForm.username, {'label': 'Pseudo', 'attr' :{'placeholder':"Entrez votre Pseudo... " }}) }}
+        {{ form_row(clientForm.name, {'label': 'Nom ', 'attr' :{'placeholder':"Entrez votre Nom de famille... " }}) }}
+        {{ form_row(clientForm.surname, {'label': 'Prénom', 'attr' :{'placeholder':"Entrez votre Prénom... " }}) }}
+        {{ form_row(clientForm.email, {'label': 'Email','attr' :{'placeholder':"Entrez votre email..." }}) }}
+        {{ form_row(clientForm.password, {'label': 'Mot de passe','attr' :{'placeholder':"Entrez votre mot de passe..." }}) }}
+        {{ form_row(clientForm.dateOfBirth, {'label': 'date de naissance','attr' :{'placeholder':"Entrez votre date de naissance..." }}) }}
+
+        <button type="submit" class="btn btn-success">Inscription ! </button>
+        {{ form_end(clientForm) }}
+    </div>
+
+    <div class="formAgency" id="form2">
+        {{ form_start(agencyForm) }}
+
+        <h3> inscription en tant qu'Agence</h3>
+        {{ form_row(clientForm.username, {'label': 'Pseudo', 'attr' :{'placeholder':"Entrez votre Pseudo... " }}) }}
+        {{ form_row(agencyForm.nameAgent, {'label': 'Nom  ' ,'attr' :{'placeholder':"Nom de l'Agent..." }}) }}
+        {{ form_row(agencyForm.surnameAgent, {'label': 'Prénom ' ,'attr' :{'placeholder':"Prénom de l'agent..." }}) }}
+        {{ form_row(agencyForm.email, {'label': 'Email ', 'attr' :{'placeholder':"Entrez votre email... " }}) }}
+        {{ form_row(agencyForm.password, {'label': 'Mot de passe ', 'attr' :{'placeholder':"Entrez votre mot de passe... " }}) }}
+        {{ form_row(agencyForm.country, {'label': 'Pays ', 'attr' :{'placeholder':"Entrez votre pays... " }}) }}
+        {{ form_row(agencyForm.city, {'label': 'Ville ', 'attr' :{'placeholder':"Entrez votre  ville... " }}) }}
+        {{ form_row(agencyForm.address, {'label': 'Adresse ', 'attr' :{'placeholder':"Entrez votre adresse..." }}) }}
+        {{ form_row(agencyForm.image, {'label': 'Image ', 'attr' :{'placeholder':"Entrez votre image..." }}) }}
+        {{ form_row(agencyForm.company, {'label': "Nom de l'Agence ", 'attr' :{'placeholder':"Entrez le nom de l'agence... " }}) }}
+
+        <button type="submit" class="btn btn-success">Inscription  </button>
+        {{ form_end(agencyForm) }}
+
+    </div>
+    <input id="toggleForm" type="submit" value="s'inscrire en tant qu'Agence" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('formRegistration1') }}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('formRegistration') }}
+    {{ parent() }}
+{% endblock %}
+

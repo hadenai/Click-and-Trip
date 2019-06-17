@@ -8,6 +8,9 @@ parameters:
 
 services:
     # default configuration for services in *this* file
+    app.security.login_form_authenticator:
+        class: App\Security\LoginFormAuthenticator
+        autowire: true
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.

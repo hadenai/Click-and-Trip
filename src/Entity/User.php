@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -24,8 +25,10 @@ abstract class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(  message = "The email '{{ value }}' is not a valid email.")
      */
     private $email;
+
 
     /**
      * @ORM\Column(type="json")
@@ -35,6 +38,7 @@ abstract class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimun 8 caractères" )
      */
     private $password;
 
@@ -42,6 +46,7 @@ abstract class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $username;
+
 
     public function getId(): ?int
     {

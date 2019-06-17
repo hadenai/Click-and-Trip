@@ -41,12 +41,12 @@ class Theme
     /**
      * @return Collection|Stage[]
      */
-    public function getstage(): Collection
+    public function getStage(): Collection
     {
         return $this->stage;
     }
 
-    public function addstage(Stage $stage): self
+    public function addStage(Stage $stage): self
     {
         if (!$this->stage->contains($stage)) {
             $this->stage[] = $stage;
@@ -55,7 +55,7 @@ class Theme
         return $this;
     }
 
-    public function removestage(Stage $stage): self
+    public function removeStage(Stage $stage): self
     {
         if ($this->stage->contains($stage)) {
             $this->stage->removeElement($stage);
