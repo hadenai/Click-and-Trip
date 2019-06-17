@@ -6,15 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProfileController extends AbstractController
+class VoyageController extends AbstractController
 {
     /**
-     * @Route("/profile", name="profile")
+     * @Route("/", name="homepage")
      */
     public function index() : Response
     {
-        return $this->render('profile/index.html.twig', [
-
-        ]);
+        return $this->render('homepage/index.html.twig');
     }
 }
