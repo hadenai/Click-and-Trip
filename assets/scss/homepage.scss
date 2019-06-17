@@ -8,9 +8,13 @@ body {margin:0}
     width: 100vw;
 }
 
-video, #video {
-    width:100%;
+iframe {
+    width: 100vw;
+    height: 58vw;
+    pointer-events: none;
+    margin-top: -1%;
 }
+// .ytp-id-9 {display: none}
 
 #slogan {
     position: absolute;
@@ -46,3 +50,10 @@ video, #video {
 #galerie {width: 70vw;margin:0 15vw}
 
 #commitment {width:80vw;margin: 3% 10vw;}
+
+.ui.cards > .card > .image {background-color: white}
+
+.ui.cards > .card .no-shadow {
+    -webkit-box-shadow: 0 0 0 0 white,0 0 0 0 white;
+    box-shadow: 0 0 0 0 white,0 0 0 0 white;
+}

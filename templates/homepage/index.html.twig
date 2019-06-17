@@ -6,13 +6,8 @@
 {% endblock %}
 {% block body %}
 <div id="host-video">
-    {# <video width="400" controls autoplay loop>
-        <source src="/build/Video_couverture_Click-Trip.mp4" type="video/mp4">
-        Votre navigateur ne supporte pas les vidéos HTML5.
-    </video> #}
-    <div id="video">
-      <iframe src="https://www.youtube.com/embed/NK7ffg8Q9DA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; autoloop; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+    <iframe src="https://www.youtube.com/embed/NK7ffg8Q9DA?autoplay=1&controls=0&showinfo=0&rel=0&loop=1&playlist=NK7ffg8Q9DA&autohide=2&disablekb=1&fs=0&iv_load_policy=3&modestbranding=1" allow="accelerometer; autoplay; encrypted-media; autoloop; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    {# autostart works on chrome but not on firefox #}
     <div id="slogan">
         <h2>Créez votre voyage authentique & plus responsable</h2>
         <div class="large ui buttons" id="choice-buttons">
@@ -21,8 +16,38 @@
         </div>
     </div>
 </div>
-<img id="tuto" src="{{ asset("build/images/explication_site.jpg") }}" alt="comment ça marche Concept site click and trip">
-<div class="block">
+<div>
+  <h2>Comment utiliser Click & Trip ?</h2>
+  <h5>Des vacances sur mesure conçues par des experts locaux de confiance du monde entier</h5>
+  <h4>MISE EN PLACE D’UNE BANNIERE EXPLICATIVE</h4>
+  <h2>Pourquoi voyager avec Click & Trip ?</h2>
+  <h4>Nos experts locaux sont basés dans votre destination et sont donc les mieux placés pour organiser votre voyage</h4>
+  <div class="ui six doubling cards">
+      <div class="card no-shadow">
+        <span class="image">
+          <p>Je respecte le pays que je visite</p>
+          <img src="{{ asset("build/images/1-world.svg")}}">
+        </span>
+        <span class="image">
+          <img src="{{ asset("public/build/images/2-teamwork.svg")}}">
+          <p>J'encourage les échanges et favorise l'économie locale</p>
+        </span>
+      </div>
+      <div class="card no-shadow">
+        <div class="image">
+          <p>Prix locaux</p>
+          <img src="{{ asset("build/images/3-tv-screen.svg")}}">
+        </div>
+      </div>
+      <div class="card no-shadow">
+        <div class="image">
+          <img src="{{ asset("build/images/4-place.svg")}}">
+          <p>Je crée facilement en quelques clics mon voyage</p>
+        </div>
+      </div>
+    </div>
+    
+</div>
 <button class="ui button big" id="button-voyage"><a href="#">Créer mon itinéraire sur mesure</a></button>
 </div>
 <h2 class="block">Inspirations - Explorer de nouvelles étapes</h2>
@@ -174,7 +199,7 @@
         </div>
       </div>
 </div>
-<img id="commitment" src="{{ asset("build/images/nos-engaments.jpg") }}" alt="engagements entreprise click and trip">
+<img id="commitment" src="{{ asset("build/images/nos-engagements.jpg") }}" alt="engagements entreprise click and trip">
 
 {% endblock %}
 
