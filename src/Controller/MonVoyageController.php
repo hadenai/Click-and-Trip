@@ -21,18 +21,9 @@ class MonVoyageController extends AbstractController
     /**
      * @Route("/MesInfos")
      */
-    public function generatePdf()
+    public function sendTravelerInfoMail()
     {
-        $dompdf = new Dompdf();
 
-        $html = $this->renderView('travelerDetailForm.html.twig');
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-        $dompdf->stream("mypdf.pdf", [
-
-            "Attachement" => true,
-        ]);
 
         return $this->render('travelerDetailForm.html.twig');
     }
