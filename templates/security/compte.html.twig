@@ -2,9 +2,8 @@
 
 {% block title %}Compte{% endblock %}
 
-{% block stylesheets %}
+{% block stylesheet %}
     {{ encore_entry_link_tags('formRegistration') }}
-    {{ parent() }}
 {% endblock %}
 
 {% block body %}
@@ -47,8 +46,7 @@
     <input id="toggleForm" type="submit" value="s'inscrire en tant qu'Agence" />
 {% endblock %}
 
-{% block javascripts %}
+{% block javascript %}
     {{ encore_entry_script_tags('formRegistration') }}
-    {{ parent() }}
 {% endblock %}
 
