@@ -84,7 +84,7 @@ class StageFixtures extends Fixture implements DependentFixtureInterface
                   ->setNameStage($row["nameStage"])
                   ->setDuration(strval(trim($row["Duration"])))
                   ->setAgency($this->getReference('agency_'.$row["agency_id"]));
-                  $this->addReference('stage_'.$key, $stage);
+                  $this->addReference('stage_'.strval($key), $stage);
             $manager->persist($stage);
         }
         $manager->flush();

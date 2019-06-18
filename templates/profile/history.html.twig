@@ -1,0 +1,17 @@
+<h1>Historique de mes voyages:</h1>
+{% for history in histories %}
+<div class="ui cards">
+    <div class="card">
+        <div class="content">
+            <div class="header">Date de départ: {{ history.date_begin }} </div>
+            <div class="meta">Date de fin: {{ history.date_end }} </div>
+            <div class="meta">Prix: {{  }} </div>
+            <div class="meta">Nombre de voyageurs: {{  }} </div>
+            <div class="description">
+                STATUS: {{ history.state_id }}
+            </div>
+        </div>
+    </div>
+</div>
+    </br>
+{% endfor %}
