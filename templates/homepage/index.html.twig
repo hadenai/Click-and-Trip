@@ -1,0 +1,205 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Click & trip{% endblock %}
+{% block stylesheets %}
+        {{ encore_entry_link_tags('homepageScss') }}
+{% endblock %}
+{% block body %}
+<div id="host-video">
+    <iframe src="https://www.youtube.com/embed/NK7ffg8Q9DA?autoplay=1&controls=0&showinfo=0&rel=0&loop=1&playlist=NK7ffg8Q9DA&autohide=2&disablekb=1&fs=0&iv_load_policy=3&modestbranding=1" allow="accelerometer; autoplay; encrypted-media; autoloop; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    {# autostart works on chrome but not on firefox #}
+    <div id="slogan">
+        <h2>Créez votre voyage authentique & plus responsable</h2>
+        <div class="large ui buttons" id="choice-buttons">
+            <button class="ui button" id="button-voyage"><a href="#">Où souhaitez-vous partir ?</a></button>
+            <button class="ui button" id="button-inspiration"><a href="#">Inspirations</a></button>
+        </div>
+    </div>
+</div>
+<div>
+  <h2>Comment utiliser Click & Trip ?</h2>
+  <h5>Des vacances sur mesure conçues par des experts locaux de confiance du monde entier</h5>
+  <h4>MISE EN PLACE D’UNE BANNIERE EXPLICATIVE</h4>
+  <h2>Pourquoi voyager avec Click & Trip ?</h2>
+  <h4>Nos experts locaux sont basés dans votre destination et sont donc les mieux placés pour organiser votre voyage</h4>
+  <div class="ui six doubling cards">
+      <div class="card no-shadow">
+        <span class="image">
+          <p>Je respecte le pays que je visite</p>
+          <img src="{{ asset("build/images/1-world.svg")}}">
+        </span>
+        <span class="image">
+          <img src="{{ asset("public/build/images/2-teamwork.svg")}}">
+          <p>J'encourage les échanges et favorise l'économie locale</p>
+        </span>
+      </div>
+      <div class="card no-shadow">
+        <div class="image">
+          <p>Prix locaux</p>
+          <img src="{{ asset("build/images/3-tv-screen.svg")}}">
+        </div>
+      </div>
+      <div class="card no-shadow">
+        <div class="image">
+          <img src="{{ asset("build/images/4-place.svg")}}">
+          <p>Je crée facilement en quelques clics mon voyage</p>
+        </div>
+      </div>
+    </div>
+    
+</div>
+<button class="ui button big" id="button-voyage"><a href="#">Créer mon itinéraire sur mesure</a></button>
+</div>
+<h2 class="block">Inspirations - Explorer de nouvelles étapes</h2>
+<div class="block" id="galerie">
+    <div class="ui special cards centered">
+        <div class="card">
+          <div class="blurring dimmable image">
+            <div class="ui dimmer">
+              <div class="content">
+                <div class="center">
+                  <div class="ui inverted button">Add Friend</div>
+                </div>
+              </div>
+            </div>
+            <img src="/images/avatar/large/elliot.jpg">
+          </div>
+          <div class="content">
+            <a class="header">Team Fu</a>
+            <div class="meta">
+              <span class="date">Created in Sep 2014</span>
+            </div>
+          </div>
+          <div class="extra content">
+            <a>
+              <i class="users icon"></i>
+              2 Members
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="blurring dimmable image">
+            <div class="ui inverted dimmer">
+              <div class="content">
+                <div class="center">
+                  <div class="ui primary button">Add Friend</div>
+                </div>
+              </div>
+            </div>
+            <img src="/images/avatar/large/jenny.jpg">
+          </div>
+          <div class="content">
+            <a class="header">Team Hess</a>
+            <div class="meta">
+              <span class="date">Created in Aug 2014</span>
+            </div>
+          </div>
+          <div class="extra content">
+            <a>
+              <i class="users icon"></i>
+              2 Members
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="blurring dimmable image">
+            <div class="ui inverted dimmer">
+              <div class="content">
+                <div class="center">
+                  <div class="ui primary button">Add Friend</div>
+                </div>
+              </div>
+            </div>
+            <img src="/images/avatar/large/jenny.jpg">
+          </div>
+          <div class="content">
+            <a class="header">Team Hess</a>
+            <div class="meta">
+              <span class="date">Created in Aug 2014</span>
+            </div>
+          </div>
+          <div class="extra content">
+            <a>
+              <i class="users icon"></i>
+              2 Members
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="blurring dimmable image">
+            <div class="ui inverted dimmer">
+              <div class="content">
+                <div class="center">
+                  <div class="ui primary button">Add Friend</div>
+                </div>
+              </div>
+            </div>
+            <img src="/images/avatar/large/jenny.jpg">
+          </div>
+          <div class="content">
+            <a class="header">Team Hess</a>
+            <div class="meta">
+              <span class="date">Created in Aug 2014</span>
+            </div>
+          </div>
+          <div class="extra content">
+            <a>
+              <i class="users icon"></i>
+              2 Members
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="blurring dimmable image">
+            <div class="ui inverted dimmer">
+              <div class="content">
+                <div class="center">
+                  <div class="ui primary button">Add Friend</div>
+                </div>
+              </div>
+            </div>
+            <img src="/images/avatar/large/jenny.jpg">
+          </div>
+          <div class="content">
+            <a class="header">Team Hess</a>
+            <div class="meta">
+              <span class="date">Created in Aug 2014</span>
+            </div>
+          </div>
+          <div class="extra content">
+            <a>
+              <i class="users icon"></i>
+              2 Members
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="blurring dimmable image">
+            <div class="ui inverted dimmer">
+              <div class="content">
+                <div class="center">
+                  <div class="ui primary button">Add Friend</div>
+                </div>
+              </div>
+            </div>
+            <img src="/images/avatar/large/jenny.jpg">
+          </div>
+          <div class="content">
+            <a class="header">Team Hess</a>
+            <div class="meta">
+              <span class="date">Created in Aug 2014</span>
+            </div>
+          </div>
+          <div class="extra content">
+            <a>
+              <i class="users icon"></i>
+              2 Members
+            </a>
+          </div>
+        </div>
+      </div>
+</div>
+<img id="commitment" src="{{ asset("build/images/nos-engagements.jpg") }}" alt="engagements entreprise click and trip">
+
+{% endblock %}
+

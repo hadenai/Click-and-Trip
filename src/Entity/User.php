@@ -42,10 +42,10 @@ abstract class User implements UserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $username;
+    // /**
+    //  * @ORM\Column(type="string", length=255)
+    //  */
+    // private $username;
 
 
     public function getId(): ?int
@@ -126,10 +126,10 @@ abstract class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
+    // public function setUsername(string $username): self
+    // {
+    //     $this->username = $username;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }
