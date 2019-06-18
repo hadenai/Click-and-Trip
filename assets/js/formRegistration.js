@@ -1,4 +1,4 @@
-console.log('test');
+require('../scss/formRegistration.scss')
 
 let button = document.getElementById('toggleForm');
 

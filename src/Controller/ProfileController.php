@@ -15,15 +15,15 @@ use App\Repository\HistoryRepository;
 
 class ProfileController extends AbstractController
 {
-    /**
-     * @Route("/", name="index")
-     */
-    public function index() : Response
-    {
-        return $this->render('profile/index.html.twig', [
+    // /**
+    //  * @Route("/", name="index")
+    //  */
+    // public function index() : Response
+    // {
+    //     return $this->render('profile/index.html.twig', [
 
-        ]);
-    }
+    //     ]);
+    // }
 
     /**
      * @Route("/historique", name="history", methods={"GET"})
