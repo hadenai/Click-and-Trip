@@ -11,9 +11,9 @@ import Etapes from './components/Etapes/Etapes';
 
 // CSS
 import 'semantic-ui-css/semantic.min.css';
-import './app.css'
+import './planner.css'
 
-function App() {
+function Planner() {
   return (
     <div className="App">
       <Etapes />
@@ -21,4 +21,4 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Planner />, document.getElementById('root'));

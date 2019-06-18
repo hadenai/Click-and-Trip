@@ -17,13 +17,3 @@
       <i></i>
   </span>
 </nav>
-<!-- Function used to shrink nav bar removing paddings and adding black background -->
-<script>
-  window.onscroll = () => {
-    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-      document.getElementsByTagName("nav")[0].className = "nav container affix";
-    } else {
-      document.getElementsByTagName("nav")[0].className = "nav container";
-    }
-  };
-</script>
