@@ -3,6 +3,14 @@ var Encore = require('@symfony/webpack-encore');
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
+    .copyFiles({
+        from: './assets/images',
+        to: 'images/[path][name].[ext]',
+    })
+    .copyFiles({
+        from: './assets/videos',
+        to: 'videos/[path][name].[ext]',
+    })
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
@@ -19,7 +27,15 @@ Encore
      */
     .enableReactPreset()
     .addEntry('app', './assets/js/app.js')
+<<<<<<< HEAD
     //.addEntry('page1', './assets/js/page1.js')
+=======
+    .addEntry('footerCss', './assets/scss/_footer.scss')
+    .addEntry('navbarCss', './assets/scss/_navbar.scss')
+    .addEntry('navbarJs', './assets/js/_navbar.js')
+    .addEntry('homepageScss', './assets/scss/homepage.scss')
+    //.addEntry('page1', './assets/js/page1.js') 
+>>>>>>> 3614d0f154a9befb77cb036538a3695e16556109
     //.addEntry('page2', './assets/js/page2.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
@@ -61,7 +77,7 @@ Encore
     //.enableIntegrityHashes()
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
