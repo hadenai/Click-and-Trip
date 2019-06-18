@@ -23,8 +23,8 @@ security:
             provider: app_user_provider
 
             form_login:
-                login_path: security_login
-                check_path: security_login
+                login_path: compte_connexion
+                check_path: compte_connexion
 
             logout:
                 path: compte_deconnexion
