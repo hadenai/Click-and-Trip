@@ -25,10 +25,13 @@ class MonVoyageController extends AbstractController
         $message = (new \Swift_Message('Un nouvel article vient d\'être publié !'))
             ->setFrom('vincent.mallard5@gmail.com')
             ->setTo('vincent.mallard5@gmail.com')
-            ->setBody($this->renderView("travelerDetailMail.html.twig",
-                [
+            ->setBody(
+                $this->renderView(
+                    "travelerDetailMail.html.twig",
+                    [
                     'name' => $mailer
-                ]),
+                    ]
+                ),
                 'text/html'
             );
 
