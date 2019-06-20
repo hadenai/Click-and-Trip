@@ -28,8 +28,6 @@ abstract class User implements UserInterface
      * @Assert\Email(  message = "The email '{{ value }}' is not a valid email.")
      */
     private $email;
-
-
     /**
      * @ORM\Column(type="json")
      */

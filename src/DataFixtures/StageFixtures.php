@@ -13,7 +13,6 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class StageFixtures extends Fixture implements DependentFixtureInterface
 {
-
     private $serializer;
 
     public function __construct(SerializerInterface $serializer)

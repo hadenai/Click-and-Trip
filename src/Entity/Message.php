@@ -33,10 +33,10 @@ class Message
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\History", inversedBy="message")
+     * @ORM\ManyToOne(targetEntity="App\Entity\History", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $history;
+    private $histories;
 
     public function getId(): ?int
     {
@@ -81,12 +81,12 @@ class Message
 
     public function getHistory(): ?History
     {
-        return $this->history;
+        return $this->histories;
     }
 
     public function setHistory(?History $history): self
     {
-        $this->history = $history;
+        $this->histories = $history;
 
         return $this;
     }

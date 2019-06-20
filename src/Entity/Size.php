@@ -28,11 +28,11 @@ class Size
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", inversedBy="sizes")
      */
-    private $stage;
+    private $stages;
 
     public function __construct()
     {
-        $this->stage = new ArrayCollection();
+        $this->stages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -57,13 +57,13 @@ class Size
      */
     public function getStage(): Collection
     {
-        return $this->stage;
+        return $this->stages;
     }
 
     public function addStage(Stage $stage): self
     {
-        if (!$this->stage->contains($stage)) {
-            $this->stage[] = $stage;
+        if (!$this->stages->contains($stage)) {
+            $this->stages[] = $stage;
         }
 
         return $this;
@@ -71,8 +71,8 @@ class Size
 
     public function removeStage(Stage $stage): self
     {
-        if ($this->stage->contains($stage)) {
-            $this->stage->removeElement($stage);
+        if ($this->stages->contains($stage)) {
+            $this->stages->removeElement($stage);
         }
 
         return $this;

@@ -42,7 +42,7 @@ class Price
      * @ORM\ManyToOne(targetEntity="App\Entity\Stage", inversedBy="prices")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $stage;
+    private $stages;
 
     public function getId(): ?int
     {
@@ -99,12 +99,12 @@ class Price
 
     public function getStage(): ?Stage
     {
-        return $this->stage;
+        return $this->stages;
     }
 
     public function setStage(?Stage $stage): self
     {
-        $this->stage = $stage;
+        $this->stages = $stage;
 
         return $this;
     }
