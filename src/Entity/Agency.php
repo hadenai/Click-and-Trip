@@ -65,10 +65,36 @@ class Agency extends User
      */
     private $stages;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $yearCreation;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $presentation;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $flagship;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Documents", mappedBy="agency", orphanRemoval=true)
+     */
+    private $documents;
+
     public function __construct()
     {
         $this->histories = new ArrayCollection();
         $this->stages = new ArrayCollection();
+        $this->documents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -216,6 +242,85 @@ class Agency extends User
             // set the owning side to null (unless already changed)
             if ($stage->getAgency() === $this) {
                 $stage->setAgency(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getYearCreation(): ?int
+    {
+        return $this->yearCreation;
+    }
+
+    public function setYearCreation(int $yearCreation): self
+    {
+        $this->yearCreation = $yearCreation;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPresentation(): ?string
+    {
+        return $this->presentation;
+    }
+
+    public function setPresentation(string $presentation): self
+    {
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function getFlagship(): ?string
+    {
+        return $this->flagship;
+    }
+
+    public function setFlagship(string $flagship): self
+    {
+        $this->flagship = $flagship;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Documents[]
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Documents $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setAgency($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Documents $document): self
+    {
+        if ($this->documents->contains($document)) {
+            $this->documents->removeElement($document);
+            // set the owning side to null (unless already changed)
+            if ($document->getAgency() === $this) {
+                $document->setAgency(null);
             }
         }
 
