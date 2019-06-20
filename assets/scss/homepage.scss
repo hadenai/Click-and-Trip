@@ -14,7 +14,7 @@ iframe {
     pointer-events: none;
     margin-top: -1%;
 }
-// .ytp-id-9 {display: none}
+
 
 #slogan {
     position: absolute;
@@ -31,6 +31,7 @@ iframe {
 #button-voyage {background-color: #ff8080;
     & a{color: white}
 }
+
 #button-inspiration {background-color: $white;
     & a{color: black}
 }

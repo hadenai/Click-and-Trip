@@ -23,7 +23,7 @@ class PriceFixtures extends Fixture implements DependentFixtureInterface
     //     $this->stageRepo= $stageRepo;
     // }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager) : void
     {
         // // /!\ I had just put one price by stage instead of multiple for each specs (persons, season,...)
         for ($i=0; $i<50; $i++) {

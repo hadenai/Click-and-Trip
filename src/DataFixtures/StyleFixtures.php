@@ -8,9 +8,15 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class StyleFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager) : void
     {
-        $list=['Standard', "Chez l’habitant", "Charme", "Luxe", "Responsable"];
+        $list=[
+            'Standard',
+            "Chez l’habitant",
+            "Charme",
+            "Luxe",
+            "Responsable"
+        ];
         foreach ($list as $key => $name) {
             $style = new Style();
             $style->setStyle($name);

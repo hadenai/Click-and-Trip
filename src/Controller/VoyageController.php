@@ -27,7 +27,7 @@ class VoyageController extends AbstractController
     /**
      * @Route("/monVoyage/MesInfos" , name="Voyage_mesInfos")
      */
-    public function sendTravelerInfoMail(\Swift_Mailer $mailer)
+    public function sendTravelerInfoMail(\Swift_Mailer $mailer) : Response
     {
         $message = (new \Swift_Message('Un nouvel article vient d\'être publié !'))
             ->setFrom('vincent.mallard5@gmail.com')

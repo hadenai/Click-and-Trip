@@ -24,11 +24,9 @@ class ProfileController extends AbstractController
 
     //     ]);
     // }
-
     /**
      * @Route("/historique", name="history", methods={"GET"})
      */
-
     public function adminHistoryView(HistoryRepository $historyRepository, UserRepository $userRepository): Response
     {
         return $this->render('profile/history.html.twig', [

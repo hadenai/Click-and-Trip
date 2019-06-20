@@ -15,7 +15,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
         return [ClientFixtures::class,StageFixtures::class,AgencyFixtures::class];
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager) : void
     {
         for ($i=1; $i<4; $i++) {
             $faker  =  Faker\Factory::create('fr_FR');
