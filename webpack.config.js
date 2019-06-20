@@ -23,7 +23,7 @@ Encore
      */
     .enableReactPreset()
     .addEntry('index', './assets/js/index.js')
-    .addEntry('planner', './assets/js/planner.js')
+    .addEntry('planner', './assets/js/react/Planner/Planner.js')
     .addEntry('formRegistration', './assets/js/formRegistration.js')
     .addEntry('homepage', './assets/scss/homepage.scss')
     //.addEntry('page1', './assets/js/page1.js')
