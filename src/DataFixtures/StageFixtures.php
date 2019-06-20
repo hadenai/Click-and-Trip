@@ -21,7 +21,7 @@ class StageFixtures extends Fixture implements DependentFixtureInterface
         $this->serializer=$serializer;
     }
 
-    public function getDependencies() : void
+    public function getDependencies(): array
     {
         return [
             SizeFixtures::class,
@@ -30,7 +30,7 @@ class StageFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    public function load(ObjectManager $manager) : void
+    public function load(ObjectManager $manager): void
     {
         // get csv for some stages /!\ some fake or complete datas
         $data = $this->serializer->decode(file_get_contents('test.csv'), 'csv', [CsvEncoder::DELIMITER_KEY => ";"]);

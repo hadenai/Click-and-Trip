@@ -19,7 +19,7 @@ class Message
     /**
      * @ORM\Column(type="datetime")
      */
-    private $dateTime;
+    private $sendAt;
 
     /**
      * @ORM\Column(type="string", length=10000)
@@ -43,14 +43,14 @@ class Message
         return $this->id;
     }
 
-    public function getDateTime(): ?\DateTimeInterface
+    public function getSendAt(): ?\DateTimeInterface
     {
-        return $this->dateTime;
+        return $this->sendAt;
     }
 
-    public function setDateTime(\DateTimeInterface $dateTime): self
+    public function setSendAt(\DateTimeInterface $sendAt): self
     {
-        $this->dateTime = $dateTime;
+        $this->sendAt = $sendAt;
 
         return $this;
     }

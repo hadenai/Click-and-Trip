@@ -9,7 +9,7 @@ use App\Entity\Client;
 
 class ClientFixtures extends Fixture
 {
-    public function load(ObjectManager $manager) : void
+    public function load(ObjectManager $manager): void
     {
         for ($i=1; $i<5; $i++) {
             $faker  =  Faker\Factory::create('fr_FR');

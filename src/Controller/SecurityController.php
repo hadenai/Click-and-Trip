@@ -91,7 +91,7 @@ class SecurityController extends AbstractController
     /**
      * @route("/deconnexion", name="deconnexion")
      */
-    public function logout() :Response
+    public function logout()
     {
     }
 }

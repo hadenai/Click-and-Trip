@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class SizeFixtures extends Fixture
 {
-    public function load(ObjectManager $manager) : void
+    public function load(ObjectManager $manager): void
     {
         $list=[
             'Solo',

@@ -61,13 +61,13 @@ class Stage
     private $history;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Theme", mappedBy="stage")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Theme", mappedBy="stages")
      * @Groups("api")
      */
     private $themes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Style", mappedBy="stage")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Style", mappedBy="stages")
      * @Groups("api")
      */
     private $styles;

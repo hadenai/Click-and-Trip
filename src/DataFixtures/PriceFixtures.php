@@ -11,19 +11,12 @@ use DateTime;
 
 class PriceFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [StageFixtures::class];
     }
 
-    // private $stageRepo;
-
-    // public function __construct(StageRepository $stageRepo)
-    // {
-    //     $this->stageRepo= $stageRepo;
-    // }
-
-    public function load(ObjectManager $manager) : void
+    public function load(ObjectManager $manager): void
     {
         // // /!\ I had just put one price by stage instead of multiple for each specs (persons, season,...)
         for ($i=0; $i<50; $i++) {
