@@ -13,35 +13,49 @@ function Steps() {
   const [mySteps, setMySteps] = useState([]);
 
   useEffect(() => {
-    getData();
+    if(localStorage.getItem('steps') && JSON.parse(localStorage.getItem('mySteps')).length > 0) {
+      setSteps(JSON.parse(localStorage.getItem('steps')));
+      setMySteps(JSON.parse(localStorage.getItem('mySteps')));
+    } else {
+      getData();
+    }
   }, []);
 
-  const getData = () => {
-    axios.get(Routing.generate('api'))
-      .then(data => setSteps(data.data));
+  const getData = async () => {
+      let response = await axios.get(Routing.generate('api'))
+      setSteps(response.data);
   };
 
   const addStep = (index) => {
     let selectedStep = steps.splice(index, 1)[0];
     setMySteps([...mySteps, selectedStep]);
-    filterByReference(selectedStep);
+    setSteps(filterStepsByReference(selectedStep, steps));
+
+    localStorage.setItem('mySteps', JSON.stringify([...mySteps, selectedStep]));
+    localStorage.setItem('steps', JSON.stringify(filterStepsByReference(selectedStep, steps)));
   };
 
   const removeStep = (index) => {
-    setSteps([...steps, mySteps.splice(index, 1)[0]]);
+    let newSteps = [...steps, mySteps.splice(index, 1)[0]];
+    setSteps(newSteps);
+    
+    localStorage.setItem('mySteps', JSON.stringify(mySteps));
+    localStorage.setItem('steps', JSON.stringify(newSteps));
+    
     mySteps.length === 0 && getData();
   };
 
   const validateTrip = () => {
+    // axios post json data
     console.table(mySteps);
   };
 
-  const filterByReference = (step) => {
+  const filterStepsByReference = (step, list) => {
     let reference = step.reference.split('-');
-    let filteredSteps = steps.filter(step => {
+    let filteredSteps = list.filter(step => {
       return step.reference.split('-')[0] == reference[0] && step.reference.split('-')[1] == reference[1];
     });
-    setSteps(filteredSteps);
+    return filteredSteps;
   };
 
   return (
@@ -66,7 +80,7 @@ function Steps() {
       <div className="ListSteps">
         {
           mySteps.length > 0
-            && <Button className="validateButton" color="green" fluid onClick={validateTrip}>Valider mon voyage</Button>
+          && <Button className="validateButton" color="green" fluid onClick={validateTrip}>Valider mon voyage</Button>
         }
         <Card.Group centered>
           {
