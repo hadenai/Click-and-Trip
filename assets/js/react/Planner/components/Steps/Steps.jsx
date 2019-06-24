@@ -12,15 +12,34 @@ function Steps() {
   const [mySteps, setMySteps] = useState([]);
 
   useEffect(() => {
-    fetch(Routing.generate('api'))
-      .then(res => res.json())
-      .then(data => setSteps(data))
-      .then(() => console.log('data fetched.'));
+    getData();
   }, []);
 
-  const addStep = index => setMySteps([...mySteps, steps.splice(index, 1)[0]]);
+  const getData = () => {
+    fetch(Routing.generate('api'))
+    .then(res => res.json())
+    .then(data => setSteps(data));
+  };
 
-  const removeStep = index => setSteps([...steps, mySteps.splice(index, 1)[0]]);
+  const addStep = (index) => {
+    let selectedStep = steps.splice(index, 1)[0];
+    setMySteps([...mySteps, selectedStep]);
+    filterByReference(selectedStep);
+  };
+
+  const removeStep = (index) => {
+    setSteps([...steps, mySteps.splice(index, 1)[0]]);
+    mySteps.length === 0 && getData();
+  };
+
+  const filterByReference = (step) => {
+    let reference = step.reference.split('-');
+    let filteredSteps = steps.filter(step => {
+      return step.reference.split('-')[0] == reference[0] && step.reference.split('-')[1] == reference[1];
+    });
+    setSteps(filteredSteps);
+  };
+  
 
   return (
     <Fragment>
@@ -29,7 +48,7 @@ function Steps() {
           {
             steps.map((step, index) => {
               return (
-                <Card key={index} onClick={() => addStep(index)}>
+                <Card key={index} color="green" onClick={() => addStep(index)}>
                   <Card.Content>
                     <Card.Header>{step.destination}</Card.Header>
                     <Card.Meta>{step.duration} jours</Card.Meta>
@@ -46,7 +65,7 @@ function Steps() {
           {
             mySteps.map((step, index) => {
               return (
-                <Card key={index} fluid onClick={() => removeStep(index)}>
+                <Card key={index} fluid color="red" onClick={() => removeStep(index)}>
                   <Card.Content>
                     <Card.Header>{step.destination}</Card.Header>
                     <Card.Meta>{step.duration} jours</Card.Meta>
