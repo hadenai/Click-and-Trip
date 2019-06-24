@@ -1,8 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import axios from 'axios';
 import Routing from '../../../../../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
 // COMPONENTS
-import { Card } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 
 // CSS
 import './Steps.css';
@@ -16,9 +17,8 @@ function Steps() {
   }, []);
 
   const getData = () => {
-    fetch(Routing.generate('api'))
-    .then(res => res.json())
-    .then(data => setSteps(data));
+    axios.get(Routing.generate('api'))
+      .then(data => setSteps(data.data));
   };
 
   const addStep = (index) => {
@@ -32,6 +32,10 @@ function Steps() {
     mySteps.length === 0 && getData();
   };
 
+  const validateTrip = () => {
+    console.table(mySteps);
+  };
+
   const filterByReference = (step) => {
     let reference = step.reference.split('-');
     let filteredSteps = steps.filter(step => {
@@ -39,7 +43,6 @@ function Steps() {
     });
     setSteps(filteredSteps);
   };
-  
 
   return (
     <Fragment>
@@ -61,6 +64,10 @@ function Steps() {
         </Card.Group>
       </div>
       <div className="ListSteps">
+        {
+          mySteps.length > 0
+            && <Button className="validateButton" color="green" fluid onClick={validateTrip}>Valider mon voyage</Button>
+        }
         <Card.Group centered>
           {
             mySteps.map((step, index) => {
