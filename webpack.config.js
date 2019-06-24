@@ -3,6 +3,10 @@ var Encore = require('@symfony/webpack-encore');
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
+    .copyFiles({
+        from: './assets/images',
+        to: 'images/[path][name].[ext]',
+    })
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
@@ -17,7 +21,11 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
-    .addEntry('app', './assets/js/app.js')
+    .enableReactPreset()
+    .addEntry('index', './assets/js/index.js')
+    .addEntry('planner', './assets/js/react/Planner/Planner.js')
+    .addEntry('formRegistration', './assets/js/formRegistration.js')
+    .addEntry('homepage', './assets/scss/homepage.scss')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
@@ -50,6 +58,8 @@ Encore
     // enables Sass/SCSS support
     .enableSassLoader()
 
+    .enableLessLoader()
+
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
 
@@ -58,7 +68,7 @@ Encore
     //.enableIntegrityHashes()
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()

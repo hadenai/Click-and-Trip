@@ -1,0 +1,75 @@
+@import "vars";
+
+body {
+    margin:0
+}
+
+#host-video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+
+iframe {
+    width: 100vw;
+    height: 58vw;
+    pointer-events: none;
+    margin-top: -1%;
+}
+
+#slogan {
+    position: absolute;
+    color:white;
+    display: block;
+    width:54%;
+    text-align: center;
+
+    & h2 {
+        font-size: 2.6vw;}
+}
+
+#button-voyage {
+    background-color: #ff8080;
+    & a{
+        color: white
+    }
+}
+
+#button-inspiration {
+    background-color: $white;
+    & a{
+        color: black
+    }
+}
+
+#tuto {
+    width: 100vw;
+    margin-top: 3%;
+}
+
+.block {
+    display: flex;
+    justify-content: center;
+    margin-top:2%;
+
+}
+
+#galerie {
+    width: 70vw;
+    margin:0 15vw
+}
+
+#commitment {
+    width:80vw;
+    margin: 3% 10vw;
+}
+
+.ui.cards > .card > .image {
+    background-color: white
+}
+
+.ui.cards > .card .no-shadow {
+    -webkit-box-shadow: 0 0 0 0 white,0 0 0 0 white;
+    box-shadow: 0 0 0 0 white,0 0 0 0 white;
+}
