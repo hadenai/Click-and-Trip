@@ -13,7 +13,7 @@ function Steps() {
   const [mySteps, setMySteps] = useState([]);
 
   useEffect(() => {
-    if(localStorage.getItem('steps') && JSON.parse(localStorage.getItem('mySteps')).length > 0) {
+    if (localStorage.getItem('steps') && JSON.parse(localStorage.getItem('mySteps')).length > 0) {
       setSteps(JSON.parse(localStorage.getItem('steps')));
       setMySteps(JSON.parse(localStorage.getItem('mySteps')));
     } else {
@@ -22,8 +22,8 @@ function Steps() {
   }, []);
 
   const getSteps = async () => {
-      let response = await axios.get(Routing.generate('api'));
-      setSteps(response.data);
+    let response = await axios.get(Routing.generate('api'));
+    setSteps(response.data);
   };
 
   const addStep = (index) => {
@@ -38,7 +38,7 @@ function Steps() {
   const removeStep = (index) => {
     let newSteps = [...steps, mySteps.splice(index, 1)[0]];
     setSteps(newSteps);
-    
+
     localStorage.setItem('mySteps', JSON.stringify(mySteps));
     localStorage.setItem('steps', JSON.stringify(newSteps));
 
