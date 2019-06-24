@@ -17,12 +17,12 @@ function Steps() {
       setSteps(JSON.parse(localStorage.getItem('steps')));
       setMySteps(JSON.parse(localStorage.getItem('mySteps')));
     } else {
-      getData();
+      getSteps();
     }
   }, []);
 
-  const getData = async () => {
-      let response = await axios.get(Routing.generate('api'))
+  const getSteps = async () => {
+      let response = await axios.get(Routing.generate('api'));
       setSteps(response.data);
   };
 
@@ -41,8 +41,8 @@ function Steps() {
     
     localStorage.setItem('mySteps', JSON.stringify(mySteps));
     localStorage.setItem('steps', JSON.stringify(newSteps));
-    
-    mySteps.length === 0 && getData();
+
+    mySteps.length === 0 && getSteps();
   };
 
   const validateTrip = () => {
@@ -53,7 +53,7 @@ function Steps() {
   const filterStepsByReference = (step, list) => {
     let reference = step.reference.split('-');
     let filteredSteps = list.filter(step => {
-      return step.reference.split('-')[0] == reference[0] && step.reference.split('-')[1] == reference[1];
+      return step.reference.split('-')[0] === reference[0] && step.reference.split('-')[1] === reference[1];
     });
     return filteredSteps;
   };
