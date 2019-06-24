@@ -9,7 +9,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class AgencyFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         for ($i=1; $i<12; $i++) {
             $faker  =  Faker\Factory::create('fr_FR');
@@ -22,11 +22,15 @@ class AgencyFixtures extends Fixture
                    ->setPassword($faker->password())
                    ->setRoles(['ROLE_AGENCY'])
                    ->setNameAgent($faker->firstNameMale())
+<<<<<<< HEAD
                    ->setSurnameAgent($faker->lastname())
                    ->setYearCreation(2000+$i)
                    ->setDescription($faker->sentence(40))
                    ->setFlagship($faker->sentence(10))
                    ->setPresentation($faker->sentence(25));
+=======
+                   ->setSurnameAgent($faker->lastname());
+>>>>>>> dev
             $manager->persist($agency);
             $this->addReference('agency_'.strval($i), $agency);
         };

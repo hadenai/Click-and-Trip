@@ -1,41 +1,46 @@
 .userNumber {
-  height:15px;
-  width:15px;
-  padding-left: 45px;
+    height:15px;
+    width:15px;
+    padding-left: 45px;
 
 }
 
 h1, h2, h3, .userAge{
-  text-align: center;
+    text-align: center;
 }
+
 textarea, button{
-  margin-top: 65px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    margin-top: 65px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 h2{
-  padding-bottom: 50px;
-  padding-top: 50px;
+    padding-bottom: 50px;
+    padding-top: 50px;
 }
 
 .containerFluid {
-  width: 100vw;
-  display: flex;
-  justify-content: center;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
 }
+
 .inputContainer {
-  width: 50%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
+
 .cgu, .userDate3, .userDate, .userDate2, .userDate4{
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
+
 .adult{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

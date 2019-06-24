@@ -6,6 +6,7 @@
 /public/bundles/
 /var/
 /vendor/
+/public/js/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
@@ -32,3 +33,7 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+### VSC plugins stuff
+/test Session.sql
+/myDB-nate Session.sql

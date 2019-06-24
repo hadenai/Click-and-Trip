@@ -129,7 +129,6 @@ SOFTWARE.
 
 ```yarn install```
 ```yarn add @babel/preset-react --dev```
-// ```yarn add react react-dom prop-types```
-```composer require friendsofsymfony/jsrouting-bundle``` => Y
+```composer require friendsofsymfony/jsrouting-bundle``` 
 ```bin/console fos:js-routing:dump --format=json --target=public/js/fos_js_routes.json```
 ```yarn encore dev --watch```

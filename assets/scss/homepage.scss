@@ -1,5 +1,8 @@
 @import "vars";
-body {margin:0}
+
+body {
+    margin:0
+}
 
 #host-video {
     display: flex;
@@ -14,7 +17,6 @@ iframe {
     pointer-events: none;
     margin-top: -1%;
 }
-// .ytp-id-9 {display: none}
 
 #slogan {
     position: absolute;
@@ -27,12 +29,18 @@ iframe {
         font-size: 2.6vw;}
 }
 
-
-#button-voyage {background-color: #ff8080;
-    & a{color: white}
+#button-voyage {
+    background-color: #ff8080;
+    & a{
+        color: white
+    }
 }
-#button-inspiration {background-color: $white;
-    & a{color: black}
+
+#button-inspiration {
+    background-color: $white;
+    & a{
+        color: black
+    }
 }
 
 #tuto {
@@ -47,11 +55,19 @@ iframe {
 
 }
 
-#galerie {width: 70vw;margin:0 15vw}
+#galerie {
+    width: 70vw;
+    margin:0 15vw
+}
 
-#commitment {width:80vw;margin: 3% 10vw;}
+#commitment {
+    width:80vw;
+    margin: 3% 10vw;
+}
 
-.ui.cards > .card > .image {background-color: white}
+.ui.cards > .card > .image {
+    background-color: white
+}
 
 .ui.cards > .card .no-shadow {
     -webkit-box-shadow: 0 0 0 0 white,0 0 0 0 white;

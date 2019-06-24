@@ -8,15 +8,17 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class ThemeFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        $list=['Culture & Traditions',
+        $list=[
+            'Culture & Traditions',
             'Sport & aventure',
             'Bien être & Spiritualité',
             'Nature & Vie sauvage',
             'Fêtes et Festivals',
             'Iles & Plages de rêves',
-            'Responsable'];
+            'Responsable'
+        ];
         foreach ($list as $key => $name) {
             $theme = new Theme();
             $theme->setTheme($name);

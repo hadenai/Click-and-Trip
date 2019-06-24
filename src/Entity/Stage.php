@@ -58,35 +58,35 @@ class Stage
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\History", inversedBy="stages")
      */
-    private $history;
+    private $histories;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Theme", mappedBy="stage")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Theme", mappedBy="stages")
      * @Groups("api")
      */
     private $themes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Style", mappedBy="stage")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Style", mappedBy="stages")
      * @Groups("api")
      */
     private $styles;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Price", mappedBy="stage")
+     * @ORM\OneToMany(targetEntity="App\Entity\Price", mappedBy="stages")
      * @Groups("api")
      */
     private $prices;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Size", mappedBy="stage")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Size", mappedBy="stages")
      * @Groups("api")
      */
     private $sizes;
 
     public function __construct()
     {
-        $this->history = new ArrayCollection();
+        $this->histories = new ArrayCollection();
         $this->themes = new ArrayCollection();
         $this->styles = new ArrayCollection();
         $this->prices = new ArrayCollection();
@@ -175,22 +175,22 @@ class Stage
      */
     public function getHistory(): Collection
     {
-        return $this->history;
+        return $this->histories;
     }
 
-    public function addHistory(History $history): self
+    public function addHistory(History $histories): self
     {
-        if (!$this->history->contains($history)) {
-            $this->history[] = $history;
+        if (!$this->histories->contains($histories)) {
+            $this->histories[] = $histories;
         }
 
         return $this;
     }
 
-    public function removeHistory(History $history): self
+    public function removeHistory(History $histories): self
     {
-        if ($this->history->contains($history)) {
-            $this->history->removeElement($history);
+        if ($this->histories->contains($histories)) {
+            $this->histories->removeElement($histories);
         }
 
         return $this;

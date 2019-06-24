@@ -13,7 +13,6 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class StageFixtures extends Fixture implements DependentFixtureInterface
 {
-
     private $serializer;
 
     public function __construct(SerializerInterface $serializer)
@@ -21,12 +20,16 @@ class StageFixtures extends Fixture implements DependentFixtureInterface
         $this->serializer=$serializer;
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
-        return [SizeFixtures::class,StyleFixtures::class,ThemeFixtures::class];
+        return [
+            SizeFixtures::class,
+            StyleFixtures::class,
+            ThemeFixtures::class
+        ];
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         // get csv for some stages /!\ some fake or complete datas
         $data = $this->serializer->decode(file_get_contents('test.csv'), 'csv', [CsvEncoder::DELIMITER_KEY => ";"]);

@@ -1,4 +1,3 @@
-
 // any CSS you require will output into a single css file (app.css in this case)
 require('../scss/index.scss');
 require('semantic-ui/dist/semantic.min.css')

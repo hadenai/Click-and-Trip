@@ -28,8 +28,6 @@ abstract class User implements UserInterface
      * @Assert\Email(  message = "The email '{{ value }}' is not a valid email.")
      */
     private $email;
-
-
     /**
      * @ORM\Column(type="json")
      */
@@ -41,12 +39,6 @@ abstract class User implements UserInterface
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimun 8 caractères" )
      */
     private $password;
-
-    // /**
-    //  * @ORM\Column(type="string", length=255)
-    //  */
-    // private $username;
-
 
     public function getId(): ?int
     {
@@ -125,11 +117,4 @@ abstract class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-
-    // public function setUsername(string $username): self
-    // {
-    //     $this->username = $username;
-
-    //     return $this;
-    // }
 }

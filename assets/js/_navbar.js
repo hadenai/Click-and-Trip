@@ -19,12 +19,15 @@ window.onscroll = () => {
     document.getElementsByTagName("nav")[0].className = "nav container";
     }
 };
+<<<<<<< HEAD
 
 // try to replace all jQuery stuff w/ js vanilla : 
 // document.getElementsByClassName('navTrigger')[0].addEventLsitener('click', function () {
     // this.classList.toggle('active');
     // document.getElementById("mainListDiv").classList.toggle("show_list");
     // fadein(document.getElementById("mainListDiv"),"block");  
+=======
+>>>>>>> dev
 $('.navTrigger').click(function () {
     $(this).toggleClass('active');
     $("#mainListDiv").toggleClass("show_list");

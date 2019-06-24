@@ -19,7 +19,7 @@ class Message
     /**
      * @ORM\Column(type="datetime")
      */
-    private $dateTime;
+    private $sendAt;
 
     /**
      * @ORM\Column(type="string", length=10000)
@@ -33,24 +33,24 @@ class Message
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\History", inversedBy="message")
+     * @ORM\ManyToOne(targetEntity="App\Entity\History", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $history;
+    private $histories;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDateTime(): ?\DateTimeInterface
+    public function getSendAt(): ?\DateTimeInterface
     {
-        return $this->dateTime;
+        return $this->sendAt;
     }
 
-    public function setDateTime(\DateTimeInterface $dateTime): self
+    public function setSendAt(\DateTimeInterface $sendAt): self
     {
-        $this->dateTime = $dateTime;
+        $this->sendAt = $sendAt;
 
         return $this;
     }
@@ -81,12 +81,12 @@ class Message
 
     public function getHistory(): ?History
     {
-        return $this->history;
+        return $this->histories;
     }
 
     public function setHistory(?History $history): self
     {
-        $this->history = $history;
+        $this->histories = $history;
 
         return $this;
     }

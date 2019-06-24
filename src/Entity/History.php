@@ -46,18 +46,18 @@ class History
     private $agency;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="history")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="histories")
      */
-    private $message;
+    private $messages;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="history")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="histories")
      */
     private $stages;
 
     public function __construct()
     {
-        $this->message = new ArrayCollection();
+        $this->messages = new ArrayCollection();
         $this->stages = new ArrayCollection();
     }
 
@@ -125,38 +125,36 @@ class History
 
         return $this;
     }
-
     /**
      * @return Collection|Message[]
      */
     public function getMessage(): Collection
     {
-        return $this->message;
+        return $this->messages;
     }
 
-    public function addMessage(Message $message): self
+    public function addMessage(Message $messages): self
     {
-        if (!$this->message->contains($message)) {
-            $this->message[] = $message;
-            $message->setHistory($this);
+        if (!$this->messages->contains($messages)) {
+            $this->messages[] = $messages;
+            $messages->setHistory($this);
         }
 
         return $this;
     }
 
-    public function removeMessage(Message $message): self
+    public function removeMessage(Message $messages): self
     {
-        if ($this->message->contains($message)) {
-            $this->message->removeElement($message);
+        if ($this->messages->contains($messages)) {
+            $this->messages->removeElement($messages);
             // set the owning side to null (unless already changed)
-            if ($message->getHistory() === $this) {
-                $message->setHistory(null);
+            if ($messages->getHistory() === $this) {
+                $messages->setHistory(null);
             }
         }
 
         return $this;
     }
-
     /**
      * @return Collection|Stage[]
      */
