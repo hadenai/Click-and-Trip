@@ -22,15 +22,11 @@ class AgencyFixtures extends Fixture
                    ->setPassword($faker->password())
                    ->setRoles(['ROLE_AGENCY'])
                    ->setNameAgent($faker->firstNameMale())
-<<<<<<< HEAD
                    ->setSurnameAgent($faker->lastname())
                    ->setYearCreation(2000+$i)
                    ->setDescription($faker->sentence(40))
                    ->setFlagship($faker->sentence(10))
                    ->setPresentation($faker->sentence(25));
-=======
-                   ->setSurnameAgent($faker->lastname());
->>>>>>> dev
             $manager->persist($agency);
             $this->addReference('agency_'.strval($i), $agency);
         };
