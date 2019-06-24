@@ -132,3 +132,8 @@ SOFTWARE.
 ```composer require friendsofsymfony/jsrouting-bundle``` 
 ```bin/console fos:js-routing:dump --format=json --target=public/js/fos_js_routes.json```
 ```yarn encore dev --watch```
+
+## if database change, you must launch the followings commands
+
+```php bin/console d:s:u --force```
+``` php bin/console d:f:l```
