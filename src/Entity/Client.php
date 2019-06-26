@@ -164,11 +164,11 @@ class Client extends User
         return $this;
     }
 
-    public function __toString()
-    {
-        // to show the name of the Category in the select
-        return $this->client;
-        // to show the id of the Category in the select
-        // return $this->id;
-    }
-    }
+    // public function __toString()
+    // {
+    //     // to show the name of the Category in the select
+    //     return $this->client;
+    //     // to show the id of the Category in the select
+    //     // return $this->id;
+    // }
+}
