@@ -20,9 +20,9 @@ class Stage
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $validate;
+    private $validate=false;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -83,6 +83,11 @@ class Stage
      * @Groups("api")
      */
     private $sizes;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $deleted=false;
 
     public function __construct()
     {
@@ -307,6 +312,18 @@ class Stage
             $this->sizes->removeElement($size);
             $size->removeStage($this);
         }
+
+        return $this;
+    }
+
+    public function getDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->deleted = $deleted;
 
         return $this;
     }

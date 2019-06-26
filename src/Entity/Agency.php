@@ -90,6 +90,12 @@ class Agency extends User
      */
     private $documents;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $deleted=false;
+
+
     public function __construct()
     {
         $this->histories = new ArrayCollection();
@@ -323,6 +329,18 @@ class Agency extends User
                 $document->setAgency(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->deleted = $deleted;
 
         return $this;
     }

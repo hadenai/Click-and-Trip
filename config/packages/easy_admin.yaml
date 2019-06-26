@@ -1,8 +1,68 @@
 easy_admin:
-   entities:
-       # List the entity class name you want to manage
-       - App\Entity\Stage
-       - App\Entity\Agency
-       - App\Entity\Client
-       - App\Entity\History
+    disabled_actions: ['new']
+    entities:
+        # List the entity class name you want to manage
+        Agency:
+            class: App\Entity\Agency
+            label: 'Agences'
+            list:
+                title: 'Agences'
+        Client:
+            class: App\Entity\Client
+            label: 'Clients'
+            list:
+                title: 'Clients'
+                fields: 
+                    - 'id'
+                    - 'name'
+                    - 'dateOfBirth'
+            # edit:
+            #     fields:
+            #         - 'name'
+        Stage:
+            class: App\Entity\Stage
+            label: 'Etapes'
+            list:
+                title: 'Etapes'
+                fields: 
+                    - 'id'
+                    - 'destination'
+                    - 'reference'
+                    - { property: 'nameStage', label: 'Nom' }
+                    - { property: 'nameStage', label: 'Nom' }
+                    - { property: 'duration', label: 'Nbre jours' }
+                    - { property: 'validate', label: 'Validé' }
+                    - { property: 'deleted', label: 'Supprimé' }
+        History:
+            class: App\Entity\History
+            label: 'Voyages'
+            list:
+                title: 'Voyages'
+        User:
+            class: App\Entity\User
+            label: 'Users'
+            list:
+                title: 'Usser'
+                fields:
+                    - { property: 'id', label: 'Id'}
+                    - 'email'
+
+    site_name: 'Mon nom est <b style="color:blue">à changer</b> dans <i>config/packages/easy_admin.yaml</i>'
+    formats:
+        datetime: 'd/m/Y'
+    user:
+        display_name: false
+        display_avatar: false
+    design:
+        assets:
+            # all kinds of assets are supported and linked accordingly
+            css:
+                - '/bundles/user/css/admin4.css'
+                - 'bundles/app/css/admin5.css'
+            js:
+                - '/bundles/user/js/admin4.js'
+                - 'bundles/app/js/admin5.js'
+                - '../build/'
+            favicon: '../build/images/small-logo.png'
+
    

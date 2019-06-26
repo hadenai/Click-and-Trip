@@ -48,6 +48,11 @@ class Client extends User
      */
     private $histories;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $deleted=false;
+
     public function __construct()
     {
         $this->histories = new ArrayCollection();
@@ -146,4 +151,24 @@ class Client extends User
         }
         return $this;
     }
-}
+
+    public function getDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        // to show the name of the Category in the select
+        return $this->client;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
+    }
