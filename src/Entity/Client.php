@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  */
-class Client extends User
+class Client
 {
     /**
      * @ORM\Id()
@@ -47,6 +47,11 @@ class Client extends User
      * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="client")
      */
     private $histories;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="client", cascade={"persist", "remove"})
+     */
+    private $User;
 
     public function __construct()
     {
@@ -144,6 +149,18 @@ class Client extends User
                 $history->setClient(null);
             }
         }
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
+
         return $this;
     }
 }

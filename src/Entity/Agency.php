@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AgencyRepository")
  */
-class Agency extends User
+class Agency
 {
     /**
      * @ORM\Id()
@@ -64,6 +64,11 @@ class Agency extends User
      * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="agency", orphanRemoval=true)
      */
     private $stages;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="agency", cascade={"persist", "remove"})
+     */
+    private $user;
 
     public function __construct()
     {
@@ -218,6 +223,18 @@ class Agency extends User
                 $stage->setAgency(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

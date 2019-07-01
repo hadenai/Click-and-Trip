@@ -10,11 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @InheritanceType("JOINED")
- * @DiscriminatorMap({"client" = "Client", "agency" = "Agency"})
  */
 
-abstract class User implements UserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -39,6 +37,16 @@ abstract class User implements UserInterface
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimun 8 caractères" )
      */
     private $password;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Client", mappedBy="User", cascade={"persist", "remove"})
+     */
+    private $client;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Agency", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $agency;
 
     public function getId(): ?int
     {
@@ -116,5 +124,41 @@ abstract class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = $client === null ? null : $this;
+        if ($newUser !== $client->getUser()) {
+            $client->setUser($newUser);
+        }
+
+        return $this;
+    }
+
+    public function getAgency(): ?Agency
+    {
+        return $this->agency;
+    }
+
+    public function setAgency(?Agency $agency): self
+    {
+        $this->agency = $agency;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = $agency === null ? null : $this;
+        if ($newUser !== $agency->getUser()) {
+            $agency->setUser($newUser);
+        }
+
+        return $this;
     }
 }
