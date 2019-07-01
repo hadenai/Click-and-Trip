@@ -12,10 +12,10 @@ easy_admin:
             label: 'Clients'
             list:
                 title: 'Clients'
-                fields: 
-                    - 'id'
-                    - 'name'
-                    - 'dateOfBirth'
+                # fields: 
+                #     - 'id'
+                #     - 'name'
+                #     - 'dateOfBirth'
             # edit:
             #     fields:
             #         - 'name'
@@ -38,14 +38,6 @@ easy_admin:
             label: 'Voyages'
             list:
                 title: 'Voyages'
-        User:
-            class: App\Entity\User
-            label: 'Users'
-            list:
-                title: 'Usser'
-                fields:
-                    - { property: 'id', label: 'Id'}
-                    - 'email'
 
     site_name: 'Mon nom est <b style="color:blue">à changer</b> dans <i>config/packages/easy_admin.yaml</i>'
     formats:
