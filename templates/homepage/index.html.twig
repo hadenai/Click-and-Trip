@@ -203,3 +203,13 @@
 
 {% endblock %}
 
+{% block javascript %}
+<script>
+    setTimeout(()=>{
+        document.getElementsByTagName('iframe')[0].click();
+        ,9000 });
+
+
+</script>
+{% endblock %}
+
