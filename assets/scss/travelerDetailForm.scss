@@ -1,41 +1,11 @@
-.userNumber {
-  height:15px;
-  width:15px;
-  padding-left: 45px;
-
-}
-
-h1, h2, h3, .userAge{
-  text-align: center;
-}
-textarea, button{
+.fixNavbar{
   margin-top: 65px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-h2{
-  padding-bottom: 50px;
-  padding-top: 50px;
 }
 
-.containerFluid {
-  width: 100vw;
-  display: flex;
-  justify-content: center;
+.nav{
+  top:0;
 }
-.inputContainer {
-  width: 50%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.cgu, .userDate3, .userDate, .userDate2, .userDate4{
-  display: flex;
-  justify-content: center;
-}
-.adult{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+
+body{
+  text-align: center;
 }

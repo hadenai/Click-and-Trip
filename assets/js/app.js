@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -14,6 +15,7 @@ require('semantic-ui/dist/semantic.min.js')
 require('../scss/_footer.scss')
 require('../scss/_navbar.scss')
 require('./_navbar.js')
+require('../scss/travelerDetailForm.scss')
 // COMPONENTS
 import Etapes from './components/Etapes/Etapes';
 

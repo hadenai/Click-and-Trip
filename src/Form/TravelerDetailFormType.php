@@ -2,14 +2,12 @@
 
 namespace App\Form;
 
-use Doctrine\DBAL\Types\TextType;
-use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +18,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("name", TextareaType::class, [
+            ->add("name", TextType::class, [
                 'label' => 'Votre nom:',
                 'required'   => true,
             ])
@@ -72,11 +70,11 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'label' => 'J\'ai une idée approximative.',
                 'required'   => false,
             ])
-            ->add("mois", TextareaType::class, [
+            ->add("mois", TextType::class, [
                 'label' => 'Mois:',
                 'required'   => false,
             ])
-            ->add("annees", TextareaType::class, [
+            ->add("annees", TextType::class, [
                 'label' => 'Années:',
                 'required'   => false,
             ])

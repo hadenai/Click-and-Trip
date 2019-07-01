@@ -28,7 +28,8 @@ class MonVoyageController extends AbstractController
         $form = $this->createForm(TravelerDetailFormType::class);
         $form->handleRequest($request);
         $data = $form->getData();
-        if ($form->isSubmitted()) {
+        dump($form->getErrors());
+        if ($form->isSubmitted() && $form->isValid()) {
             $message = (new \Swift_Message('Un nouveau formulaire de contacte a été soumis.'))
                 ->setFrom('vincent.mallard5@gmail.com')
                 ->setTo('vincent.mallard5@gmail.com')
@@ -43,8 +44,11 @@ class MonVoyageController extends AbstractController
                 );
             $mailer->send($message);
         }
-        return $this->render('travelerDetailForm.html.twig', [
+        return $this->render(
+            'travelerDetailForm.html.twig',
+            [
                 "form" => $form->createView()
-            ]);
+            ]
+        );
     }
 }
