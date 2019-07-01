@@ -13,7 +13,8 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            UserFixtures::class,
+            ClientFixtures::class,
+            AgencyFixtures::class,
             StageFixtures::class
         ];
     }
