@@ -1,5 +1,5 @@
 easy_admin:
-    disabled_actions: ['new']
+    disabled_actions: ['new', 'delete', 'show']
     entities:
         # List the entity class name you want to manage
         Agency:
@@ -7,6 +7,13 @@ easy_admin:
             label: 'Agences'
             list:
                 title: 'Agences'
+                # fields:
+                #     - 'id'
+                #     - 'country'
+                #     - 'company'
+                #     - 'deleted'
+            show:
+                # actions: ['-edit']
         Client:
             class: App\Entity\Client
             label: 'Clients'
@@ -24,6 +31,7 @@ easy_admin:
             label: 'Etapes'
             list:
                 title: 'Etapes'
+                actions: ['-edit']
                 fields: 
                     - 'id'
                     - 'destination'

@@ -327,4 +327,10 @@ class Stage
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return strval($this->id);
+        // return $this->name.' '.$this->surname;
+    }
 }
