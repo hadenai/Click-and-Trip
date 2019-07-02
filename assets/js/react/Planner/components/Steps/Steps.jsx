@@ -46,7 +46,7 @@ function Steps() {
   };
 
   const validateTrip = () => {
-    axios.post('/mon-voyage/envoi', JSON.stringify(mySteps));
+    axios.post(Routing.generate('/mon-voyage/envoi'), JSON.stringify(mySteps));
   };
 
   const filterStepsByReference = (step, list) => {
