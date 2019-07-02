@@ -7,6 +7,7 @@ use App\Entity\History;
 use App\Entity\Stage;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,12 +30,18 @@ class VoyageController extends AbstractController
     }
 
     /**
-     * @Route("/mon-voyage/envoi", name="success")
+     * @Route(
+     *     "/mon-voyage/envoi",
+     *     name="success",
+     *     options = {
+     *      "expose" = true
+     *     }
+     *     )
      */
-    public function addHistory(ObjectManager $manager)
+    public function addHistory(ObjectManager $manager, Request $request) : Response
     {
-            dd($_POST);
-            $history = new History();
+        dd($request->request);
+       /*     $history = new History();
             $stage = new Stage();
             $agency = $this->getDoctrine()
                 ->getRepository(Agency::class)
@@ -45,8 +52,9 @@ class VoyageController extends AbstractController
                 ->setStateId()
                 ->setClient()
                 ->setAgency()
-                ->addStage();*/
+                ->addStage();
             $manager->persist($history);
-            $manager->flush();
+            $manager->flush();*/
+       return $this->render('homepage/index.html.twig');
     }
 }
