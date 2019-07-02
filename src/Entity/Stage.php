@@ -176,7 +176,7 @@ class Stage
     }
 
     /**
-     * @return Collection|Histories[]
+     * @return Collection|History[]
      */
     public function getHistories(): Collection
     {
