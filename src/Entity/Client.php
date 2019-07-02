@@ -53,7 +53,7 @@ class Client implements UserInterface
     private $surname;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateOfBirth;
 

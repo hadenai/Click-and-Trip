@@ -120,6 +120,16 @@ class Agency implements UserInterface
      */
     private $message;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $mobile;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $validate=false;
+
     public function __construct()
     {
         $this->histories = new ArrayCollection();
@@ -451,5 +461,34 @@ class Agency implements UserInterface
         $this->message = $message;
 
         return $this;
+    }
+
+    public function getMobile(): ?string
+    {
+        return $this->mobile;
+    }
+
+    public function setMobile(string $mobile): self
+    {
+        $this->mobile = $mobile;
+
+        return $this;
+    }
+
+    public function getValidate(): ?bool
+    {
+        return $this->validate;
+    }
+
+    public function setValidate(bool $validate): self
+    {
+        $this->validate = $validate;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->company;
     }
 }

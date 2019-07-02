@@ -29,7 +29,8 @@ class AgencyFixtures extends Fixture
                    ->setPresentation($faker->sentence(25))
                     ->setEmail($faker->freeEmail())
                     ->setPassword($faker->password())
-                    ->setRoles(['ROLE_AGENCY']);
+                    ->setRoles(['ROLE_AGENCY'])
+                    ->setMobile($faker->phoneNumber());
             $manager->persist($agency);
             $this->addReference('agency_'.strval($i), $agency);
         };

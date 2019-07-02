@@ -176,14 +176,14 @@ class Stage
     }
 
     /**
-     * @return Collection|History[]
+     * @return Collection|Histories[]
      */
-    public function getHistory(): Collection
+    public function getHistories(): Collection
     {
         return $this->histories;
     }
 
-    public function addHistory(History $histories): self
+    public function addHistories(History $histories): self
     {
         if (!$this->histories->contains($histories)) {
             $this->histories[] = $histories;
@@ -192,7 +192,7 @@ class Stage
         return $this;
     }
 
-    public function removeHistory(History $histories): self
+    public function removeHistories(History $histories): self
     {
         if ($this->histories->contains($histories)) {
             $this->histories->removeElement($histories);
@@ -324,7 +324,6 @@ class Stage
     public function setDeleted(bool $deleted): self
     {
         $this->deleted = $deleted;
-
         return $this;
     }
 
