@@ -50,14 +50,14 @@ easy_admin:
             edit:
                 title: "Détails d'un client"
                 fields: 
-                - 'email'
-                - {property: 'mobile', label: 'N° tel.'}
-                - {property: 'name', label: 'Prénom'}
-                - {property: 'surname', label: 'Nom'}
-                - {property: 'dateOfBirth', label: Date de naissance'}
-                - {property: 'address', label: 'Adresse de domicile'}
-                - {property: 'deleted', label: ": compte supprimé ?"}
-                - {property: 'histories', label: "N° de voyage(s)"}
+                    - 'email'
+                    - {property: 'mobile', label: 'N° tel.'}
+                    - {property: 'name', label: 'Prénom'}
+                    - {property: 'surname', label: 'Nom'}
+                    - {property: 'dateOfBirth', label: Date de naissance'}
+                    - {property: 'address', label: 'Adresse de domicile'}
+                    - {property: 'deleted', label: ": compte supprimé ?"}
+                    - {property: 'histories', label: "N° de voyage(s)"}
         Stage:
             class: App\Entity\Stage
             label: 'Etapes'
