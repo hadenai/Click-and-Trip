@@ -15,6 +15,7 @@ class RegistrationAgencyType extends AbstractType
         $builder
             ->add('email')
             ->add('password', PasswordType::class)
+            ->add('confirm_password', PasswordType::class)
             ->add('country')
             ->add('city')
             ->add('address')

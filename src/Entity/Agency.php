@@ -36,8 +36,12 @@ class Agency implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimun 8 caractères" )
+     * @Assert\EqualTo
+     * (propertyPath="confirm_password", message="Votre mot de passe doit être le même que celui que vous confirmer")
      */
     private $password;
+
+    public $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255)
