@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Agency;
+use App\Entity\History;
+use App\Entity\Stage;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,10 +21,32 @@ class VoyageController extends AbstractController
     }
 
     /**
-     * @Route("/monvoyage/planner", name="planner")
+     * @Route("/mon-voyage/planner", name="planner")
      */
     public function planner(): Response
     {
         return $this->render('planner/listing.html.twig');
+    }
+
+    /**
+     * @Route("/mon-voyage/envoi", name="success")
+     */
+    public function addHistory(ObjectManager $manager)
+    {
+            dd($_POST);
+            $history = new History();
+            $stage = new Stage();
+            $agency = $this->getDoctrine()
+                ->getRepository(Agency::class)
+                ->findOneBy(['id' => 3]);
+            $client = $this->getUser();
+           /* $history->setDateEnd()
+                ->setDateBegin()
+                ->setStateId()
+                ->setClient()
+                ->setAgency()
+                ->addStage();*/
+            $manager->persist($history);
+            $manager->flush();
     }
 }
