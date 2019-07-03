@@ -2,7 +2,7 @@
 
 namespace App\Security;
 
-use App\Entity\User;
+
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -63,7 +63,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $credentials;
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider): User
+    public function getUser($credentials, UserProviderInterface $userProvider): object
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
