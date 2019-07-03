@@ -47,7 +47,7 @@ function Steps() {
 
   const validateTrip = () => {
     console.table(mySteps);
-    axios.post(Routing.generate('getSteps'), JSON.stringify(mySteps));
+    axios.post(Routing.generate('jsonsteps'), JSON.stringify(mySteps));
     window.location=Routing.generate('success');
   };
 

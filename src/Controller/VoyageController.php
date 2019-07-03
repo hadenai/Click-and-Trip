@@ -35,9 +35,9 @@ class VoyageController extends AbstractController
     }
 
     /**
-     * @Route("/mon-voyage/envoi-etapes", name="getSteps")
+     * @Route("/mon-voyage/envoi-etapes", name="jsonsteps", options = {"expose" = true})
      */
-    public function getSteps(Request $request, SessionInterface $session) : void
+    public function jsonsteps(Request $request, SessionInterface $session) : void
     {
         $json = json_decode($request->getContent());
         $session->set('planner', $json);
@@ -57,8 +57,7 @@ class VoyageController extends AbstractController
         Request $request,
         SessionInterface $session,
         \Swift_Mailer $mailer
-    ) : Response
-    {
+    ) : Response {
 
         $form = $this->createForm(TravelerDetailFormType::class);
         $form->handleRequest($request);
