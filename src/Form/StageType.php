@@ -19,7 +19,6 @@ class StageType extends AbstractType
             ->add('duration')
             ->add('deleted')
             ->add('agency')
-            ->add('histories')
             ->add('themes')
             ->add('styles')
             ->add('sizes')
