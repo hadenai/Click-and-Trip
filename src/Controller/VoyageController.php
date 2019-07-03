@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Agency;
 use App\Entity\History;
 use App\Entity\Stage;
+use App\Form\TravelerDetailFormType;
 use App\Repository\AgencyRepository;
 use App\Repository\StageRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -34,6 +35,15 @@ class VoyageController extends AbstractController
     }
 
     /**
+     * @Route("/mon-voyage/envoi-etapes", name="getSteps")
+     */
+    public function getSteps(Request $request, SessionInterface $session) : void
+    {
+        $json = json_decode($request->getContent());
+        $session->set('planner', $json);
+    }
+
+    /**
      * @Route(
      *     "/mon-voyage/details",
      *     name="details",
@@ -42,11 +52,42 @@ class VoyageController extends AbstractController
      *     }
      *     )
      */
-    public function details(ObjectManager $manager, Request $request, SessionInterface $session) : Response
+    public function details(
+        ObjectManager $manager,
+        Request $request,
+        SessionInterface $session,
+        \Swift_Mailer $mailer
+    ) : Response
     {
-        $data = json_decode($request->getContent());
-        $session->set('planner', $data);
-        return $this->render('planner/travelerDetailForm.html.twig');
+
+        $form = $this->createForm(TravelerDetailFormType::class);
+        $form->handleRequest($request);
+        $data = $form->getData();
+        dump($form->getErrors());
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message = (new \Swift_Message('Un nouveau formulaire de contacte a été soumis.'))
+                ->setFrom('vincent.mallard5@gmail.com')
+                ->setTo('vincent.mallard5@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        "planner/travelerDetailMail.html.twig",
+                        [
+                            "data" => $data,
+                        ]
+                    ),
+                    'text/html'
+                );
+            $mailer->send($message);
+            $dates=[$data['beginDate'], $data['endDate']];
+            $session->set('dates', $dates);
+            return $this->redirectToRoute("success");
+        }
+        return $this->render(
+            'planner/travelerDetailForm.html.twig',
+            [
+                "form" => $form->createView()
+            ]
+        );
     }
 
     /**
@@ -61,22 +102,21 @@ class VoyageController extends AbstractController
      */
     public function addHistory(
         ObjectManager $manager,
-        EntityManager $em,
+        Request $request,
         SessionInterface $session,
-        StageRepository $stageRepo,
-        AgencyRepository $agencyRepo
-    ) : Response {
+        StageRepository $stageRepo
+    ) {
         $data=$session->get('planner');
         $history = new History();
         $stage=new Stage();
         foreach ($data as $key => $value) {
-            $stage=$stageRepo->findOneBy(['id'=>$value]);
+            $stage=$stageRepo->findOneBy(['reference'=>$value->reference]);
             $history->addStage($stage);
         }
-        $agency = $agencyRepo->findOneBy(['stage' => $stage]);
+        $agency = $stage->getAgency();
         $history->setDateBegin($session->get('dates')[0])
             ->setDateEnd($session->get('dates')[1])
-            ->setStateId(1)
+            ->setStateId(0)
             ->setClient($this->getUser())
             ->setAgency($agency);
 
