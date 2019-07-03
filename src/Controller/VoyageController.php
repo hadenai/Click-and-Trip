@@ -118,7 +118,7 @@ class VoyageController extends AbstractController
             ->setStateId(0)
             ->setClient($this->getUser())
             ->setAgency($agency);
-
+        $manager->persist($history);
         $manager->flush();
 
         return $this->render('planner/success.html.twig');

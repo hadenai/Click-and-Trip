@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -58,11 +58,11 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'label' => 'J\'ai des dates exactes. Choisissez une date de début et une date de fin.',
                 'required'   => false,
             ])
-            ->add("beginDate", DateTimeType::class, [
+            ->add("beginDate", DateType::class, [
                 'label' => 'Date de départ',
                 'required'   => false,
             ])
-            ->add("endDate", DateTimeType::class, [
+            ->add("endDate", DateType::class, [
                 'label' => 'Date de fin',
                 'required'   => false,
             ])

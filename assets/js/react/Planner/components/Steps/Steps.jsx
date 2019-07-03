@@ -22,7 +22,7 @@ function Steps() {
   }, []);
 
   const getSteps = async () => {
-    let response = await axios.get(Routing.generate('api'));
+    let response = await axios.get(Routing.generate('api_stages'));
     setSteps(response.data);
   };
 
@@ -48,7 +48,7 @@ function Steps() {
   const validateTrip = () => {
     console.table(mySteps);
     axios.post(Routing.generate('jsonsteps'), JSON.stringify(mySteps));
-    window.location=Routing.generate('success');
+    window.location=Routing.generate('details');
   };
 
   const filterStepsByReference = (step, list) => {
