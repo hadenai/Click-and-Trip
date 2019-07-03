@@ -8,6 +8,7 @@ use App\Repository\ClientRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiController extends AbstractController
@@ -21,7 +22,7 @@ class ApiController extends AbstractController
      *   }
      * )
      */
-    public function listStage(StageRepository $stageRepo, SerializerInterface $serializer)
+    public function listStage(StageRepository $stageRepo)
     {
         $stages = $stageRepo->findAll();
         return $this->json($stages, 200, [], ['groups'=>'apiStage']);
@@ -40,8 +41,7 @@ class ApiController extends AbstractController
         string $user,
         int $id,
         ClientRepository $clientRepo,
-        AgencyRepository $agencyRepo,
-        SerializerInterface $serializer
+        AgencyRepository $agencyRepo
     ) {
         switch ($user) {
             case 'client':
@@ -50,6 +50,8 @@ class ApiController extends AbstractController
             case 'agence':
                 $messages=$agencyRepo->findBy(['id'=>$id]);
                 break;
+            default:
+                throw new HttpException(400, "New comment is not valid.");
         }
         return $this->json($messages, 200, [], ['groups'=>'apiMessage']);
     }
