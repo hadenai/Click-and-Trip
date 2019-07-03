@@ -1,9 +1,10 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
+import _ from 'underscore';
 import Routing from '../../../../../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
 // COMPONENTS
-import { Card, Button } from 'semantic-ui-react';
+import { Card, Button, Select } from 'semantic-ui-react';
 
 // CSS
 import './Steps.css';
@@ -11,6 +12,9 @@ import './Steps.css';
 function Steps() {
   const [steps, setSteps] = useState([]);
   const [mySteps, setMySteps] = useState([]);
+
+  const [destinationOptions, setDestinationOptions] = useState([]);
+  const [styleOptions, setStyleOptions] = useState([]);
 
   useEffect(() => {
     if (sessionStorage.getItem('steps') && JSON.parse(sessionStorage.getItem('mySteps')).length > 0) {
@@ -23,7 +27,28 @@ function Steps() {
 
   const getSteps = async () => {
     let response = await axios.get(Routing.generate('api'));
+
     setSteps(response.data);
+
+    setDestinationOptions(
+      _.uniq(response.data.map(step => {
+        return step.destination;
+      })).map(destination => {
+        return (
+          { key: destination, value: destination, text: destination }
+        )
+      })
+    );
+
+    setStyleOptions(
+      _.uniq(response.data.map(step => {
+        return step.styles[0].style;
+      })).map(style => {
+        return (
+          { key: style, value: style, text: style }
+        )
+      })
+    );
   };
 
   const addStep = (index) => {
@@ -58,8 +83,20 @@ function Steps() {
     return filteredSteps;
   };
 
+  const filterStepsByDestination = (destination) => {
+    setSteps(steps.filter(step => step.destination === destination));
+  };
+
+  const filterStepsByStyle = (style) => {
+    setSteps(steps.filter(step => step.styles[0].style === style));
+  };
+
   return (
     <Fragment>
+      <div className="Filters">
+        <Select placeholder="Destination" options={destinationOptions} onChange={(e, { value }) => filterStepsByDestination(value)} />
+        <Select placeholder="Style" options={styleOptions} onChange={(e, { value }) => filterStepsByStyle(value)} />
+      </div>
       <div className="Steps">
         <Card.Group centered>
           {
