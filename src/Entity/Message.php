@@ -20,29 +20,34 @@ class Message
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("apiMessage")
      */
     private $sendAt;
 
     /**
      * @ORM\Column(type="string", length=10000)
+     * @Groups("apiMessage")
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\History", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("apiMessage")
      */
     private $histories;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Agency", mappedBy="message")
      * @ORM\JoinColumn(nullable=true)
+     * @Groups("apiMessage")
      */
     private $Agency;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Client", mappedBy="message")
      * @ORM\JoinColumn(nullable=true)
+     * @Groups("apiMessage")
      */
     private $Client;
 

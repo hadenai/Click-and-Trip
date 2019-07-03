@@ -2,7 +2,6 @@
 
 namespace App\Security;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\HttpFoundation\RedirectResponse;
