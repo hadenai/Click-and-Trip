@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Agency;
 use App\Entity\History;
 use App\Entity\Stage;
+use App\Repository\AgencyRepository;
+use App\Repository\StageRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,8 +46,9 @@ class VoyageController extends AbstractController
     {
         $data = json_decode($request->getContent());
         $session->set('planner', $data);
-        return $this->render('travelerDetailForm.html.twig');
+        return $this->render('planner/travelerDetailForm.html.twig');
     }
+
     /**
      *
      * @Route(
@@ -56,23 +59,29 @@ class VoyageController extends AbstractController
      *     }
      *     )
      */
-    public function addHistory(ObjectManager $manager, EntityManager $em, SessionInterface $session) : Response
-    {
+    public function addHistory(
+        ObjectManager $manager,
+        EntityManager $em,
+        SessionInterface $session,
+        StageRepository $stageRepo,
+        AgencyRepository $agencyRepo
+    ) : Response {
         $data=$session->get('planner');
         $history = new History();
+        $stage=new Stage();
         foreach ($data as $key => $value) {
-            //$em->getRepository();
+            $stage=$stageRepo->findOneBy(['id'=>$value]);
+            $history->addStage($stage);
         }
-        $client = $this->getUser();
-        /*$history->setDateEnd()
-            ->setDateBegin()
+        $agency = $agencyRepo->findOneBy(['stage' => $stage]);
+        $history->setDateBegin($session->get('dates')[0])
+            ->setDateEnd($session->get('dates')[1])
             ->setStateId(1)
-            ->setClient($client)
-            ->setAgency($data["agency"])
-            ->addStage();*/
-        $manager->persist($history);
+            ->setClient($this->getUser())
+            ->setAgency($agency);
+
         $manager->flush();
 
-        return $this->render('homepage/index.html.twig');
+        return $this->render('planner/success.html.twig');
     }
 }
