@@ -13,9 +13,9 @@ function Steps() {
   const [mySteps, setMySteps] = useState([]);
 
   useEffect(() => {
-    if (localStorage.getItem('steps') && JSON.parse(localStorage.getItem('mySteps')).length > 0) {
-      setSteps(JSON.parse(localStorage.getItem('steps')));
-      setMySteps(JSON.parse(localStorage.getItem('mySteps')));
+    if (sessionStorage.getItem('steps') && JSON.parse(sessionStorage.getItem('mySteps')).length > 0) {
+      setSteps(JSON.parse(sessionStorage.getItem('steps')));
+      setMySteps(JSON.parse(sessionStorage.getItem('mySteps')));
     } else {
       getSteps();
     }
@@ -31,22 +31,23 @@ function Steps() {
     setMySteps([...mySteps, selectedStep]);
     setSteps(filterStepsByReference(selectedStep, steps));
 
-    localStorage.setItem('mySteps', JSON.stringify([...mySteps, selectedStep]));
-    localStorage.setItem('steps', JSON.stringify(filterStepsByReference(selectedStep, steps)));
+    sessionStorage.setItem('mySteps', JSON.stringify([...mySteps, selectedStep]));
+    sessionStorage.setItem('steps', JSON.stringify(filterStepsByReference(selectedStep, steps)));
   };
 
   const removeStep = (index) => {
     let newSteps = [...steps, mySteps.splice(index, 1)[0]];
     setSteps(newSteps);
 
-    localStorage.setItem('mySteps', JSON.stringify(mySteps));
-    localStorage.setItem('steps', JSON.stringify(newSteps));
+    sessionStorage.setItem('mySteps', JSON.stringify(mySteps));
+    sessionStorage.setItem('steps', JSON.stringify(newSteps));
 
     mySteps.length === 0 && getSteps();
   };
 
   const validateTrip = () => {
-    axios.post(Routing.generate('/mon-voyage/envoi'), JSON.stringify(mySteps));
+    axios.post(Routing.generate('details'), JSON.stringify(mySteps));
+    // window.location.href(Routing.generate('route'));
   };
 
   const filterStepsByReference = (step, list) => {
