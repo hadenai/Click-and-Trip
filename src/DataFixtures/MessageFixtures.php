@@ -24,5 +24,4 @@ class MessageFixtures extends Fixture
         }
         $manager->flush();
     }
-
 }

@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Agency;
 use App\Entity\Client;
+use App\Form\ForgotPasswordType;
 use App\Form\RegistrationAgencyType;
 use App\Form\RegistrationClientType;
 use App\Security\LoginFormAuthenticator;
+use Swift_Mailer;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -93,5 +95,39 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
+    }
+    /**
+     * @route("/oublis", name="oublis")
+     */
+    public function forgotPassword(Request $request, Swift_Mailer $mailer) :Response
+    {
+        $client = new Client();
+
+        $forgotForm = $this->createForm(ForgotPasswordType::class, $client);
+        $forgotForm->handleRequest($request);
+        $data = $forgotForm->getdata();
+
+        if ($forgotForm->isSubmitted() && $forgotForm->isValid()) {
+            $message = (new \Swift_Message('Réinitialisation du mot de passe'))
+                ->setFrom('edwintililian2702@gmail.com')
+                ->setTo($data->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'security/password_link.html.twig'
+                    )
+                );
+            $mailer->send($message);
+        }
+        return $this->render('security/forgot_password.html.twig', [
+            'forgotForm' => $forgotForm->createView(),
+        ]);
+    }
+
+    /**
+     * @route("/nouveau_mot_de_passe", name="nouveau_mot_de_passe")
+     */
+    public function updatePassword() :Response
+    {
+        return $this->render('security/update_password.html.twig');
     }
 }
