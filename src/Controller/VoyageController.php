@@ -40,21 +40,22 @@ class VoyageController extends AbstractController
      */
     public function addHistory(ObjectManager $manager, Request $request) : Response
     {
-        dd($request->request);
-       /*     $history = new History();
+
+
+        /*    $history = new History();
             $stage = new Stage();
             $agency = $this->getDoctrine()
                 ->getRepository(Agency::class)
                 ->findOneBy(['id' => 3]);
             $client = $this->getUser();
-           /* $history->setDateEnd()
+            $history->setDateEnd()
                 ->setDateBegin()
-                ->setStateId()
-                ->setClient()
+                ->setStateId(1)
+                ->setClient($client)
                 ->setAgency()
                 ->addStage();
             $manager->persist($history);
             $manager->flush();*/
-       return $this->render('homepage/index.html.twig');
+        return $this->render('homepage/index.html.twig');
     }
 }
