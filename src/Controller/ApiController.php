@@ -3,25 +3,41 @@
 namespace App\Controller;
 
 use App\Repository\StageRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Repository\MessageRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiController extends AbstractController
 {
     /**
      * @Route(
-     *   "/api",
-     *   name="api",
+     *   "/api/stages",
+     *   name="api_stages",
      *   options = {
      *     "expose" = true
      *   }
      * )
      */
-    public function index(StageRepository $stageRepository, SerializerInterface $serializer)
+    public function listStage(StageRepository $stageRepo, SerializerInterface $serializer)
     {
-        $stages = $stageRepository->findAll();
+        $stages = $stageRepo->findAll();
+        return $this->json($stages, 200, [], ['groups'=>'api']);
+    }
+
+    /**
+     * @Route(
+     *   "/api/{user}",
+     *   name="api_messages",
+     *   options = {
+     *     "expose" = true
+     *   }
+     * )
+     */
+    public function listMessage(MessageRepository $messageRepo, SerializerInterface $serializer)
+    {
+        $stages = $messageRepo->findAll();
         return $this->json($stages, 200, [], ['groups'=>'api']);
     }
 }
