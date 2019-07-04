@@ -32,8 +32,10 @@ class ProfileController extends AbstractController
     /**
      * @Route("/historique", name="history", methods={"GET"})
      */
-    public function adminHistoryView(HistoryRepository $historyRepository, UserRepository $userRepository, PriceRepository $priceRepository): Response
-    {
+    public function adminHistoryView(
+        HistoryRepository $historyRepository,
+        PriceRepository $priceRepository
+    ): Response {
         return $this->render('profile/history.html.twig', [
             'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),
         ]);
