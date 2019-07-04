@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MessageRepository")
@@ -20,36 +21,40 @@ class Message
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("apiMessage")
      */
     private $sendAt;
 
     /**
      * @ORM\Column(type="string", length=10000)
+     * @Groups("apiMessage")
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\History", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("apiMessage")
      */
     private $histories;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Agency", mappedBy="message")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Agency", inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups("apiMessage")
      */
-    private $Agency;
+    private $agency;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Client", mappedBy="message")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $Client;
+    private $client;
 
     public function __construct()
     {
-        $this->Agency = new ArrayCollection();
-        $this->Client = new ArrayCollection();
+        $this->agency = new ArrayCollection();
+        $this->client = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,76 +86,38 @@ class Message
         return $this;
     }
 
-    public function getHistory(): ?History
+    public function getHistories(): ?History
     {
         return $this->histories;
     }
 
-    public function setHistory(?History $history): self
+    public function setHistories(?History $histories): self
     {
-        $this->histories = $history;
+        $this->histories = $histories;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Agency[]
-     */
-    public function getAgency(): Collection
+    public function getAgency(): ?Agency
     {
-        return $this->Agency;
+        return $this->agency;
     }
 
-    public function addAgency(Agency $agency): self
+    public function setAgency(?Agency $agency): self
     {
-        if (!$this->Agency->contains($agency)) {
-            $this->Agency[] = $agency;
-            $agency->setMessage($this);
-        }
+        $this->agency = $agency;
 
         return $this;
     }
 
-    public function removeAgency(Agency $agency): self
+    public function getClient(): ?Client
     {
-        if ($this->Agency->contains($agency)) {
-            $this->Agency->removeElement($agency);
-            // set the owning side to null (unless already changed)
-            if ($agency->getMessage() === $this) {
-                $agency->setMessage(null);
-            }
-        }
-
-        return $this;
+        return $this->client;
     }
 
-    /**
-     * @return Collection|Client[]
-     */
-    public function getClient(): Collection
+    public function setClient(?Client $client): self
     {
-        return $this->Client;
-    }
-
-    public function addClient(Client $client): self
-    {
-        if (!$this->Client->contains($client)) {
-            $this->Client[] = $client;
-            $client->setMessage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeClient(Client $client): self
-    {
-        if ($this->Client->contains($client)) {
-            $this->Client->removeElement($client);
-            // set the owning side to null (unless already changed)
-            if ($client->getMessage() === $this) {
-                $client->setMessage(null);
-            }
-        }
+        $this->client = $client;
 
         return $this;
     }

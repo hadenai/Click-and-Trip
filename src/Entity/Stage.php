@@ -26,32 +26,32 @@ class Stage
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api", "listing"})
+     * @Groups({"apiStage", "listing"})
      */
     private $destination;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $nameStage;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $duration;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Agency", inversedBy="stages")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $agency;
 
@@ -62,25 +62,25 @@ class Stage
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Theme", mappedBy="stages")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $themes;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Style", mappedBy="stages")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $styles;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Price", mappedBy="stages")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $prices;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Size", mappedBy="stages")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $sizes;
 

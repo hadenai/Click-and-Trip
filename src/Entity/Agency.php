@@ -36,8 +36,12 @@ class Agency implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimun 8 caractères" )
+     * @Assert\EqualTo
+     * (propertyPath="confirm_password", message="Votre mot de passe doit être le même que celui que vous confirmer")
      */
     private $password;
+
+    public $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -116,11 +120,6 @@ class Agency implements UserInterface
     private $deleted = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="Agency")
-     */
-    private $message;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $mobile;
@@ -130,11 +129,17 @@ class Agency implements UserInterface
      */
     private $validate=false;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="agency", orphanRemoval=true)
+     */
+    private $messages;
+
     public function __construct()
     {
         $this->histories = new ArrayCollection();
         $this->stages = new ArrayCollection();
         $this->documents = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -451,18 +456,6 @@ class Agency implements UserInterface
         $this->deleted = $deleted;
     }
 
-    public function getMessage(): ?Message
-    {
-        return $this->message;
-    }
-
-    public function setMessage(?Message $message): self
-    {
-        $this->message = $message;
-
-        return $this;
-    }
-
     public function getMobile(): ?string
     {
         return $this->mobile;
@@ -490,5 +483,36 @@ class Agency implements UserInterface
     public function __toString()
     {
         return $this->company;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setAgency($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getAgency() === $this) {
+                $message->setAgency(null);
+            }
+        }
+
+        return $this;
     }
 }
