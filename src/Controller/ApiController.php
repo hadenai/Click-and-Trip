@@ -6,8 +6,6 @@ use App\Repository\StageRepository;
 use App\Repository\AgencyRepository;
 use App\Repository\ClientRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -45,13 +43,13 @@ class ApiController extends AbstractController
     ) {
         switch ($user) {
             case 'client':
-                $messages=$clientRepo->findBy(['id'=>$id]);
+                $messages=$clientRepo->findBy(['id'=>$id])[0]->getMessages();
                 break;
             case 'agence':
                 $messages=$agencyRepo->findBy(['id'=>$id]);
                 break;
             default:
-                throw new HttpException(400, "New comment is not valid.");
+                throw new HttpException(404, "Adresse introuvable...");
         }
         return $this->json($messages, 200, [], ['groups'=>'apiMessage']);
     }
