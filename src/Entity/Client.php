@@ -34,8 +34,12 @@ class Client implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimun 8 caractères" )
+     * @Assert\EqualTo
+     * (propertyPath="confirm_password", message="Votre mot de passe doit être le même que celui que vous confirmer")
      */
     private $password;
+
+    public $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -71,14 +75,16 @@ class Client implements UserInterface
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $deleted=false;
+
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="Client")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="client", orphanRemoval=true)
      */
-    private $message;
+    private $messages;
 
     public function __construct()
     {
         $this->histories = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -261,21 +267,40 @@ class Client implements UserInterface
         return $this;
     }
 
-    public function getMessage(): ?Message
-    {
-        return $this->message;
-    }
-
-    public function setMessage(?Message $message): self
-    {
-        $this->message = $message;
-
-        return $this;
-    }
-
     public function __toString()
     {
         // return strval($this->id);
         return $this->name.' '.$this->surname;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getClient() === $this) {
+                $message->setClient(null);
+            }
+        }
+
+        return $this;
     }
 }
