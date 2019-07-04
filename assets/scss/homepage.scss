@@ -14,8 +14,8 @@ body {
 iframe {
     width: 100vw;
     height: 58vw;
-    // pointer-events: none;
-    margin-top: -1%;
+    pointer-events: auto;
+    margin-top: -7%;
 }
 
 #slogan {
@@ -29,40 +29,67 @@ iframe {
         font-size: 2.6vw;}
 }
 
-#button-voyage {
-    background-color: #ff8080;
-    & a{
-        color: white
-    }
-}
-
 #button-inspiration {
     background-color: $white;
     & a{
         color: black
     }
-}
+#button-voyage, #button-commitment {background-color: #ff8080;
+    & a{color: white}
 
-#tuto {
-    width: 100vw;
-    margin-top: 3%;
+
+#explanation {
+    width:100vw;
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & #text-explain {
+        margin-top: 5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    & #icon-explain {
+        margin-top: 5%;
+        display: flex;
+        justify-content: space-around;
+        & span {
+            width:16%;
+            & img {width:100%}
+        }
+    }
+    & button {margin-top:4%}
 }
 
 .block {
     display: flex;
     justify-content: center;
     margin-top:2%;
-
 }
 
 #galerie {
     width: 70vw;
     margin:0 15vw
 }
-
 #commitment {
-    width:80vw;
-    margin: 3% 10vw;
+    margin-top:3%;
+    position: relative;
+    width:100vw;
+    height: 25vw;
+    overflow: hidden;
+    & img {
+        position: absolute;
+        width: inherit;
+        top:-80%;
+    }
+    & button {
+        z-index: 10;
+        position: absolute;
+        top:calc(50% - 23px);
+        left:calc(50% - 98px);
+    }
 }
 
 .ui.cards > .card > .image {
