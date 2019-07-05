@@ -68,7 +68,8 @@ class StageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $stage->setValidate(false);
+            $stage->setValidate(false)
+                  ->setDeleted(false);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('stage_index', [

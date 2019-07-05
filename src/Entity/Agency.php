@@ -65,7 +65,7 @@ class Agency implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $company;
 

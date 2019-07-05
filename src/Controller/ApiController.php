@@ -23,6 +23,12 @@ class ApiController extends AbstractController
     public function listStage(StageRepository $stageRepo)
     {
         $stages = $stageRepo->findAll();
+        $stages=array_filter($stages, function ($v) {
+            if (count($v->getAgency()->getStages())>2) {
+                return $v;
+            }
+        });
+
         return $this->json($stages, 200, [], ['groups'=>'apiStage']);
     }
 

@@ -21,7 +21,7 @@ class Size
 
     /**
      * @ORM\Column(type="string")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $people;
 
