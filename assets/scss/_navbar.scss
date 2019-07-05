@@ -4,9 +4,10 @@
     width: 100%;
     height: 65px;
     position: fixed;
+    top:0;
     line-height: 65px;
     text-align: center;
-    z-index:20;
+    z-index:1042;
 }
 
 .nav div.logo {
@@ -28,6 +29,7 @@
 
 .nav div.main_list {
     height: 65px;
+    width: 100vw;
 }
 
 .nav div.main_list ul {

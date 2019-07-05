@@ -65,7 +65,7 @@ class Agency implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $company;
 
@@ -90,22 +90,22 @@ class Agency implements UserInterface
     private $stages;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $yearCreation;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $presentation;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $flagship;
 

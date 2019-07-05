@@ -41,6 +41,7 @@ class Message
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Agency", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("apiMessage")
      */
     private $agency;
 
@@ -85,14 +86,14 @@ class Message
         return $this;
     }
 
-    public function getHistory(): ?History
+    public function getHistories(): ?History
     {
         return $this->histories;
     }
 
-    public function setHistory(?History $history): self
+    public function setHistories(?History $histories): self
     {
-        $this->histories = $history;
+        $this->histories = $histories;
 
         return $this;
     }
