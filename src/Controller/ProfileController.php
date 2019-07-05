@@ -28,7 +28,6 @@ class ProfileController extends AbstractController
         return $this->render('profile/index.html.twig', [
         ]);
     }
-
     /**
      * @Route("/historique", name="history", methods={"GET"})
      */

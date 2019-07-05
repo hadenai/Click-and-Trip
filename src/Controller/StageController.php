@@ -24,7 +24,6 @@ class StageController extends AbstractController
             'stages' => $stageRepository->findAll(),
         ]);
     }
-
     /**
      * @Route("/ajouter", name="stage_new", methods={"GET","POST"})
      */
@@ -33,7 +32,6 @@ class StageController extends AbstractController
         $stage = new Stage();
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($stage);
@@ -41,13 +39,11 @@ class StageController extends AbstractController
 
             return $this->redirectToRoute('stage_index');
         }
-
         return $this->render('stage/new.html.twig', [
             'stage' => $stage,
             'form' => $form->createView(),
         ]);
     }
-
     /**
      * @Route("/{id}", name="stage_show", methods={"GET"})
      */
@@ -57,7 +53,6 @@ class StageController extends AbstractController
             'stage' => $stage,
         ]);
     }
-
     /**
      * @Route("/{id}/edit", name="stage_edit", methods={"GET","POST"})
      */
@@ -65,7 +60,6 @@ class StageController extends AbstractController
     {
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -73,13 +67,11 @@ class StageController extends AbstractController
                 'id' => $stage->getId(),
             ]);
         }
-
         return $this->render('stage/edit.html.twig', [
             'stage' => $stage,
             'form' => $form->createView(),
         ]);
     }
-
     /**
      * @Route("/{id}", name="stage_delete", methods={"DELETE"})
      */
@@ -90,7 +82,6 @@ class StageController extends AbstractController
             $entityManager->remove($stage);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('stage_index');
     }
 }

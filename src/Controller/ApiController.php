@@ -27,7 +27,6 @@ class ApiController extends AbstractController
         $stages = $stageRepo->findAll();
         return $this->json($stages, 200, [], ['groups'=>'apiStage']);
     }
-
     /**
      * @Route(
      *   "/api/{user}/{id}",

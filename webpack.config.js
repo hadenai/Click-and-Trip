@@ -5,7 +5,7 @@ Encore
     .setOutputPath('public/build/')
     .copyFiles({
         from: './assets/images',
-        to: 'images/[path][name].[ext]',
+        to: 'images/[name].[ext]',
     })
     // public path used by the web server to access the output path
     .setPublicPath('/build')
