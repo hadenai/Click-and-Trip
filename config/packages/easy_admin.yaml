@@ -78,9 +78,6 @@ easy_admin:
             label: 'Voyages'
             list:
                 title: 'Voyages'
-        Message:
-            class: App\Entity\Message
-            label: 'Messages'
 
     site_name: 'Mon nom est <b style="color:blue">à changer</b> dans <i>config/packages/easy_admin.yaml</i>'
     formats:

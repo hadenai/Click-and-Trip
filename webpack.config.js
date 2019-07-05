@@ -26,7 +26,6 @@ Encore
     .addEntry('planner', './assets/js/react/Planner/Planner.js')
     .addEntry('formRegistration', './assets/js/formRegistration.js')
     .addEntry('homepage', './assets/scss/homepage.scss')
-    .addEntry('crudStage', './assets/scss/crudStage.scss')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

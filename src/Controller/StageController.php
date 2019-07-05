@@ -21,12 +21,12 @@ class StageController extends AbstractController
     public function index(StageRepository $stageRepository): Response
     {
         return $this->render('stage/index.html.twig', [
-            'stages' => $stageRepository->findAll(),
+            'stages' => $stageRepository->findBy(['agency'=>$this->getUser()]),
         ]);
     }
 
     /**
-     * @Route("/new", name="stage_new", methods={"GET","POST"})
+     * @Route("/ajouter", name="stage_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -36,6 +36,7 @@ class StageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $stage->setAgency($this->getUser());
             $entityManager->persist($stage);
             $entityManager->flush();
 
@@ -67,6 +68,7 @@ class StageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $stage->setValidate(false);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('stage_index', [
@@ -87,7 +89,7 @@ class StageController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$stage->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($stage);
+            $stage->setDeleted(true);
             $entityManager->flush();
         }
 

@@ -12,7 +12,7 @@ function Steps() {
   const [mySteps, setMySteps] = useState([]);
 
   useEffect(() => {
-    fetch(Routing.generate('api'))
+    fetch(Routing.generate('api_stages'))
       .then(res => res.json())
       .then(data => setSteps(data))
       .then(() => console.log('data fetched.'));
