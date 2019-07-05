@@ -18,11 +18,18 @@ class StageController extends AbstractController
     /**
      * @Route("/", name="stage_index", methods={"GET"})
      */
-    public function index(StageRepository $stageRepository): Response
+    public function index(StageRepository $stageRepository, Request $request): Response
     {
+        $sortField=$request->query->get('sortField');
+        if ($sortField!=null) {
+            $orderBy=[$sortField => $request->query->get('sortDirection')];
+        } else {
+            $orderBy=[];
+        }
+        $stages=$stageRepository->findBy([], $orderBy);
         return $this->render('stage/index.html.twig', [
-            // 'stages' => $stageRepository->findBy(['agency'=>$this->getUser()]),
-            'stages' => $stageRepository->findAll(),
+            // 'stages' => $stageRepository->findBy(['agency'=>$this->getUser()], $orderBy),
+            'stages' => $stages,
         ]);
     }
 
