@@ -26,10 +26,8 @@ class StageController extends AbstractController
         } else {
             $orderBy=[];
         }
-        $stages=$stageRepository->findBy([], $orderBy);
         return $this->render('stage/index.html.twig', [
-            // 'stages' => $stageRepository->findBy(['agency'=>$this->getUser()], $orderBy),
-            'stages' => $stages,
+            'stages' => $stageRepository->findBy(['agency'=>$this->getUser()], $orderBy),
         ]);
     }
 
