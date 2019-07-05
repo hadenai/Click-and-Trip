@@ -11,63 +11,165 @@ import './Steps.css';
 
 function Steps() {
   const [steps, setSteps] = useState([]);
+  const [stepsCopy, setStepsCopy] = useState([]);
   const [mySteps, setMySteps] = useState([]);
 
+  const baseOptions = { key: 'Voir tout', value: 'Voir tout', text: 'Voir tout' };
   const [destinationOptions, setDestinationOptions] = useState([]);
+  const [themeOptions, setThemeOptions] = useState([]);
   const [styleOptions, setStyleOptions] = useState([]);
+  const [sizeOptions, setSizeOptions] = useState([]);
+
+  let [filters, setFilters] = useState([
+    { type: 'destination', name: 'Voir tout' },
+    { type: 'theme', name: 'Voir tout' },
+    { type: 'style', name: 'Voir tout' },
+    { type: 'size', name: 'Voir tout' }
+  ]);
+  const [filterResult, setFilterResult] = useState([]);
 
   useEffect(() => {
-    if (sessionStorage.getItem('steps') && JSON.parse(sessionStorage.getItem('mySteps')).length > 0) {
-      setSteps(JSON.parse(sessionStorage.getItem('steps')));
-      setMySteps(JSON.parse(sessionStorage.getItem('mySteps')));
-    } else {
-      getSteps();
-    }
+    getSteps();
   }, []);
+
+  useEffect(() => {
+    if (stepsCopy.length > 0) {
+      let temp = [...stepsCopy];
+      filters.forEach(filter => {
+        switch (filter.type) {
+          case 'destination':
+            if (filter.name === 'Voir tout') {
+              setFilterResult(temp);
+            } else {
+              temp = temp.filter(step => {
+                return filter.name === step.destination
+              });
+              setFilterResult(temp);
+            }
+            break;
+          case 'theme':
+            if (filter.name === 'Voir tout') {
+              setFilterResult(temp);
+            } else {
+              let tmp = [];
+              temp.forEach(step => {
+                step.themes.forEach(theme => {
+                  if (filter.name === theme.theme) {
+                    tmp = [...tmp, step];
+                    temp = tmp;
+                  }
+                })
+              })
+              setFilterResult(temp);
+            }
+            break;
+          case 'style':
+            if (filter.name === 'Voir tout') {
+              setFilterResult(temp);
+            } else {
+              let tmp = [];
+              temp.forEach(step => {
+                step.styles.forEach(style => {
+                  if (filter.name === style.style) {
+                    tmp = [...tmp, step];
+                    temp = tmp;
+                  }
+                })
+              })
+              setFilterResult(temp);
+            }
+            break;
+          case 'size':
+            if (filter.name === 'Voir tout') {
+              setFilterResult(temp);
+            } else {
+              let tmp = [];
+              temp.forEach(step => {
+                step.sizes.forEach(size => {
+                  if (filter.name === size.people) {
+                    tmp = [...tmp, step];
+                    temp = tmp;
+                  }
+                })
+              })
+              setFilterResult(temp);
+            }
+            break;
+          default:
+            setFilterResult(temp);
+        }
+      });
+    }
+  }, [filters, stepsCopy]);
 
   const getSteps = async () => {
     let response = await axios.get(Routing.generate('api'));
-
     setSteps(response.data);
+    setStepsCopy(response.data);
 
-    setDestinationOptions(
-      _.uniq(response.data.map(step => {
-        return step.destination;
-      })).map(destination => {
+    let fetchedDestOptions = _.uniq(response.data.map(step => {
+      return step.destination;
+    }))
+      .map(destination => {
         return (
           { key: destination, value: destination, text: destination }
         )
-      })
-    );
+      });
 
-    setStyleOptions(
-      _.uniq(response.data.map(step => {
-        return step.styles[0].style;
-      })).map(style => {
-        return (
-          { key: style, value: style, text: style }
-        )
+    let fetchedThemeOptions = [];
+    response.data.forEach(step => {
+      step.themes.forEach(theme => {
+        fetchedThemeOptions.push(theme.theme);
       })
-    );
+    });
+    fetchedThemeOptions = _.uniq(fetchedThemeOptions).map(theme => {
+      return (
+        { key: theme, value: theme, text: theme }
+      )
+    });
+
+    let fetchedStyleOptions = [];
+    response.data.forEach(step => {
+      step.styles.forEach(style => {
+        fetchedStyleOptions.push(style.style);
+      })
+    });
+    fetchedStyleOptions = _.uniq(fetchedStyleOptions).map(style => {
+      return (
+        { key: style, value: style, text: style }
+      )
+    });
+
+    let fetchedSizeOptions = [];
+    response.data.forEach(step => {
+      step.sizes.forEach(size => {
+        fetchedSizeOptions.push(size.people);
+      })
+    });
+    fetchedSizeOptions = _.uniq(fetchedSizeOptions).map(size => {
+      return (
+        { key: size, value: size, text: size }
+      )
+    });
+
+    setDestinationOptions([baseOptions, ...fetchedDestOptions]);
+    setThemeOptions([baseOptions, ...fetchedThemeOptions]);
+    setStyleOptions([baseOptions, ...fetchedStyleOptions]);
+    setSizeOptions([baseOptions, ...fetchedSizeOptions]);
   };
 
   const addStep = (index) => {
-    let selectedStep = steps.splice(index, 1)[0];
-    setMySteps([...mySteps, selectedStep]);
-    setSteps(filterStepsByReference(selectedStep, steps));
+    let selectedStep = stepsCopy.splice(index, 1)[0];
 
-    sessionStorage.setItem('mySteps', JSON.stringify([...mySteps, selectedStep]));
-    sessionStorage.setItem('steps', JSON.stringify(filterStepsByReference(selectedStep, steps)));
+    setMySteps([...mySteps, selectedStep]);
+    // setStepsCopy(filterStepsByReference(selectedStep, stepsCopy));
   };
 
   const removeStep = (index) => {
-    let newSteps = [...steps, mySteps.splice(index, 1)[0]];
-    setSteps(newSteps);
+    let newSteps = [...stepsCopy, mySteps.splice(index, 1)[0]];
+    setStepsCopy(newSteps);
 
-    sessionStorage.setItem('mySteps', JSON.stringify(mySteps));
-    sessionStorage.setItem('steps', JSON.stringify(newSteps));
-
-    mySteps.length === 0 && getSteps();
+    mySteps.length === 0 && setStepsCopy([...steps]);
   };
 
   const validateTrip = () => {
@@ -75,32 +177,50 @@ function Steps() {
     // window.location.href(Routing.generate('route'));
   };
 
-  const filterStepsByReference = (step, list) => {
-    let reference = step.reference.split('-');
-    let filteredSteps = list.filter(step => {
-      return step.reference.split('-')[0] === reference[0] && step.reference.split('-')[1] === reference[1];
-    });
-    return filteredSteps;
+  const filterStepsByDestination = (content) => {
+    let newFilters = [...filters];
+    newFilters[0].name = content;
+    setFilters(newFilters);
   };
 
-  const filterStepsByDestination = (destination) => {
-    setSteps(steps.filter(step => step.destination === destination));
+  const filterStepsByTheme = (content) => {
+    let newFilters = [...filters];
+    newFilters[1].name = content;
+    setFilters(newFilters);
   };
 
-  const filterStepsByStyle = (style) => {
-    setSteps(steps.filter(step => step.styles[0].style === style));
+  const filterStepsByStyle = (content) => {
+    let newFilters = [...filters];
+    newFilters[2].name = content;
+    setFilters(newFilters);
   };
+
+  const filterStepsBySize = (content) => {
+    let newFilters = [...filters];
+    newFilters[3].name = content;
+    setFilters(newFilters);
+  };
+
+  // const filterStepsByReference = (step, list) => {
+  //   let reference = step.reference.split('-');
+  //   let filteredSteps = list.filter(step => {
+  //     return step.reference.split('-')[0] === reference[0] && step.reference.split('-')[1] === reference[1];
+  //   });
+  //   return filteredSteps;
+  // };
 
   return (
     <Fragment>
       <div className="Filters">
         <Select placeholder="Destination" options={destinationOptions} onChange={(e, { value }) => filterStepsByDestination(value)} />
+        <Select placeholder="Theme" options={themeOptions} onChange={(e, { value }) => filterStepsByTheme(value)} />
         <Select placeholder="Style" options={styleOptions} onChange={(e, { value }) => filterStepsByStyle(value)} />
+        <Select placeholder="Taille du groupe" options={sizeOptions} onChange={(e, { value }) => filterStepsBySize(value)} />
       </div>
       <div className="Steps">
         <Card.Group centered>
           {
-            steps.map((step, index) => {
+            filterResult.map((step, index) => {
               return (
                 <Card key={index} color="green" onClick={() => addStep(index)}>
                   <Card.Content>
