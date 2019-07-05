@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Stage{% endblock %}
+{% block stylesheet %}
+{{ encore_entry_link_tags('crudStage') }}
+{% endblock %}
+
+{% block body %}
+    <h1 id="padding-for-navbar">Create new Stage</h1>
+
+    {{ include('stage/_form.html.twig') }}
+
+    <a href="{{ path('stage_index') }}">back to list</a>
+{% endblock %}
