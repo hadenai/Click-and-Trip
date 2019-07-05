@@ -21,7 +21,8 @@ class StageController extends AbstractController
     public function index(StageRepository $stageRepository): Response
     {
         return $this->render('stage/index.html.twig', [
-            'stages' => $stageRepository->findBy(['agency'=>$this->getUser()]),
+            // 'stages' => $stageRepository->findBy(['agency'=>$this->getUser()]),
+            'stages' => $stageRepository->findAll(),
         ]);
     }
 
