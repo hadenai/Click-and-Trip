@@ -7,16 +7,18 @@ const routes = require('../../../../public/js/fos_js_routes.json');
 Routing.setRoutingData(routes);
 
 // COMPONENTS
-import Steps from './components/Steps/Steps';
+import Messages from './components/Messages/Messages';
 
 // CSS
 import 'semantic-ui-css/semantic.min.css';
 import './Mailbox.css'
 
 function Mailbox() {
+  const id=document.getElementById('root').getAttribute('user-id');
+  const type=document.getElementById('root').getAttribute('user-type');
   return (
     <div className="Mailbox">
-      <Steps />
+      <Messages userId={id} userType={type} />
     </div>
   );
 }

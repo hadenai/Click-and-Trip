@@ -2,6 +2,6 @@
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 15vw 85vw;
-    grid-template-areas: "conversation messages";
+    grid-template-areas: "conversations messages";
     /* margin-top: 65px; */
   }

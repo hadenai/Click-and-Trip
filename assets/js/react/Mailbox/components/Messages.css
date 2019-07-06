@@ -1,0 +1,21 @@
+.Conversations {
+    grid-area: conversations;
+    background-color: #f6f6f6;
+    padding: 20px;
+    height: 100vh;
+    width: 100%;
+    overflow: scroll;
+}
+
+.Messages {
+    grid-area: messages;
+    position: relative;
+    padding: 20px;
+    height: 100vh;
+    width: 100%;
+    overflow: scroll;
+}
+
+.validateButton {
+    margin-bottom: 20px !important;
+}
