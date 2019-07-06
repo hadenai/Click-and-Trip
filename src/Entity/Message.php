@@ -48,6 +48,7 @@ class Message
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("apiMessage")
      */
     private $client;
 

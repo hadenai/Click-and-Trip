@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
@@ -17,6 +18,7 @@ class Client implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("apiMessage")
      */
     private $id;
 
@@ -53,6 +55,7 @@ class Client implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("apiMessage")
      */
     private $surname;
 

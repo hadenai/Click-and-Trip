@@ -28,7 +28,7 @@ class AgencyFixtures extends Fixture
                    ->setFlagship($faker->sentence(10))
                    ->setPresentation($faker->sentence(25))
                     ->setEmail($faker->freeEmail())
-                    ->setPassword($faker->password())
+                    ->setPassword('agencemdp')
                     ->setRoles(['ROLE_AGENCY'])
                     ->setMobile($faker->phoneNumber());
             $manager->persist($agency);

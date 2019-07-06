@@ -34,7 +34,7 @@ class ApiController extends AbstractController
 
     /**
      * @Route(
-     *   "/api/{user}/{id}",
+     *   "/api/messages/{user}/{id}",
      *   name="api_messages",
      *   options = {
      *     "expose" = true
@@ -52,7 +52,7 @@ class ApiController extends AbstractController
                 $messages=$clientRepo->findBy(['id'=>$id])[0]->getMessages();
                 break;
             case 'agence':
-                $messages=$agencyRepo->findBy(['id'=>$id]);
+                $messages=$agencyRepo->findBy(['id'=>$id])[0]->getMessages();
                 break;
             default:
                 throw new HttpException(404, "Adresse introuvable...");
