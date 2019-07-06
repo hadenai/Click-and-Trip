@@ -19,7 +19,11 @@ function Messages(props) {
   }
 
   useEffect(() => {
+    console.log('before axios');
     getMessages();
+    console.log('after axios');
+    console.log('messages ? :',Messages);
+    console.log('conv ? :',Conv);
   }, []);
 
   const getMessages = async () => {
