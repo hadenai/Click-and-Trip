@@ -1,0 +1,8 @@
+.Mailbox {
+    display: grid;
+    grid-template-rows: 1fr 9fr;
+    grid-template-columns: 15vw 85vw;
+    grid-template-areas: "filters filters"
+                          "steps mysteps";
+    margin-top: 65px;
+  }

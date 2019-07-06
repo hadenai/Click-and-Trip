@@ -29,14 +29,7 @@ function Steps() {
   const [filterResult, setFilterResult] = useState([]);
 
   useEffect(() => {
-<<<<<<< HEAD
-    fetch(Routing.generate('api_stages'))
-      .then(res => res.json())
-      .then(data => setSteps(data))
-      .then(() => console.log('data fetched.'));
-=======
     getSteps();
->>>>>>> a22f662144e0dec71057cfa8092f0660e5ab34e8
   }, []);
 
   useEffect(() => {
