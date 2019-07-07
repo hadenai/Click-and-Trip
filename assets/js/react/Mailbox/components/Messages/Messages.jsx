@@ -26,7 +26,8 @@ function Messages(props) {
     let response = await axios.get(Routing.generate('api_messages', {'user': props.userType , 'id': props.userId }));
     // let response = await axios.get('http://127.0.0.1:8000/api/messages/client/40');
     setMessages(response.data);
-    setConv(messages.map(e => e.noUserType).filter(onlyUnique));
+    // setConv(messages.map(e => e.noUserType).filter(onlyUnique));
+    setConv(messages.map(e => e.noUserType));
   };
 
   function onlyUnique(value, index, self) { 
@@ -35,6 +36,7 @@ function Messages(props) {
 
   return (
       <div className="conversation">
+        <button onClick={()=> console.log({messages})}></button>
         <List selection verticalAlign='middle'>
           {/* { conv.map((e) => { */
            messages.map((e) => {
@@ -42,7 +44,8 @@ function Messages(props) {
                 <List.Item>
                   <Image avatar src='http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Cool-Sunglasses-icon.png' />
                   <List.Content>
-                    <List.Header>{e.id}: {e.company}</List.Header>
+                    {/* <List.Header>{e.id}: {e.company}</List.Header> */}
+                    <List.Header>agency: {e.agency.company}</List.Header>
                   </List.Content>
                 </List.Item>
               );
