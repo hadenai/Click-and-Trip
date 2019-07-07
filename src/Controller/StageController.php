@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Doctrine\Common\Annotations\DocLexer;
 
 /**
  * @Route("/etapes")
@@ -83,5 +85,15 @@ class StageController extends AbstractController
             $entityManager->flush();
         }
         return $this->redirectToRoute('stage_index');
+    }
+
+    /**
+     * @Route("/{nameStage}", name="stage_detail")
+     */
+    public function stageDetail(Stage $stage)
+    {
+        return $this->render('stage/details.html.twig', [
+            'stage' => $stage,
+        ]);
     }
 }
