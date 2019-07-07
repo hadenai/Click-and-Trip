@@ -19,18 +19,14 @@ function Messages(props) {
   }
 
   useEffect(() => {
-    console.log('before axios');
     getMessages();
-    console.log('after axios');
-    console.log('messages ? :', messages);
-    // console.log('conv ? :',conv);
   }, []);
 
   const getMessages = async () => {
     let response = await axios.get(Routing.generate('api_messages', {'user': props.userType , 'id': props.userId }));
     // let response = await axios.get('http://127.0.0.1:8000/api/messages/client/40');
     setMessages(response.data);
-    // setConv(messages.map(e => e.noUserType).filter(onlyUnique));
+    setConv(messages.map(e => e.noUserType).filter(onlyUnique));
   };
 
   function onlyUnique(value, index, self) { 
@@ -40,7 +36,8 @@ function Messages(props) {
   return (
       <div className="conversation">
         <List selection verticalAlign='middle'>
-          { conv.map((e) => {
+          {/* { conv.map((e) => { */
+           messages.map((e) => {
               return (
                 <List.Item>
                   <Image avatar src='http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Cool-Sunglasses-icon.png' />
