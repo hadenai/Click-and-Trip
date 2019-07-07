@@ -48,7 +48,7 @@ class ProfilController extends AbstractController
         $user=$this->getUser();
         return $this->render('mailbox/listmessages.html.twig', [
             'id' => $user->getId(),
-            'type' => strtolower(get_class($user))
+            'type' => strtolower(explode("\\", get_class($user))[2])
         ]);
     }
 }

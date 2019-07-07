@@ -10,9 +10,9 @@ import './Messages.css';
 
 function Messages(props) {
   const [messages, setMessages] = useState([]);
-  const [Conv, setConv] = useState([]);
+  const [conv, setConv] = useState([]);
 
-  if(props.userType=='client'){
+  if(props.userType=="client"){
     const noUserType='agency'
   } else {
     const noUserType='client'
@@ -22,14 +22,15 @@ function Messages(props) {
     console.log('before axios');
     getMessages();
     console.log('after axios');
-    console.log('messages ? :',Messages);
-    console.log('conv ? :',Conv);
+    console.log('messages ? :', messages);
+    // console.log('conv ? :',conv);
   }, []);
 
   const getMessages = async () => {
     let response = await axios.get(Routing.generate('api_messages', {'user': props.userType , 'id': props.userId }));
+    // let response = await axios.get('http://127.0.0.1:8000/api/messages/client/40');
     setMessages(response.data);
-    setConv(messages.map(e => e.noUserType).filter(onlyUnique));
+    // setConv(messages.map(e => e.noUserType).filter(onlyUnique));
   };
 
   function onlyUnique(value, index, self) { 
@@ -39,7 +40,7 @@ function Messages(props) {
   return (
       <div className="conversation">
         <List selection verticalAlign='middle'>
-          { Conv.map((e) => {
+          { conv.map((e) => {
               return (
                 <List.Item>
                   <Image avatar src='http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Cool-Sunglasses-icon.png' />
