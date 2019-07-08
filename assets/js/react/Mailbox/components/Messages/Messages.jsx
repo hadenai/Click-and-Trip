@@ -1,9 +1,10 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
+import _ from 'underscore';
 import Routing from '../../../../../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
 // COMPONENTS
-import { Button, Image, List } from 'semantic-ui-react';
+import { Button, Image, List, Message } from 'semantic-ui-react';
 
 // CSS
 import './Messages.css';
@@ -27,7 +28,7 @@ function Messages(props) {
     // let response = await axios.get('http://127.0.0.1:8000/api/messages/client/40');
     setMessages(response.data);
     // setConv(messages.map(e => e.noUserType).filter(onlyUnique));
-    setConv(messages.map(e => e.noUserType));
+    setConv(_.uniq(response.data.map((e) => e.agency), obj => obj.id));
   };
 
   function onlyUnique(value, index, self) { 
@@ -36,16 +37,20 @@ function Messages(props) {
 
   return (
       <div className="conversation">
-        <button onClick={()=> console.log({messages})}></button>
+        <button onClick={()=> console.log({messages, conv})}></button>
         <List selection verticalAlign='middle'>
-          {/* { conv.map((e) => { */
-           messages.map((e) => {
+          <List.Item>
+            <Image avatar src='http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Cool-Sunglasses-icon.png' />
+            <List.Content>
+              <List.Header>admin</List.Header>
+            </List.Content>
+          </List.Item>
+          { conv.map((e) => {
               return (
                 <List.Item>
                   <Image avatar src='http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Cool-Sunglasses-icon.png' />
                   <List.Content>
-                    {/* <List.Header>{e.id}: {e.company}</List.Header> */}
-                    <List.Header>agency: {e.agency.company}</List.Header>
+                    <List.Header>agency: {e.company}</List.Header>
                   </List.Content>
                 </List.Item>
               );
@@ -53,7 +58,15 @@ function Messages(props) {
           }
         </List>
       </div>
-      // <div className="Messages"></div>
+      <div className="Messages">
+        <Message>
+          <Message.Header>Changes in Service</Message.Header>
+          <p>
+            We updated our privacy policy here to better service our customers. We recommend reviewing the
+            changes.
+          </p>
+        </Message>
+      </div>
   )
 }
 
