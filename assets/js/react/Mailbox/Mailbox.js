@@ -17,13 +17,12 @@ function Mailbox() {
   const id=document.getElementById('root').getAttribute('user-id');
   const type=document.getElementById('root').getAttribute('user-type');
 
-  console.log('id :', id);
-  console.log('type :', type);
   return (
     <div className="Mailbox">
       <Messages userId={id} userType={type} />
     </div>
   );
 }
+
 
 ReactDOM.render(<Mailbox />, document.getElementById('root'));

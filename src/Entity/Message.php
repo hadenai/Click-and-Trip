@@ -52,6 +52,12 @@ class Message
      */
     private $client;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * @Groups("apiMessage")
+     */
+    private $admin=false;
+
     public function __construct()
     {
         $this->agency = new ArrayCollection();
@@ -119,6 +125,18 @@ class Message
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getAdmin(): ?bool
+    {
+        return $this->admin;
+    }
+
+    public function setAdmin(bool $admin): self
+    {
+        $this->admin = $admin;
 
         return $this;
     }

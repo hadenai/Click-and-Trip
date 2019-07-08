@@ -1,6 +1,6 @@
 if(document.getElementById("padding-for-navbar")){
     document.getElementsByTagName("nav")[0].className = "nav container affix";
-    document.getElementById("padding-for-navbar").style.paddingTop="85px";
+    document.getElementById("padding-for-navbar").style.paddingTop="65px";
 } else {
     window.onscroll = () => {
         if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {

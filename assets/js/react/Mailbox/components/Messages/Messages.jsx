@@ -4,53 +4,67 @@ import _ from 'underscore';
 import Routing from '../../../../../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
 // COMPONENTS
-import { Button, Image, List, Message } from 'semantic-ui-react';
+import { Form, Image, List, Message } from 'semantic-ui-react';
 
 // CSS
 import './Messages.css';
 
 function Messages(props) {
+  const [allMessages, setAllMessages] = useState([]);
+  const [convs, setConvs] = useState([]);
   const [messages, setMessages] = useState([]);
-  const [conv, setConv] = useState([]);
 
-  if(props.userType=="client"){
-    const noUserType='agency'
-  } else {
-    const noUserType='client'
-  }
+  // if(props.userType=="client"){
+  //   const noUserType='agency'
+  // } else {
+  //   const noUserType='client'
+  // }
 
   useEffect(() => {
-    getMessages();
+    getAllMessages();
+    document.getElementById('bottom').scrollIntoView({ behavior: 'smooth', block: 'end'});
   }, []);
 
-  const getMessages = async () => {
+  const getAllMessages = async () => {
     let response = await axios.get(Routing.generate('api_messages', {'user': props.userType , 'id': props.userId }));
-    // let response = await axios.get('http://127.0.0.1:8000/api/messages/client/40');
-    setMessages(response.data);
-    // setConv(messages.map(e => e.noUserType).filter(onlyUnique));
-    setConv(_.uniq(response.data.map((e) => e.agency), obj => obj.id));
+    setAllMessages(response.data.sort(function(a,b) { 
+             return new Date(a.sendAt).getTime() - new Date(b.sendAt).getTime() 
+       }));
+    setConvs(_.uniq(response.data.map((e) => e.agency), obj => obj.id));
+    setMessages(response.data.filter(e => e.admin));
   };
 
-  function onlyUnique(value, index, self) { 
-      return self.indexOf(value.id) === index;
+  const handleConv = (people) => {
+    if (people=='admin'){
+      setMessages(allMessages.filter(e => e.admin));
+    } else {
+      setMessages(allMessages.filter(e => e.agency.id==people && !e.admin))
+    }
+    document.getElementById('bottom').scrollIntoView({ behavior: 'smooth', block: 'end'});
   }
 
+  state = {}
+
+  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+
+  handleSubmit = () => this.setState({ name: '' })
+
   return (
-      <div className="conversation">
-        <button onClick={()=> console.log({messages, conv})}></button>
+    <Fragment>
+      <div className="Conversations">
         <List selection verticalAlign='middle'>
-          <List.Item>
-            <Image avatar src='http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Cool-Sunglasses-icon.png' />
+          <List.Item onClick={() => handleConv('admin')}>
+            <Image avatar src='../../../../../images/small-logo.png' />
             <List.Content>
               <List.Header>admin</List.Header>
             </List.Content>
           </List.Item>
-          { conv.map((e) => {
+          { convs.map((e) => {
               return (
-                <List.Item>
-                  <Image avatar src='http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Cool-Sunglasses-icon.png' />
+                <List.Item onClick={() => handleConv(e.id)}>
+                  <Image avatar src={e.picture} />
                   <List.Content>
-                    <List.Header>agency: {e.company}</List.Header>
+                    <List.Header>agence: {e.company}</List.Header>
                   </List.Content>
                 </List.Item>
               );
@@ -59,14 +73,22 @@ function Messages(props) {
         </List>
       </div>
       <div className="Messages">
-        <Message>
-          <Message.Header>Changes in Service</Message.Header>
-          <p>
-            We updated our privacy policy here to better service our customers. We recommend reviewing the
-            changes.
-          </p>
-        </Message>
+          { messages.map((e) => {
+              return (
+                <Message>
+                  <p>{e.content}</p>
+                  <small>{e.sendAt}</small>
+                </Message>
+          )})}
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group>
+              <Form.Input placeholder='Ecrire qqch...' name='name' value={name} onChange={this.handleChange} />
+              <Form.Button content='Submit' />
+            </Form.Group>
+          </Form>
+          <div id="bottom"></div>
       </div>
+    </Fragment>
   )
 }
 
