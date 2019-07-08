@@ -36,7 +36,7 @@ function Messages(props) {
 
   return (
       <div className="conversation">
-        <button onClick={()=> console.log({conv})}></button>
+        <button onClick={()=> console.log({messages})}></button>
         <List selection verticalAlign='middle'>
           {/* { conv.map((e) => { */
            messages.map((e) => {
