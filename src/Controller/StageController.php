@@ -88,7 +88,7 @@ class StageController extends AbstractController
     }
 
     /**
-     * @Route("/{nameStage}", name="stage_detail")
+     * @Route("/{slug}", name="stage_detail")
      */
     public function stageDetail(Stage $stage)
     {
