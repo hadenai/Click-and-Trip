@@ -24,7 +24,8 @@ function Steps() {
     { type: 'destination', name: 'Voir tout' },
     { type: 'theme', name: 'Voir tout' },
     { type: 'style', name: 'Voir tout' },
-    { type: 'size', name: 'Voir tout' }
+    { type: 'size', name: 'Voir tout' },
+    { type: 'agency', name: 'Voir tout' }
   ]);
   const [filterResult, setFilterResult] = useState([]);
 
@@ -61,8 +62,8 @@ function Steps() {
                     temp = tmp;
                     setFilterResult(temp);
                   }
-                })
-              })
+                });
+              });
               setFilterResult(temp);
             }
             break;
@@ -80,8 +81,8 @@ function Steps() {
                     temp = tmp;
                     setFilterResult(temp);
                   }
-                })
-              })
+                });
+              });
               setFilterResult(temp);
             }
             break;
@@ -99,8 +100,21 @@ function Steps() {
                     temp = tmp;
                     setFilterResult(temp);
                   }
-                })
+                });
+              });
+              setFilterResult(temp);
+            }
+            break;
+          case 'agency':
+            if (filter.name === 'Voir tout') {
+              setFilterResult(temp);
+            } else {
+              temp = temp.filter(step => {
+                return (step.reference.split('-')[0] === filter.name.split('-')[0] && step.reference.split('-')[1] === filter.name.split('-')[1])
               })
+              .filter(step => {
+                return (step.reference !== filter.name);
+              });
               setFilterResult(temp);
             }
             break;
@@ -168,17 +182,30 @@ function Steps() {
   };
 
   const addStep = (index) => {
-    let selectedStep = filterResult.splice(index, 1)[0];
+    let newFilters = [...filters];
+    newFilters[4].name = filterResult[index].reference;
+    setFilters(newFilters);
 
-    setMySteps([...mySteps, selectedStep]);
-    // setStepsCopy(filterStepsByReference(selectedStep, stepsCopy));
+    let selectedStep = filterResult.splice(index, 1)[0];
+    let newSteps = [...mySteps, selectedStep];
+    setMySteps(newSteps);
   };
 
   const removeStep = (index) => {
     let newSteps = [...filterResult, mySteps.splice(index, 1)[0]];
-    setFilterResult(newSteps);
+    if (mySteps.length === 0) {
+      let newFilters = [...filters];
+      newFilters[4].name = 'Voir tout';
+      setFilters(newFilters);
 
-    mySteps.length === 0 && setFilterResult([...steps]);
+      if (filters[0].name === 'Voir tout' && filters[1].name === 'Voir tout' && filters[2].name === 'Voir tout' && filters[3].name === 'Voir tout') {
+        setFilterResult([...stepsCopy]);
+      } else {
+        setFilterResult(newSteps);
+      }
+    } else {
+      setFilterResult(newSteps);
+    }
   };
 
   const validateTrip = () => {
@@ -210,14 +237,6 @@ function Steps() {
     newFilters[3].name = content;
     setFilters(newFilters);
   };
-
-  // const filterStepsByReference = (step, list) => {
-  //   let reference = step.reference.split('-');
-  //   let filteredSteps = list.filter(step => {
-  //     return step.reference.split('-')[0] === reference[0] && step.reference.split('-')[1] === reference[1];
-  //   });
-  //   return filteredSteps;
-  // };
 
   return (
     <Fragment>
