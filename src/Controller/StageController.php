@@ -88,7 +88,8 @@ class StageController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="stage_detail")
+     * @ParamConverter("stage", class="App\Entity\Stage", options={"mapping":{"destination":"destination"}} )
+     * @Route("/{destination}/{slug}", name="stage_detail")
      */
     public function stageDetail(Stage $stage)
     {
