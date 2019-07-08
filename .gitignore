@@ -37,3 +37,6 @@ yarn-error.log
 ### VSC plugins stuff
 /test Session.sql
 /myDB-nate Session.sql
+
+## semantic json create w/ npm or yarn install
+/semantic.json
