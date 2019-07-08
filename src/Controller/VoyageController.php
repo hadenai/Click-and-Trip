@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Agency;
+use App\Entity\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +17,7 @@ class VoyageController extends AbstractController
     {
         return $this->render('homepage/index.html.twig');
     }
+
 
     /**
      * @Route("/monvoyage/planner", name="planner")

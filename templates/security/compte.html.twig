@@ -1,4 +1,3 @@
-{% extends 'base.html.twig' %}
 
 {% block title %}Compte{% endblock %}
 
@@ -15,7 +14,7 @@
         {{ form_row(clientForm.name, {'label': 'Nom ', 'attr' :{'placeholder':"Entrez votre Nom de famille... " }}) }}
         {{ form_row(clientForm.surname, {'label': 'Prénom', 'attr' :{'placeholder':"Entrez votre Prénom... " }}) }}
         {{ form_row(clientForm.email, {'label': 'Email','attr' :{'placeholder':"Entrez votre email..." }}) }}
-        {{ form_row(clientForm.password, {'label': 'Mot de passe','attr' :{'placeholder':"Entrez votre mot de passe..." }}) }}
+        {{ form_row(clientForm.password, {'label': 'Mot de passe','attr' :{'placeholder':"mot de passe minimun 8 caractères..." }}) }}
         {{ form_row(clientForm.confirm_password, {'label': 'Confirmation du mot de passe','attr' :{'placeholder':"Confirmez votre mot de passe" }}) }}
         {{ form_row(clientForm.dateOfBirth, {'label': 'date de naissance','attr' :{'placeholder':"Entrez votre date de naissance..." }}) }}
 
