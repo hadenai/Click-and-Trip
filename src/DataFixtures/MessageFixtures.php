@@ -31,7 +31,7 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
                     ->setHistories($history)
                     ->setClient($this->getReference('client_'.rand(1, 4)))
                     ->setAgency($history->getAgency());
-            if($i%10==0){
+            if ($i%10==0) {
                 $message->setAdmin(true);
             };
             $manager->persist($message);
