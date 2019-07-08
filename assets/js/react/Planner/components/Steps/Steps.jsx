@@ -57,6 +57,9 @@ function Steps() {
                   if (filter.name === theme.theme) {
                     tmp = [...tmp, step];
                     temp = tmp;
+                  } else if (filter.name !== theme.theme) {
+                    temp = tmp;
+                    setFilterResult(temp);
                   }
                 })
               })
@@ -73,6 +76,9 @@ function Steps() {
                   if (filter.name === style.style) {
                     tmp = [...tmp, step];
                     temp = tmp;
+                  } else if (filter.name !== style.style) {
+                    temp = tmp;
+                    setFilterResult(temp);
                   }
                 })
               })
@@ -89,6 +95,9 @@ function Steps() {
                   if (filter.name === size.people) {
                     tmp = [...tmp, step];
                     temp = tmp;
+                  } else if (filter.name !== size.people) {
+                    temp = tmp;
+                    setFilterResult(temp);
                   }
                 })
               })
@@ -159,21 +168,22 @@ function Steps() {
   };
 
   const addStep = (index) => {
-    let selectedStep = stepsCopy.splice(index, 1)[0];
+    let selectedStep = filterResult.splice(index, 1)[0];
 
     setMySteps([...mySteps, selectedStep]);
     // setStepsCopy(filterStepsByReference(selectedStep, stepsCopy));
   };
 
   const removeStep = (index) => {
-    let newSteps = [...stepsCopy, mySteps.splice(index, 1)[0]];
-    setStepsCopy(newSteps);
+    let newSteps = [...filterResult, mySteps.splice(index, 1)[0]];
+    setFilterResult(newSteps);
 
-    mySteps.length === 0 && setStepsCopy([...steps]);
+    mySteps.length === 0 && setFilterResult([...steps]);
   };
 
   const validateTrip = () => {
-    axios.post(Routing.generate('details'), JSON.stringify(mySteps));
+    console.table(mySteps);
+    // axios.post(Routing.generate('details'), JSON.stringify(mySteps));
     // window.location.href(Routing.generate('route'));
   };
 
