@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Stage;
 use App\Entity\Agency;
 use App\Entity\History;
 use App\Entity\Message;
 use App\Repository\PriceRepository;
+use App\Repository\AgencyRepository;
+use App\Repository\ClientRepository;
 use App\Repository\HistoryRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +20,10 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/profil", name="profil_")
+ * @Route("/profil", name="profil_",
+ * options = {
+ *      "expose" = true
+ *     })
  */
 class ProfilController extends AbstractController
 {
@@ -54,27 +61,39 @@ class ProfilController extends AbstractController
     }
 
     /**
-     * @Route("/messagerie/nouveau", name="send_message")
+     * @Route("/messagerie/nouveau", name="send_message", methods={"POST"},
      * options = {
      *      "expose" = true
-     *     }
+     *     })
      */
-    public function newMessage(ObjectManager $manager, HistoryRepository $historyRepo)
-    {
-
-        // $from,
-        // $to,
-        // $content,
-        // $admin,
-        // $idHistory
-
-        // $message= new Message();
-        // $history=$historyRepo->findOneBy(['id'=> $idHistory]);
-        // $date=date('Y-m-d H:i:s');
-        // $message->setContent($content)
-        //             ->setSendAt($date)
-        //             ->setHistories($history)
-        //             ->setClient()
-        //             ->setAgency();
+    public function newMessage(
+        Request $request,
+        ObjectManager $manager,
+        HistoryRepository $historyRepo,
+        ClientRepository $clientRepo,
+        AgencyRepository $agencyRepo
+    ) : Response {
+        $json = json_decode($request->getContent());
+        $message= new Message();
+        $message->setHistories($historyRepo->findOneBy(['id' => $json->idHistory]))
+                ->setAdmin($json->adminBool)
+                ->setSendAt(new DateTime(date("Y-m-d H:i:s")))
+                ->setContent($json->content);
+        $to=[$json->to->type, $json->to->id];
+        $from=[$json->from->type, $json->from->id];
+        if ($from[0]=='agency') {
+            $message->setSender('agency')
+                    ->setReceiver('client')
+                    ->setAgency($agencyRepo->findOneBy(['id' => $from[1]]))
+                    ->setClient($clientRepo->findOneBy(['id' => $to[1]]));
+        } else {
+            $message->setSender('client')
+                    ->setReceiver('agency')
+                    ->setClient($clientRepo->findOneBy(['id' => $from[1]]))
+                    ->setAgency($agencyRepo->findOneBy(['id' => $to[1]]));
+        }
+        $manager->persist($message);
+        $manager->flush();
+        return $this->json([], 200);
     }
 }

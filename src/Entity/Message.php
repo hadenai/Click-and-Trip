@@ -58,6 +58,16 @@ class Message
      */
     private $admin=false;
 
+    /**
+     * @ORM\Column(type="string", length=15)
+     */
+    private $sender;
+
+    /**
+     * @ORM\Column(type="string", length=15)
+     */
+    private $receiver;
+
     public function __construct()
     {
         $this->agency = new ArrayCollection();
@@ -137,6 +147,30 @@ class Message
     public function setAdmin(bool $admin): self
     {
         $this->admin = $admin;
+
+        return $this;
+    }
+
+    public function getSender(): ?string
+    {
+        return $this->sender;
+    }
+
+    public function setSender(string $sender): self
+    {
+        $this->sender = $sender;
+
+        return $this;
+    }
+
+    public function getReceiver(): ?string
+    {
+        return $this->receiver;
+    }
+
+    public function setReceiver(string $receiver): self
+    {
+        $this->receiver = $receiver;
 
         return $this;
     }

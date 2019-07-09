@@ -13,7 +13,7 @@ function Messages(props) {
   const [allMessages, setAllMessages] = useState([]);
   const [convs, setConvs] = useState([]);
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('Ecrire un message');
+  const [input, setInput] = useState('');
 
   // if(props.userType=="client"){
   //   const noUserType='agency'
@@ -35,11 +35,11 @@ function Messages(props) {
     setMessages(response.data.filter(e => e.admin));
   };
 
-  const handleConv = (people) => {
-    if (people=='admin'){
+  const handleConv = (check) => {
+    if (check=='admin'){
       setMessages(allMessages.filter(e => e.admin));
     } else {
-      setMessages(allMessages.filter(e => e.agency.id==people && !e.admin))
+      setMessages(allMessages.filter(e => e.agency.id==check && !e.admin))
     }
     document.getElementById('bottom').scrollIntoView({ behavior: 'auto', block: 'end'});
     // document.getElementById(`conv-${people}`).click();
@@ -48,27 +48,20 @@ function Messages(props) {
   const handleChange = (event) => { setInput(event.target.value)}
 
   const handleSubmit = () => {
+    let info={};
     if(props.userType=='client'){
-      let info={
-        from:messages[0].client,
-        to:messages[0].agency,
-        content:input,
-        adminBool:messages[0].admin,
-        History:messages[0].histories
-      };
+        info.from= {id: messages[0].client.id, type: 'client'};
+        info.to= {id: messages[0].agency.id, type: 'agency'};
     } else {
-      let info={
-        from:messages[0].agency,
-        to:messages[0].client,
-        content:input,
-        adminBool:messages[0].admin,
-        History:messages[0].histories
-      };
+        info.from= {id: messages[0].agency.id, type: 'agency'};
+        info.to= {id: messages[0].client.id, type: 'client'};
     }
+    info.content= input;
+    info.adminBool= messages[0].admin;
+    info.idHistory= messages[0].histories.id;
 
-    axios.post(Routing.generate('new_message'), JSON.stringify(info))
-         .then(() => getAllMessages());
-    setInput('Ecrire un message');
+    axios.post(Routing.generate('profil_send_message'), info);
+    // setInput('');
   }
 
   return (
@@ -106,9 +99,9 @@ function Messages(props) {
             <div id="bottom"></div>
           </div>
           <div className="write-send">
-            <Form onSubmit={() => handleSubmit()}>
+            <Form onSubmit={() => {if(input!=''){handleSubmit()}}}>
               <Form.Group>
-                <Form.Input value={input} onChange={(event) => handleChange(event)} />
+                <Form.Input placeholder='Ecrire un message' value={input} onChange={(event) => handleChange(event)} />
                 <Form.Button content='>' />
               </Form.Group>
             </Form>
