@@ -29,7 +29,7 @@ class Price
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $price;
 

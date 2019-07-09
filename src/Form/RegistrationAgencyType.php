@@ -23,6 +23,7 @@ class RegistrationAgencyType extends AbstractType
             ->add('company')
             ->add('nameAgent')
             ->add('surnameAgent')
+            ->add('mobile')
         ;
     }
 
