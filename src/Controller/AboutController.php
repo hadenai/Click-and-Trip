@@ -49,4 +49,12 @@ class AboutController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @Route("/devenir-partenaire")
+     */
+    public function bePartner()
+    {
+        return $this->render("about/bePartner.html.twig");
+    }
 }
