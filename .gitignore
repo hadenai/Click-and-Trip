@@ -37,3 +37,5 @@ yarn-error.log
 ### VSC plugins stuff
 /test Session.sql
 /myDB-nate Session.sql
+
+/semantic/
