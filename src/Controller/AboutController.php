@@ -57,4 +57,12 @@ class AboutController extends AbstractController
     {
         return $this->render('inspiration.html.twig');
     }
+
+    /**
+     * @Route("/faq", name="faq")
+     */
+    public function faq()
+    {
+        return $this->render('faq.html.twig');
+    }
 }
