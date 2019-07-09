@@ -33,17 +33,13 @@ class SecurityController extends AbstractController
     ): Response {
         $client = new Client();
         $agency = new Agency();
-
         $clientForm = $this->createForm(RegistrationClientType::class, $client);
         $clientForm->handleRequest($request);
-
         $agencyForm = $this->createForm(RegistrationAgencyType::class, $agency);
         $agencyForm->handleRequest($request);
-
         if ($clientForm->isSubmitted() && $clientForm->isValid()) {
             $hash = $encoder->encodePassword($client, $client->getPassword());
             $client->setPassword($hash);
-
             $manager->persist($client);
             $manager->flush();
             return $guardHandler->authenticateUserAndHandleSuccess(
@@ -56,7 +52,6 @@ class SecurityController extends AbstractController
         if ($agencyForm->isSubmitted() && $agencyForm->isValid()) {
             $hash = $encoder->encodePassword($agency, $agency->getPassword());
             $agency->setPassword($hash);
-
             $manager->persist($agency);
             $manager->flush();
             return $guardHandler->authenticateUserAndHandleSuccess(
@@ -71,7 +66,6 @@ class SecurityController extends AbstractController
             'clientForm' => $clientForm->createView(),
         ]);
     }
-
     /**
      * @route("/connexion", name="connexion")
      */
@@ -81,13 +75,11 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
         return $this->render(
             'security/login.html.twig',
             ['last_username' => $lastUsername, 'error' => $error]
         );
     }
-
     /**
      * @route("/deconnexion", name="deconnexion")
      */

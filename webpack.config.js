@@ -5,7 +5,7 @@ Encore
     .setOutputPath('public/build/')
     .copyFiles({
         from: './assets/images',
-        to: 'images/[path][name].[ext]',
+        to: 'images/[name].[ext]',
     })
     // public path used by the web server to access the output path
     .setPublicPath('/build')
@@ -16,7 +16,8 @@ Encore
      * ENTRY CONFIG
      *
      * Add 1 entry for each "page" of your app
-     * (including one that's included on every page - e.g. "app")
+     * (including one that's included on every page - e.g. "app    .addEntry('inspiration', './assets/scss/inspiration.js')
+")
      *
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
@@ -26,8 +27,8 @@ Encore
     .addEntry('planner', './assets/js/react/Planner/Planner.js')
     .addEntry('formRegistration', './assets/js/formRegistration.js')
     .addEntry('homepage', './assets/scss/homepage.scss')
-    //.addEntry('page1', './assets/js/page1.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .addEntry("travelerDetailForm", "./assets/scss/travelerDetailForm.scss")
+    .addEntry('inspiration', './assets/scss/inspiration.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

@@ -57,7 +57,7 @@ class Client implements UserInterface
     private $surname;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateOfBirth;
 
@@ -72,13 +72,19 @@ class Client implements UserInterface
     private $histories;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="Client")
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $message;
+    private $deleted=false;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="client", orphanRemoval=true)
+     */
+    private $messages;
 
     public function __construct()
     {
         $this->histories = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -99,23 +105,14 @@ class Client implements UserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUsername(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -128,9 +125,6 @@ class Client implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getPassword(): string
     {
         return (string) $this->password;
@@ -143,21 +137,12 @@ class Client implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getSalt()
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getMobile(): ?string
@@ -249,14 +234,50 @@ class Client implements UserInterface
         return $this;
     }
 
-    public function getMessage(): ?Message
+    public function getDeleted(): ?bool
     {
-        return $this->message;
+        return $this->deleted;
     }
 
-    public function setMessage(?Message $message): self
+    public function setDeleted(bool $deleted): self
     {
-        $this->message = $message;
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name.' '.$this->surname;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getClient() === $this) {
+                $message->setClient(null);
+            }
+        }
 
         return $this;
     }

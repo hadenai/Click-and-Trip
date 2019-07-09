@@ -1,11 +1,9 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Client;
 use App\Form\AccountAgencyType;
 use App\Form\AccountClientType;
 use App\Repository\ClientRepository;
-use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +30,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/historique", name="history", methods={"GET"})
      */
-    public function adminHistoryView(HistoryRepository $historyRepository, UserRepository $userRepository): Response
+    public function adminHistoryView(HistoryRepository $historyRepository): Response
     {
         return $this->render('profile/history.html.twig', [
             'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),

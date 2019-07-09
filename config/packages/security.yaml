@@ -4,6 +4,7 @@ security:
             algorithm: argon2i
         App\Entity\Agency:
             algorithm: argon2i
+        Symfony\Component\Security\Core\User\User: plaintext
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -14,7 +15,7 @@ security:
         in_memory:
             memory:
                 users:
-                    admin: {password: adminmdp}
+                    admin: {password: adminmdp, roles: ['ROLE_ADMIN']}
         client_provider:
             entity:
                 class: App\Entity\Client
@@ -43,8 +44,8 @@ security:
         #         path: compte_deconnexion
         #         target: /
 
-        client_secured_domain:
-            provider: client_provider
+        main:
+            provider: chain_provider
             anonymous: true
             guard:
                 authenticators:
@@ -64,21 +65,21 @@ security:
             #     lifetime: 604800 # 1 week in seconds
             #     path:     /
 
-        agency_secured_domain:
-            provider: agency_provider
-            anonymous: true
-            guard:
-                authenticators:
-                    - App\Security\LoginFormAuthenticator
-            # user_checker: App\Security\UserChecker
+        # agency_secured_domain:
+        #     provider: agency_provider
+        #     anonymous: true
+        #     guard:
+        #         authenticators:
+        #             - App\Security\LoginFormAuthenticator
+        #     # user_checker: App\Security\UserChecker
 
-            form_login:
-                login_path: compte_connexion
-                check_path: compte_connexion
+        #     form_login:
+        #         login_path: compte_connexion
+        #         check_path: compte_connexion
 
-            logout:
-                path:   compte_deconnexion
-                target: /
+        #     logout:
+        #         path:   compte_deconnexion
+        #         target: /
 
             # activate different ways to authenticate
 
