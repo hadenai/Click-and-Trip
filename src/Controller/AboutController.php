@@ -53,7 +53,8 @@ class AboutController extends AbstractController
     /**
      * @Route("/services-associe")
      */
-    public function affiliateService(){
+    public function affiliateService()
+    {
         return $this->render('about/affiliateService.html.twig');
     }
 }
