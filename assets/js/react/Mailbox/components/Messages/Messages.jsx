@@ -20,11 +20,6 @@ function Messages(props) {
     document.getElementById('bottom').scrollIntoView({ behavior: 'smooth', block: 'end'});
   }, []);
 
-  useEffect(() => {
-    setConvs(_.uniq(response.data.map((e) => e.agency), obj => obj.id));
-    setMessages(response.data.filter(e => e.admin));
-  })
-
   const viewDown = () => {
     document.getElementById('bottom').scrollIntoView({ behavior: 'auto', block: 'end'})
   }
@@ -33,7 +28,9 @@ function Messages(props) {
     let response = await axios.get(Routing.generate('api_messages', {'user': props.userType , 'id': props.userId }));
     setAllMessages(response.data.sort(function(a,b) { 
              return new Date(a.sendAt).getTime() - new Date(b.sendAt).getTime() 
-       }));
+    }));
+    setConvs(_.uniq(response.data.map((e) => e.agency), obj => obj.id));
+    setMessages(response.data.filter(e => e.admin));
   
   };
 
@@ -73,10 +70,8 @@ function Messages(props) {
           //  document.getElementById(`conv-${people}`).click();
          })
          .then(() => {
-          
             if (props.userType==='client'){
               setMessages(allMessages.filter(e => e.agency.id===messages[0].agency.id && !e.admin))
-            
             } else if (props.userType==='agence'){
               setMessages(allMessages.filter(e => e.client.id===messages[0].client.id && !e.admin))
             } else {
