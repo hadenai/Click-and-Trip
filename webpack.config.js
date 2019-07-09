@@ -22,6 +22,7 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     .enableReactPreset()
+    .addEntry("commitment", "./assets/scss/commitment.scss")
     .addEntry('index', './assets/js/index.js')
     .addEntry('planner', './assets/js/react/Planner/Planner.js')
     .addEntry('formRegistration', './assets/js/formRegistration.js')
