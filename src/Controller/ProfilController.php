@@ -55,6 +55,9 @@ class ProfilController extends AbstractController
 
     /**
      * @Route("/messagerie/nouveau", name="send_message")
+     * options = {
+     *      "expose" = true
+     *     }
      */
     public function newMessage(ObjectManager $manager, HistoryRepository $historyRepo)
     {
