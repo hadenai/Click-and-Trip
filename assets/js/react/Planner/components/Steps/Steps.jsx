@@ -13,12 +13,14 @@ function Steps() {
   const [steps, setSteps] = useState([]);
   const [stepsCopy, setStepsCopy] = useState([]);
   const [mySteps, setMySteps] = useState([]);
+  const [currentStep, setCurrentStep] = useState({});
 
   const baseOptions = { key: 'Voir tout', value: 'Voir tout', text: 'Voir tout' };
   const [destinationOptions, setDestinationOptions] = useState([]);
   const [themeOptions, setThemeOptions] = useState([]);
   const [styleOptions, setStyleOptions] = useState([]);
   const [sizeOptions, setSizeOptions] = useState([]);
+  const [agencyOptions, setAgencyOptions] = useState([]);
 
   let [filters, setFilters] = useState([
     { type: 'destination', name: 'Voir tout' },
@@ -79,8 +81,8 @@ function Steps() {
                     temp = tmp;
                   } else if (filter.name !== style.style) {
                     temp = tmp;
-                    setFilterResult(temp);
                   }
+                  setFilterResult(temp);
                 });
               });
               setFilterResult(temp);
@@ -98,8 +100,8 @@ function Steps() {
                     temp = tmp;
                   } else if (filter.name !== size.people) {
                     temp = tmp;
-                    setFilterResult(temp);
                   }
+                  setFilterResult(temp);
                 });
               });
               setFilterResult(temp);
@@ -110,10 +112,9 @@ function Steps() {
               setFilterResult(temp);
             } else {
               temp = temp.filter(step => {
-                return (step.reference.split('-')[0] === filter.name.split('-')[0] && step.reference.split('-')[1] === filter.name.split('-')[1])
-              })
-              .filter(step => {
-                return (step.reference !== filter.name);
+                return filter.name === step.agency.company
+              }).filter(step => {
+                return currentStep.reference !== step.reference;
               });
               setFilterResult(temp);
             }
@@ -175,37 +176,49 @@ function Steps() {
       )
     });
 
+    let fetchedAgencyOptions = _.uniq(response.data.map(step => {
+      return step.agency.company;
+    }))
+      .map(agency => {
+        return (
+          { key: agency, value: agency, text: agency }
+        )
+      });
+
     setDestinationOptions([baseOptions, ...fetchedDestOptions]);
     setThemeOptions([baseOptions, ...fetchedThemeOptions]);
     setStyleOptions([baseOptions, ...fetchedStyleOptions]);
     setSizeOptions([baseOptions, ...fetchedSizeOptions]);
+    setAgencyOptions([baseOptions, ...fetchedAgencyOptions]);
   };
 
   const addStep = (index) => {
-    let newFilters = [...filters];
-    newFilters[4].name = filterResult[index].reference;
-    setFilters(newFilters);
-
-    let selectedStep = filterResult.splice(index, 1)[0];
-    let newSteps = [...mySteps, selectedStep];
-    setMySteps(newSteps);
+    let filterResultTmp = [...filterResult];
+    let selectedStep = filterResultTmp.splice(index, 1)[0];
+    setCurrentStep(selectedStep);
+    setMySteps([...mySteps, selectedStep]);
+    setFilterResult(filterResultTmp);
+    filterSteps(4, selectedStep.agency.company);
   };
 
   const removeStep = (index) => {
-    let newSteps = [...filterResult, mySteps.splice(index, 1)[0]];
-    if (mySteps.length === 0) {
-      let newFilters = [...filters];
-      newFilters[4].name = 'Voir tout';
-      setFilters(newFilters);
+    let myStepsTmp = [...mySteps];
+    let selectedStep = myStepsTmp.splice(index, 1)[0];
 
-      if (filters[0].name === 'Voir tout' && filters[1].name === 'Voir tout' && filters[2].name === 'Voir tout' && filters[3].name === 'Voir tout') {
-        setFilterResult([...stepsCopy]);
-      } else {
-        setFilterResult(newSteps);
-      }
+    if (mySteps.length === 1) {
+      filterSteps(4, 'Voir tout');
+      setMySteps(myStepsTmp);
+      setFilterResult([...filterResult, selectedStep]);
     } else {
-      setFilterResult(newSteps);
+      setMySteps(myStepsTmp);
+      setFilterResult([...filterResult, selectedStep]);
     }
+  };
+
+  const filterSteps = (id, content) => {
+    let newFilters = [...filters];
+    newFilters[id].name = content;
+    setFilters(newFilters);
   };
 
   const validateTrip = () => {
@@ -214,37 +227,14 @@ function Steps() {
     // window.location.href(Routing.generate('route'));
   };
 
-  const filterStepsByDestination = (content) => {
-    let newFilters = [...filters];
-    newFilters[0].name = content;
-    setFilters(newFilters);
-  };
-
-  const filterStepsByTheme = (content) => {
-    let newFilters = [...filters];
-    newFilters[1].name = content;
-    setFilters(newFilters);
-  };
-
-  const filterStepsByStyle = (content) => {
-    let newFilters = [...filters];
-    newFilters[2].name = content;
-    setFilters(newFilters);
-  };
-
-  const filterStepsBySize = (content) => {
-    let newFilters = [...filters];
-    newFilters[3].name = content;
-    setFilters(newFilters);
-  };
-
   return (
     <Fragment>
       <div className="Filters">
-        <Select placeholder="Destination" options={destinationOptions} onChange={(e, { value }) => filterStepsByDestination(value)} />
-        <Select placeholder="Theme" options={themeOptions} onChange={(e, { value }) => filterStepsByTheme(value)} />
-        <Select placeholder="Style" options={styleOptions} onChange={(e, { value }) => filterStepsByStyle(value)} />
-        <Select placeholder="Taille du groupe" options={sizeOptions} onChange={(e, { value }) => filterStepsBySize(value)} />
+        <Select placeholder="Destination" options={destinationOptions} onChange={(e, { value }) => filterSteps(0, value)} />
+        <Select placeholder="Theme" options={themeOptions} onChange={(e, { value }) => filterSteps(1, value)} />
+        <Select placeholder="Style" options={styleOptions} onChange={(e, { value }) => filterSteps(2, value)} />
+        <Select placeholder="Taille du groupe" options={sizeOptions} onChange={(e, { value }) => filterSteps(3, value)} />
+        <Select placeholder="Agence" options={agencyOptions} onChange={(e, { value }) => filterSteps(4, value)} />
       </div>
       <div className="Steps">
         <Card.Group centered>
