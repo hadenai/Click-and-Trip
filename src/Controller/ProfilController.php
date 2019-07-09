@@ -2,17 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Stage;
 use App\Entity\Agency;
 use App\Entity\History;
-use App\Entity\Stage;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
-use App\Repository\HistoryRepository;
+use App\Entity\Message;
 use App\Repository\PriceRepository;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use App\Repository\HistoryRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/profil", name="profil_")
@@ -50,5 +51,27 @@ class ProfilController extends AbstractController
             'id' => $user->getId(),
             'type' => strtolower(explode("\\", get_class($user))[2])
         ]);
+    }
+
+    /**
+     * @Route("/messagerie/nouveau", name="send_message")
+     */
+    public function newMessage(ObjectManager $manager, HistoryRepository $historyRepo)
+    {
+
+        // $from,
+        // $to,
+        // $content,
+        // $admin,
+        // $idHistory
+
+        // $message= new Message();
+        // $history=$historyRepo->findOneBy(['id'=> $idHistory]);
+        // $date=date('Y-m-d H:i:s');
+        // $message->setContent($content)
+        //             ->setSendAt($date)
+        //             ->setHistories($history)
+        //             ->setClient()
+        //             ->setAgency();
     }
 }

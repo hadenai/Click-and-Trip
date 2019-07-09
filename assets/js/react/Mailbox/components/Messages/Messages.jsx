@@ -13,6 +13,7 @@ function Messages(props) {
   const [allMessages, setAllMessages] = useState([]);
   const [convs, setConvs] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('Ecrire un message');
 
   // if(props.userType=="client"){
   //   const noUserType='agency'
@@ -40,28 +41,49 @@ function Messages(props) {
     } else {
       setMessages(allMessages.filter(e => e.agency.id==people && !e.admin))
     }
-    document.getElementById('bottom').scrollIntoView({ behavior: 'smooth', block: 'end'});
+    document.getElementById('bottom').scrollIntoView({ behavior: 'auto', block: 'end'});
+    // document.getElementById(`conv-${people}`).click();
   }
 
-  state = {}
+  const handleChange = (event) => { setInput(event.target.value)}
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  const handleSubmit = () => {
+    if(props.userType=='client'){
+      let info={
+        from:messages[0].client,
+        to:messages[0].agency,
+        content:input,
+        adminBool:messages[0].admin,
+        History:messages[0].histories
+      };
+    } else {
+      let info={
+        from:messages[0].agency,
+        to:messages[0].client,
+        content:input,
+        adminBool:messages[0].admin,
+        History:messages[0].histories
+      };
+    }
 
-  handleSubmit = () => this.setState({ name: '' })
+    axios.post(Routing.generate('new_message'), JSON.stringify(info))
+         .then(() => getAllMessages());
+    setInput('Ecrire un message');
+  }
 
   return (
     <Fragment>
       <div className="Conversations">
         <List selection verticalAlign='middle'>
           <List.Item onClick={() => handleConv('admin')}>
-            <Image avatar src='../../../../../images/small-logo.png' />
+            <Image avatar src='../images/small-logo.png' />
             <List.Content>
               <List.Header>admin</List.Header>
             </List.Content>
           </List.Item>
           { convs.map((e) => {
               return (
-                <List.Item onClick={() => handleConv(e.id)}>
+                <List.Item id={`conv-${e.id}`} onClick={() => handleConv(e.id)}>
                   <Image avatar src={e.picture} />
                   <List.Content>
                     <List.Header>agence: {e.company}</List.Header>
@@ -73,20 +95,24 @@ function Messages(props) {
         </List>
       </div>
       <div className="Messages">
-          { messages.map((e) => {
-              return (
-                <Message>
-                  <p>{e.content}</p>
-                  <small>{e.sendAt}</small>
-                </Message>
-          )})}
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Group>
-              <Form.Input placeholder='Ecrire qqch...' name='name' value={name} onChange={this.handleChange} />
-              <Form.Button content='Submit' />
-            </Form.Group>
-          </Form>
-          <div id="bottom"></div>
+          <div className="list-messages">
+            { messages.map((e) => {
+                return (
+                  <Message>
+                    <p>{e.content}</p>
+                    <small>{e.sendAt}</small>
+                  </Message>
+            )})}
+            <div id="bottom"></div>
+          </div>
+          <div className="write-send">
+            <Form onSubmit={() => handleSubmit()}>
+              <Form.Group>
+                <Form.Input value={input} onChange={(event) => handleChange(event)} />
+                <Form.Button content='>' />
+              </Form.Group>
+            </Form>
+          </div>
       </div>
     </Fragment>
   )
