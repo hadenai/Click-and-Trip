@@ -111,11 +111,10 @@ function Steps() {
             if (filter.name === 'Voir tout') {
               setFilterResult(temp);
             } else {
-              temp = temp.filter(step => {
-                return filter.name === step.agency.company
-              }).filter(step => {
-                return currentStep.reference !== step.reference;
-              });
+              temp = _.filter(temp, step => { return step.agency.company === filter.name });
+              mySteps.forEach(myStep => {
+                temp = _.filter(temp, step => { return myStep.reference !== step.reference });
+              })
               setFilterResult(temp);
             }
             break;
