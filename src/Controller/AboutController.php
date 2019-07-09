@@ -49,4 +49,12 @@ class AboutController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @Route("/cgu")
+     */
+    public function cgu()
+    {
+        return $this->render("about/cgu.html.twig");
+    }
 }
