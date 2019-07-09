@@ -30,7 +30,6 @@ class Agency implements UserInterface
     private $email;
     /**
      * @ORM\Column(type="json")
-     * @Groups("apiMessage")
      */
     private $roles = [];
 

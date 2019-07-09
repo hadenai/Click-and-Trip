@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\StageRepository;
 use App\Repository\AgencyRepository;
 use App\Repository\ClientRepository;
+use App\Repository\MessageRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,10 +43,11 @@ class ApiController extends AbstractController
      * )
      */
     public function listMessage(
-        string $user,
-        int $id,
         ClientRepository $clientRepo,
-        AgencyRepository $agencyRepo
+        AgencyRepository $agencyRepo,
+        MessageRepository $messageRepo,
+        string $user,
+        int $id = null
     ) {
         switch ($user) {
             case 'client':
@@ -53,6 +55,9 @@ class ApiController extends AbstractController
                 break;
             case 'agence':
                 $messages=$agencyRepo->findBy(['id'=>$id])[0]->getMessages();
+                break;
+            case 'admin':
+                $messages=$messageRepo->findBy(['admin'=>true]);
                 break;
             default:
                 throw new HttpException(404, "Adresse introuvable...");

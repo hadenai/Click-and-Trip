@@ -60,11 +60,13 @@ class Message
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Groups("apiMessage")
      */
     private $sender;
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Groups("apiMessage")
      */
     private $receiver;
 

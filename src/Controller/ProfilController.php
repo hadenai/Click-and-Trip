@@ -82,13 +82,13 @@ class ProfilController extends AbstractController
         $to=[$json->to->type, $json->to->id];
         $from=[$json->from->type, $json->from->id];
         if ($from[0]=='agency') {
-            $message->setSender('agency')
+            $message->setSender('agence')
                     ->setReceiver('client')
                     ->setAgency($agencyRepo->findOneBy(['id' => $from[1]]))
                     ->setClient($clientRepo->findOneBy(['id' => $to[1]]));
         } else {
             $message->setSender('client')
-                    ->setReceiver('agency')
+                    ->setReceiver('agence')
                     ->setClient($clientRepo->findOneBy(['id' => $from[1]]))
                     ->setAgency($agencyRepo->findOneBy(['id' => $to[1]]));
         }
