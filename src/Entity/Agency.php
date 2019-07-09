@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AgencyRepository")
@@ -18,6 +20,7 @@ class Agency implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Vich\Uploadable
      */
     private $id;
 
@@ -64,9 +67,16 @@ class Agency implements UserInterface
     private $image;
 
     /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
      * @ORM\Column(type="string", length=255)
      * @Groups("apiStage")
      */
+
     private $company;
 
     /**
@@ -456,7 +466,7 @@ class Agency implements UserInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         return $this->company;
     }
