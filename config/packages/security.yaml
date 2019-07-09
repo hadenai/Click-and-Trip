@@ -14,7 +14,7 @@ security:
         in_memory:
             memory:
                 users:
-                    admin: {password: adminmdp, roles: ['ROLE_ADMIN']}
+                    admin: {password: admin, roles: ['ROLE_ADMIN']}
         client_provider:
             entity:
                 class: App\Entity\Client

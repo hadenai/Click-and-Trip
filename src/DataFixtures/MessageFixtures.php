@@ -25,7 +25,7 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 1; $i < 400; $i++) {
             $faker = Factory::create('fr_FR');
             $message = new Message();
-            $type=['client', 'agence'];
+            $type=['client', 'agency'];
             $rand=rand(0, 1);
             $history=$this->getReference("history_".strval(rand(1, 3)));
             $message->setContent($faker->sentence)

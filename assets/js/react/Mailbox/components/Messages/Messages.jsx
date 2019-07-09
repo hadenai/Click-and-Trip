@@ -29,9 +29,8 @@ function Messages(props) {
     setAllMessages(response.data.sort(function(a,b) { 
              return new Date(a.sendAt).getTime() - new Date(b.sendAt).getTime() 
     }));
-    setConvs(_.uniq(response.data.map((e) => e.agency), obj => obj.id));
+    setConvs(_.uniq(response.data.map((e) => props.userType==='client'?e.agency:e.client), obj => obj.id));
     setMessages(response.data.filter(e => e.admin));
-  
   };
 
   const handleConv = (e) => {
@@ -39,7 +38,7 @@ function Messages(props) {
       setMessages(allMessages.filter(el => el.admin));
     } else if (props.userType==='client'){
       setMessages(allMessages.filter(el => el.agency.id==e.id && !el.admin))
-    } else if (props.userType==='agence'){
+    } else if (props.userType==='agency'){
       setMessages(allMessages.filter(el => el.client.id==e.id && !el.admin))
     }
     document.getElementsByClassName('selected')[0].classList.remove('selected');
@@ -72,7 +71,7 @@ function Messages(props) {
          .then(() => {
             if (props.userType==='client'){
               setMessages(allMessages.filter(e => e.agency.id===messages[0].agency.id && !e.admin))
-            } else if (props.userType==='agence'){
+            } else if (props.userType==='agency'){
               setMessages(allMessages.filter(e => e.client.id===messages[0].client.id && !e.admin))
             } else {
               setMessages(allMessages.filter(e => e.admin));
@@ -99,7 +98,7 @@ function Messages(props) {
                 <List.Item id={`conv-${e.id}`} onClick={() => handleConv(e)}>
                   <Image avatar src={e.picture} />
                   <List.Content>
-                    <List.Header>agence: {e.company}</List.Header>
+                    <List.Header>{props.userType==='client'?"agence":"client"}: {props.userType==='client'?e.company:e.surname}</List.Header>
                   </List.Content>
                 </List.Item>
               );

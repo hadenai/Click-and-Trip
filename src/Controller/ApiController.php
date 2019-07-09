@@ -53,7 +53,7 @@ class ApiController extends AbstractController
             case 'client':
                 $messages=$clientRepo->findBy(['id'=>$id])[0]->getMessages();
                 break;
-            case 'agence':
+            case 'agency':
                 $messages=$agencyRepo->findBy(['id'=>$id])[0]->getMessages();
                 break;
             case 'admin':
