@@ -27,13 +27,13 @@ class Agency implements UserInterface
      * @Assert\Email(  message = "The email '{{ value }}' is not a valid email.")
      */
     private $email;
+
     /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
-     * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimun 8 caractères" )
      * @Assert\EqualTo
@@ -127,7 +127,7 @@ class Agency implements UserInterface
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $validate=false;
+    private $validate = false;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="agency", orphanRemoval=true)
@@ -160,23 +160,14 @@ class Agency implements UserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUsername(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -189,9 +180,6 @@ class Agency implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getPassword(): string
     {
         return (string) $this->password;
@@ -204,21 +192,12 @@ class Agency implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getSalt()
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getCountry(): ?string
@@ -327,7 +306,6 @@ class Agency implements UserInterface
     {
         if ($this->histories->contains($history)) {
             $this->histories->removeElement($history);
-            // set the owning side to null (unless already changed)
             if ($history->getAgency() === $this) {
                 $history->setAgency(null);
             }
@@ -358,7 +336,6 @@ class Agency implements UserInterface
     {
         if ($this->stages->contains($stage)) {
             $this->stages->removeElement($stage);
-            // set the owning side to null (unless already changed)
             if ($stage->getAgency() === $this) {
                 $stage->setAgency(null);
             }
@@ -437,7 +414,6 @@ class Agency implements UserInterface
     {
         if ($this->documents->contains($document)) {
             $this->documents->removeElement($document);
-            // set the owning side to null (unless already changed)
             if ($document->getAgency() === $this) {
                 $document->setAgency(null);
             }
@@ -507,7 +483,6 @@ class Agency implements UserInterface
     {
         if ($this->messages->contains($message)) {
             $this->messages->removeElement($message);
-            // set the owning side to null (unless already changed)
             if ($message->getAgency() === $this) {
                 $message->setAgency(null);
             }

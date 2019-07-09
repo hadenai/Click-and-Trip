@@ -33,8 +33,7 @@ class AgencyFixtures extends Fixture
                     ->setMobile($faker->phoneNumber());
             $manager->persist($agency);
             $this->addReference('agency_'.strval($i), $agency);
-        };
-
+        }
         $manager->flush();
     }
 }

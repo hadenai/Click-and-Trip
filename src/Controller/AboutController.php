@@ -19,18 +19,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class AboutController extends AbstractController
 {
     /**
-     * @Route("/contacte")
+     * @Route("/contact")
      */
     public function contactForm(Request $request, \Swift_Mailer $mailer)
     {
         $form = $this->createForm(ContactFormType::class);
         $form->handleRequest($request);
         $data = $form->getData();
-        dump($form->getErrors());
         if ($form->isSubmitted() && $form->isValid()) {
             $message = (new \Swift_Message('Un nouveau formulaire de contacte a été soumis.'))
-                ->setFrom('vincent.mallard5@gmail.com')
-                ->setTo('vincent.mallard5@gmail.com')
+                ->setFrom($_ENV['MAILER_CONTACT'])
+                ->setTo($_ENV['MAILER_CONTACT'])
                 ->setBody(
                     $this->renderView(
                         "contactFormMail.html.twig",
