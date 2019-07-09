@@ -16,7 +16,7 @@
         <h1 class="title">{{ stage.nameStage }}</h1>
         <div class="subProdInfo">
             <span class="price">Durée: {{ stage.duration }} Jours</span>
-            <span class="stock">{% for prices in stage %}{{stage.prices}}{% endfor %}</span>
+            <span class="stock">{% for price in stage.prices %}Prix: {{price}} €{% endfor %}</span>
 
         </div>
 
