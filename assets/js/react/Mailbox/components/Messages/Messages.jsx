@@ -15,12 +15,15 @@ function Messages(props) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
 
-  let init=true;
-
   useEffect(() => {
     getAllMessages();
     document.getElementById('bottom').scrollIntoView({ behavior: 'smooth', block: 'end'});
   }, []);
+
+  useEffect(() => {
+    setConvs(_.uniq(response.data.map((e) => e.agency), obj => obj.id));
+    setMessages(response.data.filter(e => e.admin));
+  })
 
   const viewDown = () => {
     document.getElementById('bottom').scrollIntoView({ behavior: 'auto', block: 'end'})
@@ -31,21 +34,19 @@ function Messages(props) {
     setAllMessages(response.data.sort(function(a,b) { 
              return new Date(a.sendAt).getTime() - new Date(b.sendAt).getTime() 
        }));
-    if (init){
-      setConvs(_.uniq(response.data.map((e) => e.agency), obj => obj.id));
-      setMessages(response.data.filter(e => e.admin));
-    }
+  
   };
 
-  const handleConv = (idConv) => {
-    if(init){init=false}
-    if (idConv=='admin'){
-      setMessages(allMessages.filter(e => e.admin));
-    } else {
-      setMessages(allMessages.filter(e => e.agency.id==idConv && !e.admin))
+  const handleConv = (e) => {
+    if (e=='admin'){
+      setMessages(allMessages.filter(el => el.admin));
+    } else if (props.userType==='client'){
+      setMessages(allMessages.filter(el => el.agency.id==e.id && !el.admin))
+    } else if (props.userType==='agence'){
+      setMessages(allMessages.filter(el => el.client.id==e.id && !el.admin))
     }
     document.getElementsByClassName('selected')[0].classList.remove('selected');
-    document.getElementById(`conv-${idConv}`).classList.add('selected');
+    document.getElementById(`conv-${e.id}`).classList.add('selected');
     document.getElementById('bottom').scrollIntoView({ behavior: 'auto', block: 'end'});
     // document.getElementById(`conv-${people}`).click();
   }
@@ -67,10 +68,21 @@ function Messages(props) {
 
     axios.post(Routing.generate('profil_send_message'), info)
          .then(()=> {
-           getAllMessages();
-           setInput('');
+            getAllMessages();
+            setInput('');
           //  document.getElementById(`conv-${people}`).click();
          })
+         .then(() => {
+          
+            if (props.userType==='client'){
+              setMessages(allMessages.filter(e => e.agency.id===messages[0].agency.id && !e.admin))
+            
+            } else if (props.userType==='agence'){
+              setMessages(allMessages.filter(e => e.client.id===messages[0].client.id && !e.admin))
+            } else {
+              setMessages(allMessages.filter(e => e.admin));
+            }
+        })
   }
 
   return (
@@ -79,7 +91,7 @@ function Messages(props) {
         <List selection verticalAlign='middle'>
           { 
            props.userType!=='admin' &&
-            <List.Item id="conv-0" onClick={() => handleConv('admin')}>
+            <List.Item id="conv-0" className="selected" onClick={() => handleConv('admin')}>
               <Image avatar src='../images/small-logo.png' />
               <List.Content>
                 <List.Header>admin</List.Header>
@@ -89,11 +101,10 @@ function Messages(props) {
           { 
             convs.map((e) => {
               return (
-                <List.Item id={`conv-${e.id}`} onClick={() => handleConv(e.id)}>
+                <List.Item id={`conv-${e.id}`} onClick={() => handleConv(e)}>
                   <Image avatar src={e.picture} />
                   <List.Content>
                     <List.Header>agence: {e.company}</List.Header>
-                    <button onClick={() => console.log(e)}></button>
                   </List.Content>
                 </List.Item>
               );
@@ -112,7 +123,7 @@ function Messages(props) {
             <div id="bottom"></div>
           </div>
           <div className="write-send">
-            <Form onClick={() => viewDown} onSubmit={() => {if(input!==''){handleSubmit()}}}>
+            <Form onClick={() => viewDown} onSubmit={() => {if(input!==''){ handleSubmit() }}}>
               <Form.Group>
                 <Form.Input placeholder='Ecrire un message' value={input} onChange={(event) => handleChange(event)} />
                 <Form.Button content='>' />
