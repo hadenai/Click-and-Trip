@@ -128,12 +128,12 @@ class History
     /**
      * @return Collection|Message[]
      */
-    public function getMessage(): Collection
+    public function getMessages(): Collection
     {
         return $this->messages;
     }
 
-    public function addMessage(Message $messages): self
+    public function addMessages(Message $messages): self
     {
         if (!$this->messages->contains($messages)) {
             $this->messages[] = $messages;
@@ -143,7 +143,7 @@ class History
         return $this;
     }
 
-    public function removeMessage(Message $messages): self
+    public function removeMessages(Message $messages): self
     {
         if ($this->messages->contains($messages)) {
             $this->messages->removeElement($messages);
@@ -167,7 +167,7 @@ class History
     {
         if (!$this->stages->contains($stage)) {
             $this->stages[] = $stage;
-            $stage->addHistory($this);
+            $stage->addHistories($this);
         }
 
         return $this;
@@ -177,9 +177,14 @@ class History
     {
         if ($this->stages->contains($stage)) {
             $this->stages->removeElement($stage);
-            $stage->removeHistory($this);
+            $stage->removeHistories($this);
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return strval($this->id);
     }
 }

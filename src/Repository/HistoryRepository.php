@@ -5,9 +5,9 @@ namespace App\Repository;
 use App\Entity\Agency;
 use App\Entity\Client;
 use App\Entity\History;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method History|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,7 +22,7 @@ class HistoryRepository extends ServiceEntityRepository
         parent::__construct($registry, History::class);
     }
 
-    public function findAllHistoryInfos(User $user): string
+    public function findAllHistoryInfos(UserInterface $user): string
     {
         $qb = $this->createQueryBuilder('h');
         if ($user instanceof Agency) {

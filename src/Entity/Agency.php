@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AgencyRepository")
  */
-class Agency extends User
+class Agency implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -18,6 +20,28 @@ class Agency extends User
      * @ORM\Column(type="integer")
      */
     private $id;
+
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(  message = "The email '{{ value }}' is not a valid email.")
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @ORM\Column(type="string")
+     * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimun 8 caractères" )
+     * @Assert\EqualTo
+     * (propertyPath="confirm_password", message="Votre mot de passe doit être le même que celui que vous confirmer")
+     */
+    private $password;
+
+    public $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -65,15 +89,115 @@ class Agency extends User
      */
     private $stages;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $yearCreation;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $presentation;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $flagship;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Documents", mappedBy="agency", orphanRemoval=true)
+     */
+    private $documents;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $deleted = false;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $mobile;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $validate = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="agency", orphanRemoval=true)
+     */
+    private $messages;
+
     public function __construct()
     {
         $this->histories = new ArrayCollection();
         $this->stages = new ArrayCollection();
+        $this->documents = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getSalt()
+    {
+    }
+
+    public function eraseCredentials()
+    {
     }
 
     public function getCountry(): ?string
@@ -182,7 +306,6 @@ class Agency extends User
     {
         if ($this->histories->contains($history)) {
             $this->histories->removeElement($history);
-            // set the owning side to null (unless already changed)
             if ($history->getAgency() === $this) {
                 $history->setAgency(null);
             }
@@ -213,9 +336,155 @@ class Agency extends User
     {
         if ($this->stages->contains($stage)) {
             $this->stages->removeElement($stage);
-            // set the owning side to null (unless already changed)
             if ($stage->getAgency() === $this) {
                 $stage->setAgency(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getYearCreation(): ?int
+    {
+        return $this->yearCreation;
+    }
+
+    public function setYearCreation(int $yearCreation): self
+    {
+        $this->yearCreation = $yearCreation;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPresentation(): ?string
+    {
+        return $this->presentation;
+    }
+
+    public function setPresentation(string $presentation): self
+    {
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function getFlagship(): ?string
+    {
+        return $this->flagship;
+    }
+
+    public function setFlagship(string $flagship): self
+    {
+        $this->flagship = $flagship;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Documents[]
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Documents $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setAgency($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Documents $document): self
+    {
+        if ($this->documents->contains($document)) {
+            $this->documents->removeElement($document);
+            if ($document->getAgency() === $this) {
+                $document->setAgency(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->deleted = $deleted;
+    }
+
+    public function getMobile(): ?string
+    {
+        return $this->mobile;
+    }
+
+    public function setMobile(string $mobile): self
+    {
+        $this->mobile = $mobile;
+
+        return $this;
+    }
+
+    public function getValidate(): ?bool
+    {
+        return $this->validate;
+    }
+
+    public function setValidate(bool $validate): self
+    {
+        $this->validate = $validate;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setAgency($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            if ($message->getAgency() === $this) {
+                $message->setAgency(null);
             }
         }
 

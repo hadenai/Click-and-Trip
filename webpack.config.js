@@ -5,7 +5,7 @@ Encore
     .setOutputPath('public/build/')
     .copyFiles({
         from: './assets/images',
-        to: 'images/[path][name].[ext]',
+        to: 'images/[name].[ext]',
     })
     // public path used by the web server to access the output path
     .setPublicPath('/build')
@@ -26,6 +26,7 @@ Encore
     .addEntry('planner', './assets/js/react/Planner/Planner.js')
     .addEntry('formRegistration', './assets/js/formRegistration.js')
     .addEntry('homepage', './assets/scss/homepage.scss')
+    .addEntry("travelerDetailForm", "./assets/scss/travelerDetailForm.scss")
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

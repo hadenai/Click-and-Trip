@@ -20,38 +20,38 @@ class Stage
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $validate;
+    private $validate=false;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api", "listing"})
+     * @Groups({"apiStage", "listing"})
      */
     private $destination;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $nameStage;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $duration;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Agency", inversedBy="stages")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $agency;
 
@@ -62,27 +62,32 @@ class Stage
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Theme", mappedBy="stages")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $themes;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Style", mappedBy="stages")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $styles;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Price", mappedBy="stages")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $prices;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Size", mappedBy="stages")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $sizes;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $deleted=false;
 
     public function __construct()
     {
@@ -173,12 +178,12 @@ class Stage
     /**
      * @return Collection|History[]
      */
-    public function getHistory(): Collection
+    public function getHistories(): Collection
     {
         return $this->histories;
     }
 
-    public function addHistory(History $histories): self
+    public function addHistories(History $histories): self
     {
         if (!$this->histories->contains($histories)) {
             $this->histories[] = $histories;
@@ -187,7 +192,7 @@ class Stage
         return $this;
     }
 
-    public function removeHistory(History $histories): self
+    public function removeHistories(History $histories): self
     {
         if ($this->histories->contains($histories)) {
             $this->histories->removeElement($histories);
@@ -309,5 +314,22 @@ class Stage
         }
 
         return $this;
+    }
+
+    public function getDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->deleted = $deleted;
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return strval($this->id);
+        // return $this->name.' '.$this->surname;
     }
 }

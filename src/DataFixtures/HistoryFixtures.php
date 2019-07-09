@@ -14,8 +14,8 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             ClientFixtures::class,
-            StageFixtures::class,
             AgencyFixtures::class,
+            StageFixtures::class
         ];
     }
 
