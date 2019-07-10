@@ -39,7 +39,7 @@ function Messages(props) {
     } else if (props.userType === 'client') {
       setMessages(response.data.filter(el => el.agency.id == target.id && !el.admin));
     } else if (props.userType === 'agency') {
-      setMessages(response.data.filter(el => el.client.id == target.id && !el.admin))
+      setMessages(response.data.filter(el => el.client.id == target.id && !el.admin));
     }
   };
 
@@ -51,7 +51,7 @@ function Messages(props) {
       setMessages(allMessages.filter(el => el.agency.id == e.id && !el.admin));
       setTarget(e);
     } else if (props.userType === 'agency') {
-      setMessages(allMessages.filter(el => el.client.id == e.id && !el.admin))
+      setMessages(allMessages.filter(el => el.client.id == e.id && !el.admin));
       setTarget(e);
     }
     document.getElementsByClassName('selected')[0].classList.remove('selected');
@@ -87,17 +87,17 @@ function Messages(props) {
         } else {
           setMessages(allMessages.filter(e => e.admin));
         }
-      })
+      });
   };
 
   return (
     <Fragment>
       <div className="Conversations">
-        <List selection verticalAlign='middle'>
+        <List selection verticalAlign="middle">
           {
             props.userType !== 'admin' &&
             <List.Item id="conv-0" className="selected" onClick={() => handleConv('admin')}>
-              <Image avatar src='../images/small-logo.png' />
+              <Image avatar src="../images/small-logo.png" />
               <List.Content>
                 <List.Header>admin</List.Header>
               </List.Content>
@@ -109,20 +109,19 @@ function Messages(props) {
                 <List.Item key={i} id={`conv-${e.id}`} onClick={() => handleConv(e)}>
                   <Image avatar src={e.picture} />
                   <List.Content>
-                    <List.Header>{props.userType === 'client' ? "agence" : "client"}: {props.userType === 'client' ? e.company : e.surname}</List.Header>
+                    <List.Header>{props.userType === 'client' ? 'agence' : 'client'}: {props.userType === 'client' ? e.company : e.surname}</List.Header>
                   </List.Content>
                 </List.Item>
               );
             })
           }
-          <button onClick={() => console.log(messages)}>see</button>
         </List>
       </div>
       <div className="Messages">
         <div className="list-messages">
           {messages.map((e, i) => {
             return (
-              <Message key={i} className={props.userType === e.sender ? "i right" : "i left"}>
+              <Message key={i} className={props.userType === e.sender ? 'i right' : 'i left'}>
                 {e.content}
               </Message>
             )
@@ -132,8 +131,8 @@ function Messages(props) {
         <div className="write-send">
           <Form onSubmit={() => { input !== '' && handleSubmit() }}>
             <Form.Group>
-              <Form.Input placeholder='Ecrire un message' value={input} onChange={(event) => setInput(event.target.value)} />
-              <Form.Button content='>' />
+              <Form.Input placeholder="Ecrire un message" value={input} onChange={(event) => setInput(event.target.value)} />
+              <Form.Button content=">" />
             </Form.Group>
           </Form>
         </div>
