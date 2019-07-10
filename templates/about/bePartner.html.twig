@@ -1,5 +1,9 @@
 {% extends "base.html.twig" %}
+    {% block stylesheet %}
+        {{ encore_entry_link_tags('bePartner') }}
+    {% endblock %}
 {% block body %}
+    <img class="partnerImg" src="/build/images/partenaire.jpg"/>
     <h1>Devenir Partenaire</h1>
     <p>Vous souhaitez promouvoir votre destination ?
     Vous en avez marre de perdre du terrain et de compromettre votre créativité et votre originalité ?
