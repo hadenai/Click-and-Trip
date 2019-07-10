@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit Stage{% endblock %}
+{% block stylesheet %}
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Stage</h1>
+    <h1 id="padding-for-navbar">Edit Stage</h1>
 
     {{ include('stage/_form.html.twig', {'button_label': 'Update'}) }}
 
