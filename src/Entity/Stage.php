@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StageRepository")
@@ -41,6 +42,13 @@ class Stage
      * @Groups("apiStage")
      */
     private $nameStage;
+
+    /**
+     * @var string
+     * @Gedmo\Slug(fields={"nameStage"})
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="integer")
@@ -331,5 +339,16 @@ class Stage
     {
         return strval($this->id);
         // return $this->name.' '.$this->surname;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+        return $this;
     }
 }

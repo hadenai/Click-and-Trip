@@ -90,4 +90,27 @@ class AboutController extends AbstractController
     {
         return $this->render('about/ourEngagements.html.twig');
     }
+    /**
+     * @Route("/services-associe")
+     */
+    public function affiliateService()
+    {
+        return $this->render('about/affiliateService.html.twig');
+    }
+
+    /**
+     * @Route("/cgu")
+     */
+    public function cgu()
+    {
+        return $this->render("about/cgu.html.twig");
+    }
+
+    /**
+     * @Route("/nos-engagements")
+     */
+    public function commitment()
+    {
+        return $this->render("about/commitment.html.twig");
+    }
 }

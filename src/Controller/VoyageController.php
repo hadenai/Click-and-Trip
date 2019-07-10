@@ -123,4 +123,18 @@ class VoyageController extends AbstractController
 
         return $this->render('planner/success.html.twig');
     }
+
+    /**
+     * @Route("/mon-voyage/{country}", name="destination")
+     */
+    public function destination($country, StageRepository $stageRepository)
+    {
+        $steps = $stageRepository->findBy(["destination" => $country]);
+        return $this->render(
+            "destination.html.twig",
+            [
+                "steps" => $steps
+            ]
+        );
+    }
 }

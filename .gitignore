@@ -41,3 +41,5 @@ yarn-error.log
 ###> semantic json create w/ npm or yarn install ###
 /semantic/
 semantic.json
+
+/semantic/
