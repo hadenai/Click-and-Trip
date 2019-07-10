@@ -69,8 +69,7 @@ class StageController extends AbstractController
      */
     public function edit(
         Request $request,
-        Stage $stage,
-        EntityManager $manager
+        Stage $stage
     ): Response {
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);

@@ -42,9 +42,11 @@ class StageType extends AbstractType
                 'by_reference' => false])
             ->add('prices', CollectionType::class, array(
                 'entry_type'   => PriceType::class,
+                'entry_options' => ['label' => false],
                 'allow_add'    => true,
-                'allow_delete' => true
-                ))
+                'allow_delete' => true,
+                'by_reference' => false
+            ));
         ;
     }
 

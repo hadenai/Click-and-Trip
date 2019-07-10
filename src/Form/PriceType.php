@@ -6,6 +6,7 @@ use App\Entity\Price;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class PriceType extends AbstractType
 {
@@ -15,15 +16,23 @@ class PriceType extends AbstractType
             ->add('dateBegin')
             ->add('dateEnd')
             ->add('price')
-            ->add('persons')
-            ->add('stages')
+            ->add('persons', ChoiceType::class, [
+                'choices'  => [
+                    '2 pers.' => 2,
+                    '4 pers' => 4,
+                    '6 pers' => 6,
+                    '8 pers' => 8,
+                    '10 pers' => 10
+                ],
+            ])
+            // ->add('stages')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // 'data_class' => Price::class,
+            'data_class' => Price::class,
         ]);
     }
 }
