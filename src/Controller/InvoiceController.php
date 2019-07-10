@@ -17,20 +17,18 @@ class InvoiceController extends AbstractController
     public function invoice(History $history)
     {
         $invoice = new InvoicePrinter('A4', '€', 'fr');
-
-        $invoice->setLogo("build/images/small-logo.png", 30, 40);
-        $invoice->setColor("#007fff");
+        $invoice->setLogo("build/images/small-logo.jpg", 120, 140);
+        $invoice->setColor("#fd5e5c");
         $invoice->setType("Facture");
         $invoice->setReference("INV-55033645");
         $invoice->setNumberFormat('.', ' ');
         $invoice->setDate(date('d/m/y', time()));
         $invoice->setTime(date('H:i'));
-
         $invoice->setFrom([
-            utf8_decode('Click And Trip'),
+            utf8_decode("Click And Trip"),
             utf8_decode($history->getAgency()->getCity()),
-            utf8_decode($history->getAgency()->getNameAgent()),
-            utf8_decode(strval($history->getAgency()->getyearCreation()))
+            $history->getAgency()->getNameAgent(),
+            utf8_decode($history->getAgency()->getyearCreation())
         ]);
         $completeName=$history->getClient()->getName().' '.$history->getClient()->getSurname();
         $invoice->setTo([
@@ -39,10 +37,10 @@ class InvoiceController extends AbstractController
             utf8_decode($history->getClient()->getAddress()),
             $history->getClient()->getMobile(),
         ]);
-        
+        $totalPrice = 0;
         foreach ($history->getStages() as $stage) {
             $invoice->addItem(
-                utf8_decode($stage->getNameStage()),
+                $stage->getNameStage(),
                 false,
                 utf8_decode(strval($stage->getDuration()).' jours'),
                 0,
@@ -50,11 +48,14 @@ class InvoiceController extends AbstractController
                 false,
                 utf8_decode(strval($stage->getPrices()[0]))
             );
+            $totalPrice = $totalPrice + strval($stage->getPrices()[0]);
         };
+        $taxe = $totalPrice / 100 * 20;
+        $invoice->addTotal("Total", $totalPrice);
+        $invoice->addTotal("Taxe GFM 20%", $taxe);
+        $invoice->addTotal("Total à payer", $totalPrice + $taxe, true);
 
-        $invoice->addTotal("Total", 9460);
-        $invoice->addTotal("Taxe GFM 20%", 1986.6);
-        $invoice->addTotal("Total à payer", 11446.6, true);
+        $invoice->addParagraph($history->getComments());
 
         return new RedirectResponse(
             $invoice->render(
