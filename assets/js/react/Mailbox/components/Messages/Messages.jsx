@@ -14,6 +14,7 @@ function Messages(props) {
   const [convs, setConvs] = useState([]);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
+  const [target, setTarget] = useState('admin');
 
   useEffect(() => {
     getAllMessages();
@@ -33,16 +34,25 @@ function Messages(props) {
       return new Date(a.sendAt).getTime() - new Date(b.sendAt).getTime();
     }));
     setConvs(_.uniq(response.data.map((e) => props.userType === 'client' ? e.agency : e.client), obj => obj.id));
-    setMessages(response.data.filter(e => e.admin));
+    if (target == 'admin') {
+      setMessages(response.data.filter(el => el.admin));
+    } else if (props.userType === 'client') {
+      setMessages(response.data.filter(el => el.agency.id == target.id && !el.admin));
+    } else if (props.userType === 'agency') {
+      setMessages(response.data.filter(el => el.client.id == target.id && !el.admin))
+    }
   };
 
   const handleConv = (e) => {
     if (e == 'admin') {
       setMessages(allMessages.filter(el => el.admin));
+      setTarget(e);
     } else if (props.userType === 'client') {
-      setMessages(allMessages.filter(el => el.agency.id == e.id && !el.admin))
+      setMessages(allMessages.filter(el => el.agency.id == e.id && !el.admin));
+      setTarget(e);
     } else if (props.userType === 'agency') {
       setMessages(allMessages.filter(el => el.client.id == e.id && !el.admin))
+      setTarget(e);
     }
     document.getElementsByClassName('selected')[0].classList.remove('selected');
     document.getElementById(`conv-${e.id}`).classList.add('selected');
@@ -105,7 +115,7 @@ function Messages(props) {
               );
             })
           }
-          <button onClick={() => console.log(convs)}>see</button>
+          <button onClick={() => console.log(messages)}>see</button>
         </List>
       </div>
       <div className="Messages">

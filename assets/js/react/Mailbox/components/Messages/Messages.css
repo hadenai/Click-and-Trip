@@ -46,12 +46,12 @@
     background-color: aquamarine;
     align-self: flex-end;
     text-align: right;
-    padding-bottom: 30px !important;
+    padding-bottom: 32px !important;
 }
 .ui.message.left {
     background-color: azure;
     align-self: flex-start;
-    padding-bottom: 30px !important;
+    padding-bottom: 32px !important;
 }
 
 .ui.selection.list > .item.selected {background-color: burlywood}
