@@ -6,13 +6,16 @@
 <div class="ui cards">
     <div class="card">
         <div class="content">
-            <div class="header">Date de départ: {{ history.date_begin }} </div>
-            <div class="meta">Date de fin: {{ history.date_end }} </div>
+            <div class="header">Date de départ: {{ history.dateBegin|date('Y-m-d') }} </div>
+            <div class="meta">Date de fin: {{ history.dateEnd|date('Y-m-d') }} </div>
             <div class="meta">Prix:</div>
             <div class="meta">Nombre de voyageurs:</div>
             <div class="description">
-                STATUS: {{ history.state_id }}
+                STATUS: {{ history.stateId }}
             </div>
+            {% if not agencyBool %}
+                <a href="{{ path('invoice', {'id': history.id }) }}" target="_blank">Nouvell facture</a>
+            {% endif %}
         </div>
     </div>
 </div>

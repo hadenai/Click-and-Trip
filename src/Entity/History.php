@@ -57,6 +57,11 @@ class History
      */
     private $stages;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -188,5 +193,17 @@ class History
     public function __toString()
     {
         return strval($this->id);
+    }
+
+    public function getComments(): ?string
+    {
+        return $this->comments;
+    }
+
+    public function setComments(?string $comments): self
+    {
+        $this->comments = $comments;
+
+        return $this;
     }
 }

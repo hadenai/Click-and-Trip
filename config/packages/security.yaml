@@ -2,7 +2,7 @@ security:
     encoders:
         App\Entity\Client:
             algorithm: argon2i
-        App\Entity\Agency: 
+        App\Entity\Agency:
             algorithm: argon2i
         Symfony\Component\Security\Core\User\User: plaintext
 

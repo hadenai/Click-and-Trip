@@ -1,15 +1,16 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Agency;
 use App\Form\AccountAgencyType;
 use App\Form\AccountClientType;
 use App\Repository\ClientRepository;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
 use App\Repository\HistoryRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/profile", name="profile_")
@@ -27,6 +28,7 @@ class ProfileController extends AbstractController
             'client' => $client
         ]);
     }
+    
     /**
      * @Route("/historique", name="history", methods={"GET"})
      */
@@ -34,6 +36,7 @@ class ProfileController extends AbstractController
     {
         return $this->render('profile/history.html.twig', [
             'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),
+            'agencyBool' => $this->getUser() instanceof Agency
         ]);
     }
 
