@@ -69,17 +69,6 @@ class Client implements UserInterface
     private $address;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $image;
-
-    /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
-     * @var File
-     */
-    private $imageFile;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="client")
      */
     private $histories;
@@ -93,6 +82,24 @@ class Client implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="client", orphanRemoval=true)
      */
     private $messages;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageName;
+
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="imageName")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="integer")
+     *
+     * @var integer
+     */
+    private $imageSize;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -223,18 +230,6 @@ class Client implements UserInterface
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
     /**
      * @return Collection|History[]
      */
@@ -328,5 +323,27 @@ class Client implements UserInterface
     public function getImageFile()
     {
         return $this->imageFile;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): self
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+    
+    public function setImageSize(?int $imageSize): void
+    {
+        $this->imageSize = $imageSize;
+    }
+
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
     }
 }

@@ -59,16 +59,6 @@ class Agency implements UserInterface
     private $address;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $image;
-
-    /**
-     * @Vich\UploadableField(mapping="agency_images", fileNameProperty="image")
-     */
-    private $imageFile;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @Groups("apiStage")
      * @Groups("apiMessage")
@@ -135,6 +125,24 @@ class Agency implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="agency", orphanRemoval=true)
      */
     private $messages;
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageName;
+
+    /**
+     * @Vich\UploadableField(mapping="agency_images", fileNameProperty="imageName", size="imageSize")
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="integer")
+     *
+     * @var integer
+     */
+    private $imageSize;
 
     /**
      * @ORM\Column(type="datetime", nullable=true )
@@ -245,18 +253,6 @@ class Agency implements UserInterface
     public function setAddress(string $address): self
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
 
         return $this;
     }
@@ -490,5 +486,27 @@ class Agency implements UserInterface
     public function getImageFile()
     {
         return $this->imageFile;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): self
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    public function setImageSize(?int $imageSize): void
+    {
+        $this->imageSize = $imageSize;
+    }
+
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
     }
 }

@@ -17,7 +17,7 @@ easy_admin:
                     - { property: 'company', label: 'Agence' }
                     - { property: 'validate', label: 'Validé ?' }
                     - { property: 'deleted', label: 'Supprimé ?' }
-                    - { property: 'image', template: 'editClient' }
+                    # - { property: 'image', template: 'editClient' }
             edit:
                 title: "Détails d'une agence"
                 fields: 
