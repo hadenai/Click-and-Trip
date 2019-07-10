@@ -51,7 +51,6 @@ function Steps() {
   const [filters, setFilters] = useState(setHook('filters'));
   const [filterResult, setFilterResult] = useState([]);
 
-
   useEffect(() => {
     getSteps();
   }, []);
@@ -135,7 +134,7 @@ function Steps() {
               temp = _.filter(temp, step => { return step.agency.company === filter.name });
               mySteps.forEach(myStep => {
                 temp = _.filter(temp, step => { return myStep.reference !== step.reference });
-              })
+              });
               setFilterResult(temp);
             }
             break;
@@ -171,7 +170,7 @@ function Steps() {
     response.data.forEach(step => {
       step.themes.forEach(theme => {
         fetchedThemeOptions.push(theme.theme);
-      })
+      });
     });
     fetchedThemeOptions = _.uniq(fetchedThemeOptions).map(theme => {
       return (
@@ -183,7 +182,7 @@ function Steps() {
     response.data.forEach(step => {
       step.styles.forEach(style => {
         fetchedStyleOptions.push(style.style);
-      })
+      });
     });
     fetchedStyleOptions = _.uniq(fetchedStyleOptions).map(style => {
       return (
@@ -195,7 +194,7 @@ function Steps() {
     response.data.forEach(step => {
       step.sizes.forEach(size => {
         fetchedSizeOptions.push(size.people);
-      })
+      });
     });
     fetchedSizeOptions = _.uniq(fetchedSizeOptions).map(size => {
       return (
@@ -218,24 +217,6 @@ function Steps() {
     setSizeOptions([baseOptions, ...fetchedSizeOptions]);
     setAgencyOptions([baseOptions, ...fetchedAgencyOptions]);
   };
-
-  // const setHook = (hook) => {
-  //   switch (hook) {
-  //     case 'filters':
-  //       if (localStorage.getItem('store')) {
-  //         let store = JSON.parse(localStorage.getItem('store'));
-  //         return store.filters;
-  //       } else {
-  //         return ([
-  //           { type: 'destination', name: 'Voir tout' },
-  //           { type: 'theme', name: 'Voir tout' },
-  //           { type: 'style', name: 'Voir tout' },
-  //           { type: 'size', name: 'Voir tout' },
-  //           { type: 'agency', name: 'Voir tout' }
-  //         ])
-  //       }
-  //   }
-  // };
 
   const addStep = (index) => {
     let filterResultTmp = [...filterResult];
