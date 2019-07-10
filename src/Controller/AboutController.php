@@ -57,4 +57,12 @@ class AboutController extends AbstractController
     {
         return $this->render('about/affiliateService.html.twig');
     }
+
+    /**
+     * @Route("/cgu")
+     */
+    public function cgu()
+    {
+        return $this->render("about/cgu.html.twig");
+    }
 }
