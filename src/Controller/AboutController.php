@@ -28,7 +28,7 @@ class AboutController extends AbstractController
                 ->setTo($_ENV['MAILER_CONTACT'])
                 ->setBody(
                     $this->renderView(
-                        "contactFormMail.html.twig",
+                        "about/contactFormMail.html.twig",
                         [
                             "data" => $data,
                         ]
@@ -38,7 +38,7 @@ class AboutController extends AbstractController
             $mailer->send($message);
         }
         return $this->render(
-            'contactForm.html.twig',
+            'about/contactForm.html.twig',
             [
                 "contactForm" => $form->createView()
             ]
