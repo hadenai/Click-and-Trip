@@ -93,6 +93,12 @@ class Client implements UserInterface
      */
     private $messages;
 
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->histories = new ArrayCollection();

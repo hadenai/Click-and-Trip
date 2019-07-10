@@ -141,6 +141,12 @@ class Agency implements UserInterface
      */
     private $messages;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->histories = new ArrayCollection();
