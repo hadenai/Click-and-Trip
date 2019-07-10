@@ -42,7 +42,6 @@ class Agency implements UserInterface
      */
     private $password;
 
-
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -64,8 +63,7 @@ class Agency implements UserInterface
     private $image;
 
     /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
-     * @var File
+     * @Vich\UploadableField(mapping="agency_images", fileNameProperty="image")
      */
     private $imageFile;
 
@@ -142,10 +140,16 @@ class Agency implements UserInterface
     private $messages;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @var \DateTime
+     * @ORM\Column(type="datetime", nullable=true )
      */
     private $updatedAt;
+
+    public function serialize()
+    {
+        return [
+            $this->id
+        ];
+    }
 
     public function __construct()
     {

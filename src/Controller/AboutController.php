@@ -42,4 +42,52 @@ class AboutController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @Route("/inspiration", name="inspiration")
+     */
+    public function inspiration()
+    {
+        return $this->render('about/inspiration.html.twig');
+    }
+
+    /**
+     * @Route("/faq", name="faq")
+     */
+    public function faq()
+    {
+        return $this->render('about/faq.html.twig');
+    }
+
+    /**
+     * @Route("/presse", name="presse")
+     */
+    public function presse()
+    {
+        return $this->render('about/presse.html.twig');
+    }
+
+    /**
+     * @Route("/de-nous", name="qui_sommes_nous")
+     */
+    public function aboutUs()
+    {
+        return $this->render('about/aboutUs.html.twig');
+    }
+
+    /**
+     * @Route("/mention-légale", name="mention_légale")
+     */
+    public function legalMention()
+    {
+        return $this->render('about/legalMention.html.twig');
+    }
+
+    /**
+     * @Route("/nos-engagements", name="nos_engaments")
+     */
+    public function ourEngagements()
+    {
+        return $this->render('about/ourEngagements.html.twig');
+    }
 }

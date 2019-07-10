@@ -7,13 +7,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class RegistrationAgencyType extends AbstractType
+class AccountAgencyType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('email')
+            ->add('password')
             ->add('password', PasswordType::class)
             ->add('country')
             ->add('city')
@@ -22,11 +24,11 @@ class RegistrationAgencyType extends AbstractType
             ->add('company')
             ->add('nameAgent')
             ->add('surnameAgent')
-            ->add('mobile')
+            ->add('imageFile', VichImageType::class)
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Agency::class,

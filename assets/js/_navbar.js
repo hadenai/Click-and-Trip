@@ -11,8 +11,13 @@ $('.navTrigger').click(function () {
     $("#mainListDiv").fadeIn();
 });
 
-$(function() {
+$(function () {
     $('.footer-links-holder h3').click(function () {
         $(this).parent().toggleClass('active');
     });
+});
+
+document.getElementById('dropdown').addEventListener('click', (event) => {
+
+            document.getElementById("myDropdown").classList.toggle("show");
 });

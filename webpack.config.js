@@ -16,7 +16,8 @@ Encore
      * ENTRY CONFIG
      *
      * Add 1 entry for each "page" of your app
-     * (including one that's included on every page - e.g. "app")
+     * (including one that's included on every page - e.g. "app    .addEntry('inspiration', './assets/scss/inspiration.js')
+")
      *
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
@@ -27,8 +28,7 @@ Encore
     .addEntry('formRegistration', './assets/js/formRegistration.js')
     .addEntry('homepage', './assets/scss/homepage.scss')
     .addEntry("travelerDetailForm", "./assets/scss/travelerDetailForm.scss")
-    //.addEntry('page1', './assets/js/page1.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .addEntry('inspiration', './assets/scss/inspiration.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

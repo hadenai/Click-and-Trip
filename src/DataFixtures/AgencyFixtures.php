@@ -36,7 +36,7 @@ class AgencyFixtures extends Fixture
                     ->setEmail($faker->freeEmail())
                     ->setPassword($this->passwordEncoder->encodePassword(
                         $agency,
-                        'agency'
+                        'agencymdp'
                     ))
                     ->setRoles(['ROLE_AGENCY'])
                     ->setMobile($faker->phoneNumber());

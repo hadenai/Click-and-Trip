@@ -1,19 +1,15 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Agency;
-use App\Entity\History;
-use App\Entity\Stage;
-use App\Repository\UserRepository;
+use App\Form\AccountAgencyType;
+use App\Form\AccountClientType;
+use App\Repository\ClientRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\HistoryRepository;
-use App\Repository\PriceRepository;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Faker;
 
 /**
  * @Route("/profile", name="profile_")
@@ -23,21 +19,62 @@ class ProfileController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
+    public function index(ClientRepository $repo) : Response
     {
+        $client = $repo->findAll();
+
         return $this->render('profile/index.html.twig', [
+            'client' => $client
+        ]);
+    }
+    /**
+     * @Route("/historique", name="history", methods={"GET"})
+     */
+    public function adminHistoryView(HistoryRepository $historyRepository): Response
+    {
+        return $this->render('profile/history.html.twig', [
+            'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),
         ]);
     }
 
     /**
-     * @Route("/historique", name="history", methods={"GET"})
+     * @Route("/editclient", name="edit_client")
      */
-    public function adminHistoryView(
-        HistoryRepository $historyRepository,
-        PriceRepository $priceRepository
-    ): Response {
-        return $this->render('profile/history.html.twig', [
-            'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),
+    public function editProfilesClient(Request $request, ObjectManager $manager) :Response
+    {
+        $client = $this->getUser();
+
+        $form = $this->createForm(AccountClientType::class, $client);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($client);
+            $manager->flush();
+            $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('profile/editClient.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    /**
+     * @Route("/editagency", name="edit_agency")
+     */
+    public function editProfilesAgency(Request $request, ObjectManager $manager) :Response
+    {
+        $agency = $this->getUser();
+
+        $form = $this->createForm(AccountAgencyType::class, $agency);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($agency);
+            $manager->flush();
+            $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('profile/editAgency.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
