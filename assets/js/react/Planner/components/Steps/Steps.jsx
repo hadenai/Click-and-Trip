@@ -10,9 +10,35 @@ import { Card, Button, Select } from 'semantic-ui-react';
 import './Steps.css';
 
 function Steps() {
+
+  const setHook = (hook) => {
+    switch (hook) {
+      case 'filters':
+        if (localStorage.getItem('store')) {
+          let store = JSON.parse(localStorage.getItem('store'));
+          return store.filters;
+        } else {
+          return [
+            { type: 'destination', name: 'Voir tout' },
+            { type: 'theme', name: 'Voir tout' },
+            { type: 'style', name: 'Voir tout' },
+            { type: 'size', name: 'Voir tout' },
+            { type: 'agency', name: 'Voir tout' }
+          ];
+        }
+      case 'mySteps':
+        if (localStorage.getItem('store')) {
+          let store = JSON.parse(localStorage.getItem('store'));
+          return store.mySteps;
+        } else {
+          return [];
+        }
+    }
+  };
+
   const [steps, setSteps] = useState([]);
   const [stepsCopy, setStepsCopy] = useState([]);
-  const [mySteps, setMySteps] = useState([]);
+  const [mySteps, setMySteps] = useState(setHook('mySteps'));
   const [currentStep, setCurrentStep] = useState({});
 
   const baseOptions = { key: 'Voir tout', value: 'Voir tout', text: 'Voir tout' };
@@ -22,14 +48,9 @@ function Steps() {
   const [sizeOptions, setSizeOptions] = useState([]);
   const [agencyOptions, setAgencyOptions] = useState([]);
 
-  let [filters, setFilters] = useState([
-    { type: 'destination', name: 'Voir tout' },
-    { type: 'theme', name: 'Voir tout' },
-    { type: 'style', name: 'Voir tout' },
-    { type: 'size', name: 'Voir tout' },
-    { type: 'agency', name: 'Voir tout' }
-  ]);
+  const [filters, setFilters] = useState(setHook('filters'));
   const [filterResult, setFilterResult] = useState([]);
+
 
   useEffect(() => {
     getSteps();
@@ -125,6 +146,13 @@ function Steps() {
     }
   }, [filters, stepsCopy]);
 
+  useEffect(() => {
+    localStorage.setItem('store', JSON.stringify({
+      mySteps: mySteps,
+      filters: filters,
+    }));
+  }, [mySteps, filters]);
+
   const getSteps = async () => {
     let response = await axios.get(Routing.generate('api'));
     setSteps(response.data);
@@ -191,6 +219,24 @@ function Steps() {
     setAgencyOptions([baseOptions, ...fetchedAgencyOptions]);
   };
 
+  // const setHook = (hook) => {
+  //   switch (hook) {
+  //     case 'filters':
+  //       if (localStorage.getItem('store')) {
+  //         let store = JSON.parse(localStorage.getItem('store'));
+  //         return store.filters;
+  //       } else {
+  //         return ([
+  //           { type: 'destination', name: 'Voir tout' },
+  //           { type: 'theme', name: 'Voir tout' },
+  //           { type: 'style', name: 'Voir tout' },
+  //           { type: 'size', name: 'Voir tout' },
+  //           { type: 'agency', name: 'Voir tout' }
+  //         ])
+  //       }
+  //   }
+  // };
+
   const addStep = (index) => {
     let filterResultTmp = [...filterResult];
     let selectedStep = filterResultTmp.splice(index, 1)[0];
@@ -222,18 +268,17 @@ function Steps() {
 
   const validateTrip = () => {
     console.table(mySteps);
-    // axios.post(Routing.generate('details'), JSON.stringify(mySteps));
-    // window.location.href(Routing.generate('route'));
+    axios.post(Routing.generate('details'), JSON.stringify(mySteps));
   };
 
   return (
     <Fragment>
       <div className="Filters">
-        <Select placeholder="Destination" options={destinationOptions} onChange={(e, { value }) => filterSteps(0, value)} />
-        <Select placeholder="Theme" options={themeOptions} onChange={(e, { value }) => filterSteps(1, value)} />
-        <Select placeholder="Style" options={styleOptions} onChange={(e, { value }) => filterSteps(2, value)} />
-        <Select placeholder="Taille du groupe" options={sizeOptions} onChange={(e, { value }) => filterSteps(3, value)} />
-        <Select placeholder="Agence" options={agencyOptions} onChange={(e, { value }) => filterSteps(4, value)} />
+        <Select fluid placeholder="Destination" options={destinationOptions} onChange={(e, { value }) => filterSteps(0, value)} />
+        <Select fluid placeholder="Theme" options={themeOptions} onChange={(e, { value }) => filterSteps(1, value)} />
+        <Select fluid placeholder="Style" options={styleOptions} onChange={(e, { value }) => filterSteps(2, value)} />
+        <Select fluid placeholder="Taille du groupe" options={sizeOptions} onChange={(e, { value }) => filterSteps(3, value)} />
+        <Select fluid placeholder="Agence" options={agencyOptions} onChange={(e, { value }) => filterSteps(4, value)} />
       </div>
       <div className="Steps">
         <Card.Group centered>
