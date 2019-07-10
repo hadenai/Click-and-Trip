@@ -73,7 +73,7 @@ class Stage
     private $styles;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Price", mappedBy="stages")
+     * @ORM\OneToMany(targetEntity="App\Entity\Price", mappedBy="stages", cascade={"persist"})
      * @Groups("apiStage")
      */
     private $prices;

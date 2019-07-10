@@ -54,7 +54,20 @@ function Steps() {
   const [price, setPrice] = useState(0);
 
   useEffect(() => {
+<<<<<<< HEAD
     getSteps();
+=======
+    if (localStorage.getItem('steps') && JSON.parse(localStorage.getItem('mySteps')).length > 0) {
+      setSteps(JSON.parse(localStorage.getItem('steps')));
+      setMySteps(JSON.parse(localStorage.getItem('mySteps')));
+    } else {
+      getSteps();
+    }
+    fetch(Routing.generate('api_stages'))
+      .then(res => res.json())
+      .then(data => setSteps(data))
+      .then(() => console.log('data fetched.'));
+>>>>>>> N_prices
   }, []);
 
   useEffect(() => {

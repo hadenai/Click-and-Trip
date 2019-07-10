@@ -4,11 +4,13 @@ if(document.getElementById("padding-for-navbar")){
 } else {
     window.onscroll = () => {
         if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-        document.getElementsByTagName("nav")[0].className = "nav container affix";
-    } else {
-        document.getElementsByTagName("nav")[0].className = "nav container";
-    }
-};
+            document.getElementsByTagName("nav")[0].className = "nav container affix";
+        } else {
+            document.getElementsByTagName("nav")[0].className = "nav container";
+        }
+    };
+}
+
 $('.navTrigger').click(function () {
     $(this).toggleClass('active');
     $("#mainListDiv").toggleClass("show_list");
