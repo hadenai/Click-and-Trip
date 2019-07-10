@@ -28,6 +28,7 @@ class ProfileController extends AbstractController
         return $this->render('profile/index.html.twig', [
         ]);
     }
+    
     /**
      * @Route("/historique", name="history", methods={"GET"})
      */
@@ -37,6 +38,7 @@ class ProfileController extends AbstractController
     ): Response {
         return $this->render('profile/history.html.twig', [
             'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),
+            'agencyBool' => $this->getUser() instanceof Agency
         ]);
     }
 }
