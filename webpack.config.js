@@ -26,6 +26,7 @@ Encore
     .addEntry("affiliateService", "./assets/scss/affiliateService.scss")
     .addEntry("cgu", "./assets/scss/cgu.scss")
     .addEntry("commitment", "./assets/scss/commitment.scss")
+    .addEntry("bePartner", "./assets/scss/bePartner.scss")
     .addEntry('index', './assets/js/index.js')
     .addEntry('planner', './assets/js/react/Planner/Planner.js')
     .addEntry('formRegistration', './assets/js/formRegistration.js')

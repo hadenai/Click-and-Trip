@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Form\ContactFormType;
+use App\Form\PartnerFormType;
+use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +17,7 @@ class AboutController extends AbstractController
     /**
      * @Route("/contact")
      */
-    public function contactForm(Request $request, \Swift_Mailer $mailer)
+    public function contactForm(Request $request, Swift_Mailer $mailer)
     {
         $form = $this->createForm(ContactFormType::class);
         $form->handleRequest($request);
@@ -43,74 +45,104 @@ class AboutController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/inspiration", name="inspiration")
-     */
+        /**
+         * @Route("/inspiration", name="inspiration")
+         */
     public function inspiration()
     {
         return $this->render('about/inspiration.html.twig');
     }
 
-    /**
-     * @Route("/faq", name="faq")
-     */
+        /**
+         * @Route("/faq", name="faq")
+         */
     public function faq()
     {
         return $this->render('about/faq.html.twig');
     }
 
-    /**
-     * @Route("/presse", name="presse")
-     */
+        /**
+         * @Route("/presse", name="presse")
+         */
     public function presse()
     {
         return $this->render('about/presse.html.twig');
     }
 
-    /**
-     * @Route("/de-nous", name="qui_sommes_nous")
-     */
+        /**
+         * @Route("/de-nous", name="qui_sommes_nous")
+         */
     public function aboutUs()
     {
         return $this->render('about/aboutUs.html.twig');
     }
 
-    /**
-     * @Route("/mention-légale", name="mention_légale")
-     */
+        /**
+         * @Route("/mention-légale", name="mention_légale")
+         */
     public function legalMention()
     {
         return $this->render('about/legalMention.html.twig');
     }
 
-    /**
-     * @Route("/nos-engagements", name="nos_engaments")
-     */
+        /**
+         * @Route("/nos-engagements", name="nos_engaments")
+         */
     public function ourEngagements()
     {
         return $this->render('about/ourEngagements.html.twig');
     }
-    /**
-     * @Route("/services-associe")
-     */
+        /**
+         * @Route("/services-associe")
+         */
     public function affiliateService()
     {
         return $this->render('about/affiliateService.html.twig');
     }
 
-    /**
-     * @Route("/cgu")
-     */
+        /**
+         * @Route("/cgu")
+         */
     public function cgu()
     {
         return $this->render("about/cgu.html.twig");
     }
 
-    /**
-     * @Route("/nos-engagements")
-     */
+        /**
+         * @Route("/nos-engagements")
+         */
     public function commitment()
     {
         return $this->render("about/commitment.html.twig");
+    }
+    /**
+    * @Route("/devenir-partenaire")
+    */
+    public function bePartner(Swift_Mailer $mailer, Request $request)
+    {
+        $form = $this->createForm(PartnerFormType::Class);
+        $form->handleRequest($request);
+        $data = $form->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message = (new \Swift_Message('Une nouvelle demande de partenariat a été soumise.'))
+                ->setFrom('vincent.mallard5@gmail.com')
+                ->setTo('vincent.mallard5@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        "about/bePartnerMail.html.twig",
+                        [
+                            "data" => $data,
+                        ]
+                    ),
+                    'text/html'
+                );
+            $mailer->send($message);
+        }
+        return $this->render(
+            'about/bePartner.html.twig',
+            [
+                "form" => $form->createView()
+            ]
+        );
     }
 }
