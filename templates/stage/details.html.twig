@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+ {% block stylesheet %}
+     {{ encore_entry_link_tags('stageDetails') }}
+{% endblock %}
+{% block body %}
+<div class="product">
+    <div id="productImages">
+        <div id="sliderImages">
+            <div class="productImage" style="background-image: url(//images.pexels.com/photos/414612/pexels-photo-414612.jpeg)"></div>
+        </div>
+        <div id="sliderIndex">
+        </div>
+    </div>
+
+    <div class="productInfo">
+        <h1 class="title">{{ stage.nameStage }}</h1>
+        <div class="subProdInfo">
+            <span class="price">Durée: {{ stage.duration }} Jours</span>
+            <span class="stock">{% for price in stage.prices %}Prix: {{price}} €{% endfor %}</span>
+
+        </div>
+
+        <p>Compellingly empower bricks-and-clicks growth strategies and sticky ROI.
+            Compellingly leverage other's high-payoff collaboration and idea-sharing through cost effective functionalities.
+            Competently drive revolutionary materials before efficient mindshare.
+            Holisticly architect next-generation value with timely methods of empowerment.
+            Phosfluorescently incentivize go forward sources with client-centered content.</p>
+    </div>
+</div>
+{% endblock %}
