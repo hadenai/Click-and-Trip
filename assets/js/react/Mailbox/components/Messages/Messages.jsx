@@ -17,74 +17,75 @@ function Messages(props) {
 
   useEffect(() => {
     getAllMessages();
-    document.getElementById('bottom').scrollIntoView({ behavior: 'smooth', block: 'end'});
   }, []);
 
+  useEffect(() => {
+    viewDown();
+  });
+
   const viewDown = () => {
-    document.getElementById('bottom').scrollIntoView({ behavior: 'auto', block: 'end'})
-  }
+    document.getElementById('divbottom').scrollIntoView({ behavior: "smooth" });
+  };
 
   const getAllMessages = async () => {
-    let response = await axios.get(Routing.generate('api_messages', {'user': props.userType , 'id': props.userId }));
-    setAllMessages(response.data.sort(function(a,b) { 
-             return new Date(a.sendAt).getTime() - new Date(b.sendAt).getTime() 
+    let response = await axios.get(Routing.generate('api_messages', { 'user': props.userType, 'id': props.userId }));
+    setAllMessages(response.data.sort(function (a, b) {
+      return new Date(a.sendAt).getTime() - new Date(b.sendAt).getTime();
     }));
-    setConvs(_.uniq(response.data.map((e) => props.userType==='client'?e.agency:e.client), obj => obj.id));
+    setConvs(_.uniq(response.data.map((e) => props.userType === 'client' ? e.agency : e.client), obj => obj.id));
     setMessages(response.data.filter(e => e.admin));
   };
 
   const handleConv = (e) => {
-    if (e=='admin'){
+    if (e == 'admin') {
       setMessages(allMessages.filter(el => el.admin));
-    } else if (props.userType==='client'){
-      setMessages(allMessages.filter(el => el.agency.id==e.id && !el.admin))
-    } else if (props.userType==='agency'){
-      setMessages(allMessages.filter(el => el.client.id==e.id && !el.admin))
+    } else if (props.userType === 'client') {
+      setMessages(allMessages.filter(el => el.agency.id == e.id && !el.admin))
+    } else if (props.userType === 'agency') {
+      setMessages(allMessages.filter(el => el.client.id == e.id && !el.admin))
     }
     document.getElementsByClassName('selected')[0].classList.remove('selected');
     document.getElementById(`conv-${e.id}`).classList.add('selected');
-    document.getElementById('bottom').scrollIntoView({ behavior: 'auto', block: 'end'});
+    viewDown();
     // document.getElementById(`conv-${people}`).click();
-  }
-
-  const handleChange = (event) => { setInput(event.target.value)}
+  };
 
   const handleSubmit = () => {
-    let info={};
-    if(props.userType=='client'){
-        info.from= {id: messages[0].client.id, type: 'client'};
-        info.to= {id: messages[0].agency.id, type: 'agency'};
+    let info = {};
+    if (props.userType == 'client') {
+      info.from = { id: messages[0].client.id, type: 'client' };
+      info.to = { id: messages[0].agency.id, type: 'agency' };
     } else {
-        info.from= {id: messages[0].agency.id, type: 'agency'};
-        info.to= {id: messages[0].client.id, type: 'client'};
+      info.from = { id: messages[0].agency.id, type: 'agency' };
+      info.to = { id: messages[0].client.id, type: 'client' };
     }
-    info.content= input;
-    info.adminBool= messages[0].admin;
-    info.idHistory= messages[0].histories.id;
+    info.content = input;
+    info.adminBool = messages[0].admin;
+    info.idHistory = messages[0].histories.id;
 
     axios.post(Routing.generate('profil_send_message'), info)
-         .then(()=> {
-            getAllMessages();
-            setInput('');
-          //  document.getElementById(`conv-${people}`).click();
-         })
-         .then(() => {
-            if (props.userType==='client'){
-              setMessages(allMessages.filter(e => e.agency.id===messages[0].agency.id && !e.admin))
-            } else if (props.userType==='agency'){
-              setMessages(allMessages.filter(e => e.client.id===messages[0].client.id && !e.admin))
-            } else {
-              setMessages(allMessages.filter(e => e.admin));
-            }
-        })
-  }
+      .then(() => {
+        getAllMessages();
+        setInput('');
+        //  document.getElementById(`conv-${people}`).click();
+      })
+      .then(() => {
+        if (props.userType === 'client') {
+          setMessages(allMessages.filter(e => e.agency.id === messages[0].agency.id && !e.admin));
+        } else if (props.userType === 'agency') {
+          setMessages(allMessages.filter(e => e.client.id === messages[0].client.id && !e.admin));
+        } else {
+          setMessages(allMessages.filter(e => e.admin));
+        }
+      })
+  };
 
   return (
     <Fragment>
       <div className="Conversations">
         <List selection verticalAlign='middle'>
-          { 
-           props.userType!=='admin' &&
+          {
+            props.userType !== 'admin' &&
             <List.Item id="conv-0" className="selected" onClick={() => handleConv('admin')}>
               <Image avatar src='../images/small-logo.png' />
               <List.Content>
@@ -92,38 +93,40 @@ function Messages(props) {
               </List.Content>
             </List.Item>
           }
-          { 
-            convs.map((e) => {
+          {
+            convs.map((e, i) => {
               return (
-                <List.Item id={`conv-${e.id}`} onClick={() => handleConv(e)}>
+                <List.Item key={i} id={`conv-${e.id}`} onClick={() => handleConv(e)}>
                   <Image avatar src={e.picture} />
                   <List.Content>
-                    <List.Header>{props.userType==='client'?"agence":"client"}: {props.userType==='client'?e.company:e.surname}</List.Header>
+                    <List.Header>{props.userType === 'client' ? "agence" : "client"}: {props.userType === 'client' ? e.company : e.surname}</List.Header>
                   </List.Content>
                 </List.Item>
               );
             })
           }
+          <button onClick={() => console.log(convs)}>see</button>
         </List>
       </div>
       <div className="Messages">
-          <div className="list-messages">
-            { messages.map((e) => {
-                return (
-                  <Message className={props.userType===e.sender?"right":"left"}>
-                    <p>{e.content}</p>
-                  </Message>
-            )})}
-            <div id="bottom"></div>
-          </div>
-          <div className="write-send">
-            <Form onClick={() => viewDown} onSubmit={() => {if(input!==''){ handleSubmit() }}}>
-              <Form.Group>
-                <Form.Input placeholder='Ecrire un message' value={input} onChange={(event) => handleChange(event)} />
-                <Form.Button content='>' />
-              </Form.Group>
-            </Form>
-          </div>
+        <div className="list-messages">
+          {messages.map((e, i) => {
+            return (
+              <Message key={i} className={props.userType === e.sender ? "i right" : "i left"}>
+                {e.content}
+              </Message>
+            )
+          })}
+          <div id="divbottom"></div>  
+        </div>
+        <div className="write-send">
+          <Form onSubmit={() => { input !== '' && handleSubmit() }}>
+            <Form.Group>
+              <Form.Input placeholder='Ecrire un message' value={input} onChange={(event) => setInput(event.target.value)} />
+              <Form.Button content='>' />
+            </Form.Group>
+          </Form>
+        </div>
       </div>
     </Fragment>
   )

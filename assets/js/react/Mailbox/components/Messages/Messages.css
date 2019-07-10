@@ -11,11 +11,15 @@
     padding: 1.4% 0;
     /* height: 100vh;
     width: 100%; */
-    overflow-y:scroll;
+    overflow-y: auto;
     scroll-behavior: smooth;
 }
 
 .list-messages {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 90%;
     overflow: auto;
     padding: 1% 2%;
@@ -35,16 +39,19 @@
 .ui.form {padding-left: 1%}
 
 .ui.message {
-    width:80%;
+    width: 80%;
 }
 
 .ui.message.right {
-    float:right;
     background-color: aquamarine;
+    align-self: flex-end;
+    text-align: right;
+    padding-bottom: 30px !important;
 }
 .ui.message.left {
-    float:left;
     background-color: azure;
+    align-self: flex-start;
+    padding-bottom: 30px !important;
 }
 
 .ui.selection.list > .item.selected {background-color: burlywood}
