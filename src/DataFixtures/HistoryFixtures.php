@@ -15,7 +15,8 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
         return [
             ClientFixtures::class,
             AgencyFixtures::class,
-            StageFixtures::class
+            StageFixtures::class,
+            StateHistoryFixtures::class
         ];
     }
 
@@ -26,7 +27,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
             $history = new History();
             $history->setDateEnd($faker->dateTime())
                 ->setDateBegin($faker->dateTime())
-                ->setStateId($faker->numberBetween(1, 3))
+                ->setState($this->getReference("state_".strval($i)))
                 ->setClient($this->getReference("client_".strval($i)))
                 ->setAgency($this->getReference("agency_".strval($i)))
                 ->addStage($this->getReference("stage_".strval($i * 10 + 7)))

@@ -31,11 +31,6 @@ class History
     private $dateEnd;
 
     /**
-     * @ORM\Column(type="smallint")
-     */
-    private $stateId;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="histories")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -61,6 +56,12 @@ class History
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\StateHistory", inversedBy="histories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $state;
 
     public function __construct()
     {
@@ -93,18 +94,6 @@ class History
     public function setDateEnd(\DateTimeInterface $dateEnd): self
     {
         $this->dateEnd = $dateEnd;
-
-        return $this;
-    }
-
-    public function getStateId(): ?int
-    {
-        return $this->stateId;
-    }
-
-    public function setStateId(int $stateId): self
-    {
-        $this->stateId = $stateId;
 
         return $this;
     }
@@ -203,6 +192,18 @@ class History
     public function setComments(?string $comments): self
     {
         $this->comments = $comments;
+
+        return $this;
+    }
+
+    public function getState(): ?StateHistory
+    {
+        return $this->state;
+    }
+
+    public function setState(?StateHistory $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }
