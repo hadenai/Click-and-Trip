@@ -19,6 +19,10 @@ function Steps() {
     } else {
       getSteps();
     }
+    fetch(Routing.generate('api_stages'))
+      .then(res => res.json())
+      .then(data => setSteps(data))
+      .then(() => console.log('data fetched.'));
   }, []);
 
   const getSteps = async () => {

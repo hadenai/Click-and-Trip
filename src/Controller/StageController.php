@@ -4,12 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Stage;
 use App\Form\StageType;
-use App\Repository\StageRepository;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\StageRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/etapes")
@@ -19,24 +20,31 @@ class StageController extends AbstractController
     /**
      * @Route("/", name="stage_index", methods={"GET"})
      */
-    public function index(StageRepository $stageRepository): Response
+    public function index(StageRepository $stageRepository, Request $request): Response
     {
+        $sortField=$request->query->get('sortField');
+        if ($sortField!=null) {
+            $orderBy=[$sortField => $request->query->get('sortDirection')];
+        } else {
+            $orderBy=[];
+        }
         return $this->render('stage/index.html.twig', [
-            'stages' => $stageRepository->findAll(),
+            'stages' => $stageRepository->findBy(['agency'=>$this->getUser()], $orderBy),
         ]);
     }
 
     /**
      * @Route("/ajouter", name="stage_new", methods={"GET","POST"})
      */
-    public function new(Request $request, EntityManager $entityManager): Response
+    public function new(Request $request, ObjectManager $manager): Response
     {
         $stage = new Stage();
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($stage);
-            $entityManager->flush();
+            $stage->setAgency($this->getUser());
+            $manager->persist($stage);
+            $manager->flush();
 
             return $this->redirectToRoute('stage_index');
         }
@@ -67,7 +75,10 @@ class StageController extends AbstractController
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->flush();
+            $stage->setValidate(false)
+                  ->setDeleted(false);
+            $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute('stage_index', [
                 'id' => $stage->getId(),
             ]);
@@ -84,7 +95,8 @@ class StageController extends AbstractController
     public function delete(EntityManager $entityManager, Request $request, Stage $stage): Response
     {
         if ($this->isCsrfTokenValid('delete'.$stage->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($stage);
+            $entityManager = $this->getDoctrine()->getManager();
+            $stage->setDeleted(true);
             $entityManager->flush();
         }
         return $this->redirectToRoute('stage_index');

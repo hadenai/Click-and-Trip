@@ -26,7 +26,7 @@ class Theme
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $theme;
 
