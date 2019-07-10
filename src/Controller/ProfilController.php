@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\AccountAgencyType;
+use App\Form\AccountClientType;
 
 /**
  * @Route("/profil", name="profil_",
@@ -45,6 +47,49 @@ class ProfilController extends AbstractController
     ): Response {
         return $this->render('profil/history.html.twig', [
             'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),
+            'agencyBool' => $this->getUser() instanceof Agency
+        ]);
+    }
+
+    /**
+     * @Route("/editer/client", name="edit_client")
+     */
+    public function editProfileClient(Request $request, ObjectManager $manager) :Response
+    {
+        $client = $this->getUser();
+
+        $form = $this->createForm(AccountClientType::class, $client);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($client);
+            $manager->flush();
+            $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('profil/editClient.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/editer/agence", name="edit_agency")
+     */
+    public function editProfileAgency(Request $request, ObjectManager $manager) :Response
+    {
+        $agency = $this->getUser();
+
+        $form = $this->createForm(AccountAgencyType::class, $agency);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($agency);
+            $manager->flush();
+            $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('profil/editAgency.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
