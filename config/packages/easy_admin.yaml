@@ -18,9 +18,6 @@ easy_admin:
                     - { property: 'validate', label: 'Validé ?' }
                     - { property: 'deleted', label: 'Supprimé ?' }
                     - { property: 'image', type: 'image', base_path: '%app.path.product_images%' }
-            show :
-                    fields:
-                        - { property: 'image', type: 'image', base_path: '%app.path.product_images%' }
             edit:
                 title: "Détails d'une agence"
                 fields: 
@@ -40,7 +37,7 @@ easy_admin:
                     - {property: 'deleted', label: ": compte supprimé ?"}
                     - {property: 'stages', label: "N° des étapes"}
                     - 'documents'
-
+           
         Client:
             class: App\Entity\Client
             label: 'Clients'
@@ -52,6 +49,7 @@ easy_admin:
                     - {property: 'surname', label: 'Nom'}
                     - 'email'
                     - { property: 'deleted', label: 'Compte supprimé ?' }
+                    - { property: 'image', type: 'image', base_path: '%app.path.product_images%' }
             edit:
                 title: "Détails d'un client"
                 fields: 
