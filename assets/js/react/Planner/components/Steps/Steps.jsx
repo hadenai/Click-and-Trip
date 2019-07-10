@@ -51,6 +51,8 @@ function Steps() {
   const [filters, setFilters] = useState(setHook('filters'));
   const [filterResult, setFilterResult] = useState([]);
 
+  const [price, setPrice] = useState(0);
+
   useEffect(() => {
     getSteps();
   }, []);
@@ -151,6 +153,16 @@ function Steps() {
       filters: filters,
     }));
   }, [mySteps, filters]);
+
+  useEffect(() => {
+    let newPrice = 0;
+    if (mySteps.length > 0) {
+      mySteps.forEach(step => {
+        newPrice += step.prices[0].price;
+      })
+    }
+    setPrice(newPrice);
+  }, [mySteps]);
 
   const getSteps = async () => {
     let response = await axios.get(Routing.generate('api_stages'));
@@ -281,7 +293,8 @@ function Steps() {
       <div className="ListSteps">
         {
           mySteps.length > 0
-          && <Button className="validateButton" color="green" fluid onClick={validateTrip}>Valider mon voyage</Button>
+          &&
+          <Button className="validateButton" color="green" fluid onClick={validateTrip}>Valider mon voyage, à partir de {price}&euro;</Button>
         }
         <Card.Group centered>
           {
