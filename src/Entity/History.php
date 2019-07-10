@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\HistoryRepository")
@@ -15,6 +16,7 @@ class History
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("apiMessage")
      */
     private $id;
 
@@ -137,7 +139,7 @@ class History
     {
         if (!$this->messages->contains($messages)) {
             $this->messages[] = $messages;
-            $messages->setHistory($this);
+            $messages->setHistories($this);
         }
 
         return $this;
@@ -148,8 +150,8 @@ class History
         if ($this->messages->contains($messages)) {
             $this->messages->removeElement($messages);
             // set the owning side to null (unless already changed)
-            if ($messages->getHistory() === $this) {
-                $messages->setHistory(null);
+            if ($messages->getHistories() === $this) {
+                $messages->setHistories(null);
             }
         }
 

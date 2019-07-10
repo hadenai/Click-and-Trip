@@ -1,9 +1,8 @@
 security:
     encoders:
-        App\Entity\Client:
-            algorithm: argon2i
-        App\Entity\Agency:
-            algorithm: argon2i
+        App\Entity\Client: plaintext
+        App\Entity\Agency: plaintext
+            # algorithm: argon2i
         Symfony\Component\Security\Core\User\User: plaintext
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
@@ -15,7 +14,7 @@ security:
         in_memory:
             memory:
                 users:
-                    admin: {password: adminmdp, roles: ['ROLE_ADMIN']}
+                    admin: {password: admin, roles: ['ROLE_ADMIN']}
         client_provider:
             entity:
                 class: App\Entity\Client

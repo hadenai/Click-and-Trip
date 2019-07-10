@@ -2,6 +2,7 @@
 
 {% block title %}Stage index{% endblock %}
 {% block stylesheet %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block body %}
@@ -12,12 +13,28 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Id
+                    <a href="{{ path('stage_index', {'sortField': 'id', 'sortDirection': 'ASC'}) }}">
+                        <i class="far fa-sort"></i>
+                    </a>
+                </th>
                 <th>Validate</th>
                 <th>Destination</th>
-                <th>Reference</th>
-                <th>NameStage</th>
-                <th>Duration</th>
+                <th>Reference
+                    <a href="{{ path('stage_index', {'sortField': 'reference', 'sortDirection': 'ASC'}) }}">
+                        <i class="far fa-sort"></i>
+                    </a>
+                </th>
+                <th>NameStage
+                    <a href="{{ path('stage_index', {'sortField': 'nameStage', 'sortDirection': 'ASC'}) }}">
+                        <i class="far fa-sort"></i>
+                    </a>
+                </th>
+                <th>Duration
+                    <a href="{{ path('stage_index', {'sortField': 'duration', 'sortDirection': 'ASC'}) }}">
+                        <i class="far fa-sort"></i>
+                    </a>
+                </th>
                 <th>Deleted</th>
                 <th>actions</th>
             </tr>
@@ -44,4 +61,7 @@
         {% endfor %}
         </tbody>
     </table>
+{% endblock %}
+{% block javascript %}
+<script src="https://kit.fontawesome.com/f62deca48c.js"></script>
 {% endblock %}

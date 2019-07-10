@@ -18,6 +18,7 @@ class Agency implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("apiMessage")
      */
     private $id;
 
@@ -66,6 +67,7 @@ class Agency implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("apiStage")
+     * @Groups("apiMessage")
      */
     private $company;
 

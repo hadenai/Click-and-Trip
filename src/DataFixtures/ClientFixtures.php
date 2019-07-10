@@ -23,7 +23,7 @@ class ClientFixtures extends Fixture
                 ->setSurname($faker->lastname())
                 ->setDateOfBirth($faker->dateTime())
                     ->setEmail($faker->email)
-                    ->setPassword($faker->password)
+                    ->setPassword('clientmdp')
                     ->setRoles(['ROLE_CLIENTS']);
             $manager->persist($client);
             $this->addReference('client_'.strval($i), $client);

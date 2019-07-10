@@ -27,6 +27,7 @@ Encore
     .addEntry('formRegistration', './assets/js/formRegistration.js')
     .addEntry('homepage', './assets/scss/homepage.scss')
     .addEntry("travelerDetailForm", "./assets/scss/travelerDetailForm.scss")
+    .addEntry('mailbox', './assets/js/react/Mailbox/Mailbox.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
