@@ -17,6 +17,7 @@ easy_admin:
                     - { property: 'company', label: 'Agence' }
                     - { property: 'validate', label: 'Validé ?' }
                     - { property: 'deleted', label: 'Supprimé ?' }
+                    - { property: 'image', template: 'editClient' }
             edit:
                 title: "Détails d'une agence"
                 fields: 
@@ -36,6 +37,7 @@ easy_admin:
                     - {property: 'deleted', label: ": compte supprimé ?"}
                     - {property: 'stages', label: "N° des étapes"}
                     - 'documents'
+           
         Client:
             class: App\Entity\Client
             label: 'Clients'
@@ -99,5 +101,3 @@ easy_admin:
                 - 'bundles/app/js/admin5.js'
                 - '../build/'
             favicon: '../build/images/small-logo.png'
-
-   

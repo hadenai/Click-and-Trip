@@ -127,7 +127,6 @@ SOFTWARE.
 
 ## Acknowledgments
 
-ls
 ```yarn install```
 ```yarn add @babel/preset-react --dev```
 ```composer require friendsofsymfony/jsrouting-bundle``` 

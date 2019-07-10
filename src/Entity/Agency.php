@@ -8,9 +8,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AgencyRepository")
+ * @Vich\Uploadable
  */
 class Agency implements UserInterface
 {
@@ -28,21 +31,17 @@ class Agency implements UserInterface
      * @Assert\Email(  message = "The email '{{ value }}' is not a valid email.")
      */
     private $email;
+
     /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
-     * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimun 8 caractères" )
-     * @Assert\EqualTo
-     * (propertyPath="confirm_password", message="Votre mot de passe doit être le même que celui que vous confirmer")
      */
     private $password;
-
-    public $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -65,10 +64,16 @@ class Agency implements UserInterface
     private $image;
 
     /**
+     * @Vich\UploadableField(mapping="agency_images", fileNameProperty="image")
+     */
+    private $imageFile;
+
+    /**
      * @ORM\Column(type="string", length=255)
      * @Groups("apiStage")
      * @Groups("apiMessage")
      */
+
     private $company;
 
     /**
@@ -129,12 +134,24 @@ class Agency implements UserInterface
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $validate=false;
+    private $validate = false;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="agency", orphanRemoval=true)
      */
     private $messages;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true )
+     */
+    private $updatedAt;
+
+    public function serialize()
+    {
+        return [
+            $this->id
+        ];
+    }
 
     public function __construct()
     {
@@ -162,23 +179,14 @@ class Agency implements UserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUsername(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -191,9 +199,6 @@ class Agency implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getPassword(): string
     {
         return (string) $this->password;
@@ -206,21 +211,12 @@ class Agency implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getSalt()
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getCountry(): ?string
@@ -329,7 +325,6 @@ class Agency implements UserInterface
     {
         if ($this->histories->contains($history)) {
             $this->histories->removeElement($history);
-            // set the owning side to null (unless already changed)
             if ($history->getAgency() === $this) {
                 $history->setAgency(null);
             }
@@ -360,7 +355,6 @@ class Agency implements UserInterface
     {
         if ($this->stages->contains($stage)) {
             $this->stages->removeElement($stage);
-            // set the owning side to null (unless already changed)
             if ($stage->getAgency() === $this) {
                 $stage->setAgency(null);
             }
@@ -439,7 +433,6 @@ class Agency implements UserInterface
     {
         if ($this->documents->contains($document)) {
             $this->documents->removeElement($document);
-            // set the owning side to null (unless already changed)
             if ($document->getAgency() === $this) {
                 $document->setAgency(null);
             }
@@ -482,7 +475,7 @@ class Agency implements UserInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         return $this->company;
     }
@@ -509,12 +502,29 @@ class Agency implements UserInterface
     {
         if ($this->messages->contains($message)) {
             $this->messages->removeElement($message);
-            // set the owning side to null (unless already changed)
             if ($message->getAgency() === $this) {
                 $message->setAgency(null);
             }
         }
 
         return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 }

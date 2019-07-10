@@ -2,12 +2,10 @@
 
 namespace App\DataFixtures;
 
-use Faker;
-use App\Entity\Agency;
-use App\Entity\User;
 use App\Entity\Client;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker;
 
 class ClientFixtures extends Fixture
 {
@@ -27,7 +25,7 @@ class ClientFixtures extends Fixture
                     ->setRoles(['ROLE_CLIENTS']);
             $manager->persist($client);
             $this->addReference('client_'.strval($i), $client);
-        };
+        }
 
         $manager->flush();
     }
