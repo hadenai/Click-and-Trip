@@ -137,7 +137,7 @@ class History
     {
         if (!$this->messages->contains($messages)) {
             $this->messages[] = $messages;
-            $messages->setHistory($this);
+            $messages->setHistories($this);
         }
 
         return $this;
@@ -148,8 +148,8 @@ class History
         if ($this->messages->contains($messages)) {
             $this->messages->removeElement($messages);
             // set the owning side to null (unless already changed)
-            if ($messages->getHistory() === $this) {
-                $messages->setHistory(null);
+            if ($messages->getHistories() === $this) {
+                $messages->setHistories(null);
             }
         }
 
@@ -185,9 +185,6 @@ class History
 
     public function __toString()
     {
-        // to show the name of the Category in the select
-        // return $this->histories;
-        // to show the id of the Category in the select
         return strval($this->id);
     }
 }

@@ -37,7 +37,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
             ->add("adulte4", NumberType::class, [
                 'label' => '70+ ans',
                 'required'   => true,
-            ])
+            ])    // Configure your form options here
             ->add("enfants1", NumberType::class, [
                 'label' => '0-2 ans',
                 'required'   => true,
@@ -116,12 +116,5 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'required'   => false,
             ])
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            // Configure your form options here
-        ]);
     }
 }
