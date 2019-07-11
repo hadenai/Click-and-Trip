@@ -1,22 +1,24 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheet %}
+    {{ encore_entry_link_tags('login') }}
+{% endblock %}
+
 {% block body %}
 
-    <h1 id="padding-for-navbar"> Connexion !</h1>
     <div class="container">
-        <div class="col-6">
-            <form action="{{ path('compte_connexion') }}" method="post">
-                <div class="form-group">
-                    <input placeholder="Adresse email ..." required name="_username"
-                           type="text" class="form-control">
+        <div class="formContainer">
+            <h1 id="padding-for-navbar" class="titre">Connexion</h1>
+            <form class="ui form formulaire" action="{{ path('compte_connexion') }}" method="post">
+                <div class="field">
+                    <label>Adresse email</label>
+                    <input name="_username" placeholder="Adresse email ..." required name="_username" type="text">
                 </div>
-                <div class="form-group">
-                    <input placeholder="Mot de passe ..." required name="_password"
-                           type="password" class="form-control">
+                <div class="field">
+                    <label>Mot de passe</label>
+                    <input name="_password" placeholder="Mot de passe ..." required name="_username" type="password">
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success"> Connexion </button>
-                </div>
+                <button type="submit" class="ui secondary button">Connexion</button>
             </form>
         </div>
     </div>
