@@ -57,6 +57,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
             ->add("travelDate1", CheckboxType::class, [
                 'label' => 'J\'ai des dates exactes. Choisissez une date de début et une date de fin.',
                 'required'   => false,
+                'attr' => ['class' => 'hidden'],
             ])
             ->add("beginDate", DateType::class, [
                 'label' => 'Date de départ',
@@ -69,6 +70,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
             ->add("travelDate2", CheckboxType::class, [
                 'label' => 'J\'ai une idée approximative.',
                 'required'   => false,
+                'attr' => ['class' => 'hidden'],
             ])
             ->add("mois", TextType::class, [
                 'label' => 'Mois:',
@@ -81,6 +83,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
             ->add("travelDate3", CheckboxType::class, [
                 'label' => 'Je n\'ai pas décidé',
                 'required'   => false,
+                'attr' => ['class' => 'hidden'],
             ])
             ->add("disponibilityDays", ChoiceType::class, [
                 'choices' => [
@@ -114,6 +117,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
             ->add("cgu", CheckboxType::class, [
                 'label' => 'J\'ai lu et j\'accepte les conditions générales d\'utilisation.',
                 'required'   => false,
+                'attr' => ['class' => 'hidden'],
             ])
         ;
     }

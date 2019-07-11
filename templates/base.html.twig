@@ -12,14 +12,14 @@
 <div class="container">
     <body>
         <header>
-        {% include "_navbar.html.twig" %}
+            {% include "_navbar.html.twig" %}
         </header>
-    {% block body %}{% endblock %}
+            {% block body %}{% endblock %}
         <footer>
-        {% include '_footer.html.twig'  %}
+            {% include '_footer.html.twig'  %}
         </footer>
-    {{ encore_entry_script_tags('index') }}
-    {% block javascript %}{% endblock %}
+        {{ encore_entry_script_tags('index') }}
+        {% block javascript %}{% endblock %}
     </body>
 </div>
 
