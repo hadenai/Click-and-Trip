@@ -85,13 +85,7 @@ class AboutController extends AbstractController
         return $this->render('about/legalMention.html.twig');
     }
 
-    /**
-     * @Route("/nos-engagements", name="nos_engaments")
-     */
-    public function ourEngagements()
-    {
-        return $this->render('about/ourEngagements.html.twig');
-    }
+
     /**
      * @Route("/services-associe")
      */
