@@ -11,7 +11,7 @@ class StateHistoryFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $states=[
-            'Demande admin',
+            'Attente admin',
             'Accepté par admin',
             'Refusé par admin',
             'Refusé par agence',
