@@ -36,6 +36,7 @@ Encore
     .addEntry('inspiration', './assets/scss/inspiration.scss')
     .addEntry('stageDetails', './assets/scss/stageDetails.scss')
     .addEntry("login", "./assets/scss/login.scss")
+    .addEntry("contactForm", "./assets/scss/contactForm.scss")
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

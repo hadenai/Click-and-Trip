@@ -1,26 +1,40 @@
 
 {% extends "base.html.twig" %}
-    {% block stylesheets %}
-        {{ encore_entry_link_links('app') }}
+
+    {% block stylesheet %}
+       {{ encore_entry_link_tags('contactForm') }}
     {% endblock %}
+
 {% block body %}
     <div class="fixNavbar">
-    {{ form_start(contactForm) }}
-    {{ form_errors(contactForm) }}
-        <div class="ui input focus">
-        {{ form_row(contactForm.name) }}
-        </div>
-            <div class="ui input focus">
-        {{ form_row(contactForm.email) }}
-            </div>
-        {{ form_row(contactForm.message) }}
+        <div class="formContainer">
+            <h1 id="padding-for-navbar" class="titre">Contact</h1>
+            {{ form_start(contactForm, {
+                    'attr': {
+                        'class' : 'ui form formulaire'
+                    }
+            }) }}
+            {{ form_errors(contactForm) }}
 
-        <div class="ui button">
-            <button type="submit">Envoyé</button>
+            <div class="field">
+                {{ form_row(contactForm.name) }}
+            </div>
+            <div class="field">
+                {{ form_row(contactForm.email) }}
+            </div>
+            <div class="field">
+                {{ form_row(contactForm.message) }}
+            </div>
+
+            <div class="field">
+                <button type="submit" class="ui secondary button">Envoyer</button>
+            </div>
+
             {{ form_end(contactForm) }}
         </div>
-        </div>
+    </div>
 {% endblock %}
+{# 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
-{% endblock %}
+{% endblock %} #}
