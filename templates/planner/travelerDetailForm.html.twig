@@ -1,16 +1,11 @@
 {% extends "base.html.twig" %}
     {% block stylesheet %}
-    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('travelerDetailForm') }}
     {% endblock %}
 {% block body %}
 <div class="fixNavbar">
 {{ form_start(form) }}
 {{ form_errors(form) }}
-<head>
-{% block stylesheet %}
-    {{ encore_entry_link_tags('travelerDetailForm') }}
-{% endblock %}
-</head>
 <form class="ui form">
 <h1>Commencez à créer votre projet voyage...</h1>
 

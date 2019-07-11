@@ -11,7 +11,7 @@
             <div class="meta">Prix:</div>
             <div class="meta">Nombre de voyageurs:</div>
             <div class="description">
-                STATUS: {{ history.stateId }}
+                STATUS: {{ history.state }}
             </div>
             {% if not agencyBool %}
                 <a href="{{ path('invoice', {'id': history.id }) }}" target="_blank">Nouvell facture</a>

@@ -44,6 +44,7 @@ function Messages(props) {
   };
 
   const handleConv = (e) => {
+    console.log(messages);
     if (e == 'admin') {
       setMessages(allMessages.filter(el => el.admin));
       setTarget(e);
