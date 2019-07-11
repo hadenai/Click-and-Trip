@@ -81,14 +81,6 @@ class PartnerFormType extends AbstractType
                 'label' => 'Souhaitez-vous fournir d\'autres informations ?',
                 'required' => false,
             ])
-
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            // Configure your form options here
-        ]);
     }
 }

@@ -77,7 +77,6 @@ function Messages(props) {
       .then(() => {
         getAllMessages();
         setInput('');
-        //  document.getElementById(`conv-${people}`).click();
       })
       .then(() => {
         if (props.userType === 'client') {

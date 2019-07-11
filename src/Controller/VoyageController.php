@@ -106,7 +106,6 @@ class VoyageController extends AbstractController
         StageRepository $stageRepo
     ) {
         $data=$session->get('planner');
-        dd($data);
         $history = new History();
         $stage=new Stage();
         foreach ($data as $key => $value) {

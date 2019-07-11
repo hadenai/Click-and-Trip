@@ -25,7 +25,6 @@ class PriceType extends AbstractType
                     '10 pers' => 10
                 ],
             ])
-            // ->add('stages')
         ;
     }
 

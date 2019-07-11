@@ -22,8 +22,3 @@ $(function () {
         $(this).parent().toggleClass('active');
     });
 });
-
-document.getElementById('dropdown').addEventListener('click', (event) => {
-
-            document.getElementById("myDropdown").classList.toggle("show");
-});

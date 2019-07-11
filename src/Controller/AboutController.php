@@ -125,8 +125,8 @@ class AboutController extends AbstractController
         $data = $form->getData();
         if ($form->isSubmitted() && $form->isValid()) {
             $message = (new \Swift_Message('Une nouvelle demande de partenariat a été soumise.'))
-                ->setFrom('vincent.mallard5@gmail.com')
-                ->setTo('vincent.mallard5@gmail.com')
+                ->setFrom($_ENV['MAILER_FROM_ADDRESS'])
+                ->setTo($_ENV['MAILER_TO_ADDRESS'])
                 ->setBody(
                     $this->renderView(
                         "about/bePartnerMail.html.twig",

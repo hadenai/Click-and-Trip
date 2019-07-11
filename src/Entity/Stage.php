@@ -44,7 +44,6 @@ class Stage
     private $nameStage;
 
     /**
-     * @var string
      * @Gedmo\Slug(fields={"nameStage"})
      * @ORM\Column(type="string", length=255, nullable=false)
      */
