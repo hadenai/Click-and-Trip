@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     app.path.agency_images: /uploads/images/agency
+    app.path.client_images: /uploads/images/client
+    app.path.stages_images: /uploads/images/stages
     locale: 'fr'
 
 services:
