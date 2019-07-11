@@ -86,20 +86,13 @@ class Client implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $imageName;
+    private $image;
 
     /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
      * @var File
      */
     private $imageFile;
-
-    /**
-     * @ORM\Column(type="integer")
-     *
-     * @var integer
-     */
-    private $imageSize;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -325,25 +318,15 @@ class Client implements UserInterface
         return $this->imageFile;
     }
 
-    public function getImageName(): ?string
+    public function getImage(): ?string
     {
-        return $this->imageName;
+        return $this->image;
     }
 
-    public function setImageName(?string $imageName): self
+    public function setImage(?string $image): self
     {
-        $this->imageName = $imageName;
+        $this->image = $image;
 
         return $this;
-    }
-    
-    public function setImageSize(?int $imageSize): void
-    {
-        $this->imageSize = $imageSize;
-    }
-
-    public function getImageSize(): ?int
-    {
-        return $this->imageSize;
     }
 }
