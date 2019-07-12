@@ -44,7 +44,6 @@ function Messages(props) {
   };
 
   const handleConv = (e) => {
-    console.log(messages);
     if (e == 'admin') {
       setMessages(allMessages.filter(el => el.admin));
       setTarget(e);
@@ -55,10 +54,10 @@ function Messages(props) {
       setMessages(allMessages.filter(el => el.client.id == e.id && !el.admin));
       setTarget(e);
     }
+    
     document.getElementsByClassName('selected')[0].classList.remove('selected');
     document.getElementById(`conv-${e.id}`).classList.add('selected');
     viewDown();
-    // document.getElementById(`conv-${people}`).click();
   };
 
   const handleSubmit = () => {
@@ -94,8 +93,9 @@ function Messages(props) {
     <Fragment>
       <div className="Conversations">
         <List selection verticalAlign="middle">
+          <button onClick={()=>console.log(messages)}></button>
           {
-            props.userType !== 'admin' &&
+            props.userType !== 'user' &&
             <List.Item id="conv-0" className="selected" onClick={() => handleConv('admin')}>
               <Image avatar src="../images/small-logo.png" />
               <List.Content>

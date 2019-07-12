@@ -100,10 +100,11 @@ class ProfilController extends AbstractController
     public function listMessages(): Response
     {
         $user=$this->getUser();
-        $id=$user instanceof User?null:$user->getId();
+        $id=$user instanceof User?0:$user->getId();
+        $directories=explode("\\", get_class($user));
         return $this->render('mailbox/listmessages.html.twig', [
             'id' => $id,
-            'type' => strtolower(explode("\\", get_class($user))[2])
+            'type' => strtolower($directories[count($directories)-1])
         ]);
     }
 

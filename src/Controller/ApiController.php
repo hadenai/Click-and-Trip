@@ -46,7 +46,7 @@ class ApiController extends AbstractController
         AgencyRepository $agencyRepo,
         MessageRepository $messageRepo,
         string $user,
-        int $id = null
+        int $id
     ) {
         switch ($user) {
             case 'client':
@@ -55,7 +55,7 @@ class ApiController extends AbstractController
             case 'agency':
                 $messages=$agencyRepo->findBy(['id'=>$id])[0]->getMessages();
                 break;
-            case 'admin':
+            case 'user':
                 $messages=$messageRepo->findBy(['admin'=>true]);
                 break;
             default:
