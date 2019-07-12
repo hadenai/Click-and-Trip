@@ -95,6 +95,8 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 ],
                 'multiple' => true,
                 'required'   => true,
+                'expanded' => true,
+                'attr' => ['class' => 'checkbox'],
             ])
             ->add("disponibilityHour", ChoiceType::class, [
                 'choices' => [
@@ -105,7 +107,9 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 ],
                 'multiple' => true,
                 'required'   => true,
-            ])
+                'expanded' => true,
+                'attr' => ['class' => 'checkbox'],
+                ])
             ->add("phoneNumber", NumberType::class, [
                 'label' => 'Merci de nous indiquer votre numéro de téléphone ',
                 'required'   => true,
