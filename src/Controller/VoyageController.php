@@ -63,6 +63,8 @@ class VoyageController extends AbstractController
         $form = $this->createForm(TravelerDetailFormType::class);
         $form->handleRequest($request);
         $data = $form->getData();
+        $user=$this->getUser();
+        $data['name']=$user->getName().' '.$user->getSurname();
         if ($form->isSubmitted() && $form->isValid()) {
             $message = (new \Swift_Message('Un nouveau formulaire de contacte a été soumis.'))
                 ->setFrom($_ENV['MAILER_CONTACT'])

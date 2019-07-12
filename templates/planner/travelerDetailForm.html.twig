@@ -5,7 +5,7 @@
 
 {% block body %}
 
-    <div class="fixNavbar">
+    <div id="padding-for-navbar">
         <div class="formContainer">
         <h1>Commencez à créer votre projet voyage...</h1>
         {{ form_start(form, {
@@ -14,11 +14,6 @@
             }
         }) }}
         {{ form_errors(form) }}
-        <h2>Qui voyage ?</h2>
-
-        <div class="field">
-            {{ form_row(form.name) }}
-        </div>
 
         <h3>Combien de participants ?</h3>
 
@@ -42,44 +37,60 @@
             {{ form_row(form.enfants4, {'value' : 0}) }}
         </div>
 
-        <h2>Quand souhaitez-vous partir ? Merci de cocher la réponse</h2>
-        <div class="field">
-            <div class="ui checkbox">
+        <h2>Quand souhaitez-vous partir ?</h2>
+        <h5>Avez-vous une idée précise de vos dates de voyages ?</h5>
+        {# <div class="ui buttons">
+            <button class="ui button" >oui</button>
+            <div class="or" data-text="ou"></div>
+            <button class="ui positive button">non</button>
+        </div> #}
+        {# <div class="blue ui buttons">
+            <button class="ui button" onclick="() => handleDate(dateAccurated, dateLarge)">Oui</button>
+            <button class="ui button" onclick="() => handleDate(dateLarge, dateAccurated)">Un peu</button>
+            <button class="ui button">Non</button>
+        </div> #}
+        <div class="ui three item menu">
+            <a class="item" onclick="handleDate(dateAccurated, dateLarge)">Oui</a>
+            <a class="item" onclick="handleDate(dateAccurated, dateLarge)">Un peu</a>
+            <a class="item">Non</a>
+        </div>
+
+        <div class="field" id="dateAccurated">
+            {# <div class="ui checkbox">
                 {{ form_row(form.travelDate1) }}
-            </div>
+            </div> #}
+            {{ form_row(form.beginDate, {
+                'attr': {
+                    'class': 'fields'
+                }
+            }) }}
+            {{ form_row(form.endDate, {
+                'attr': {
+                    'class': 'fields'
+                }
+            }) }}
         </div>
 
-        {{ form_row(form.beginDate, {
-            'attr': {
-                'class': 'fields'
-            }
-        }) }}
-        {{ form_row(form.endDate, {
-            'attr': {
-                'class': 'fields'
-            }
-        }) }}
-
-        <div class="field">
-            <div class="ui checkbox">
+        <div class="field" id="dateLarge">
+            {# <div class="ui checkbox">
                 {{ form_row(form.travelDate2) }}
-            </div>
-        </div>
-
-        <div class="fields">
-            <div class="field">
+            </div> #}
                 {{ form_row(form.mois) }}
-            </div>
-            <div class="field">
                 {{ form_row(form.annees) }}
-            </div>
         </div>
 
-        <div class="field">
+        {# <div class="fields">
+            <div class="field">
+            </div>
+            <div class="field">
+            </div>
+        </div> #}
+
+        {# <div class="field">
             <div class="ui checkbox">
                 {{ form_row(form.travelDate3) }}
             </div>
-        </div>
+        </div> #}
 
         <h2>Quelles sont vos disponibilités pour un rendez-vous téléphonique?</h2>
 
@@ -112,7 +123,9 @@
 
             <div class="field">
                 <div class="ui checkbox">
-                    {{ form_row(form.cgu) }}
+                    {# {{ form_row(form.cgu) }} #}
+                    {{ form_label(form.cgu) }}
+                    {{ form_widget(form.cgu) }}
                 </div>
             </div>
 
@@ -121,12 +134,22 @@
         </div>
     </div>
 
-    {# <script>
-        $('.ui.checkbox').checkbox();
-    </script> #}
+    
 
 {% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        function handleDate(showById, hideById){
+            const SHOW = document.getElementById(`${showById}`);
+            SHOW.style.display="block";
+            document.getElementById(`${hideById}`).style.display="none";
+            document.getElementsByClassName('active')[0].classList.remove('active');
+            SHOW.classList.add('active');
+        }
+
+        $('.ui.checkbox').checkbox();
+    </script>
 {% endblock %}

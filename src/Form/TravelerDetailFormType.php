@@ -18,10 +18,6 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("name", TextType::class, [
-                'label' => 'Votre nom:',
-                'required'   => true,
-            ])
             ->add("adulte1", NumberType::class, [
                 'label' => '18-34 ans',
                 'required'   => true,
@@ -54,11 +50,11 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'label' => '13-17 ans',
                 'required'   => true,
             ])
-            ->add("travelDate1", CheckboxType::class, [
-                'label' => 'J\'ai des dates exactes. Choisissez une date de début et une date de fin.',
-                'required'   => false,
-                'attr' => ['class' => 'hidden'],
-            ])
+            // ->add("travelDate1", CheckboxType::class, [
+            //     'label' => 'J\'ai des dates exactes. Choisissez une date de début et une date de fin.',
+            //     'required'   => false,
+            //     'attr' => ['class' => 'hidden'],
+            // ])
             ->add("beginDate", DateType::class, [
                 'label' => 'Date de départ',
                 'required'   => false,
@@ -67,11 +63,11 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'label' => 'Date de fin',
                 'required'   => false,
             ])
-            ->add("travelDate2", CheckboxType::class, [
-                'label' => 'J\'ai une idée approximative.',
-                'required'   => false,
-                'attr' => ['class' => 'hidden'],
-            ])
+            // ->add("travelDate2", CheckboxType::class, [
+            //     'label' => 'J\'ai une idée approximative.',
+            //     'required'   => false,
+            //     'attr' => ['class' => 'hidden'],
+            // ])
             ->add("mois", TextType::class, [
                 'label' => 'Mois:',
                 'required'   => false,
@@ -80,11 +76,11 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'label' => 'Années:',
                 'required'   => false,
             ])
-            ->add("travelDate3", CheckboxType::class, [
-                'label' => 'Je n\'ai pas décidé',
-                'required'   => false,
-                'attr' => ['class' => 'hidden'],
-            ])
+            // ->add("travelDate3", CheckboxType::class, [
+            //     'label' => 'Je n\'ai pas décidé',
+            //     'required'   => false,
+            //     'attr' => ['class' => 'hidden'],
+            // ])
             ->add("disponibilityDays", ChoiceType::class, [
                 'choices' => [
                     'Lundi' => 'Lundi',

@@ -84,22 +84,18 @@ Formulaire de contacte détaillez:
     Date du voyage:
 </h2>
 
-{% if data.travelDate1 == 1 %}
+{% if data.beginDate is not null %}
     <p>
         Date de départ: {{ data.beginDate|date("d/m/Y") }}
     </p>
     <p>
         Date de fin: {{ data.endDate|date("d/m/Y") }}
     </p>
-{% endif %}
-
-{% if data.travelDate2 == 1 %}
+{% elseif data.mois is not null %}
     <p>
         Mois et années de départ: {{ data.mois }}, {{ data.annees }}
     </p>
-{% endif %}
-
-{% if data.travelDate3 == 1 %}
+{% else %}
     <p>
 Aucune date.
     </p>
