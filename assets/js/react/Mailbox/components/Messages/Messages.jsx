@@ -44,6 +44,7 @@ function Messages(props) {
   };
 
   const handleConv = (e) => {
+    console.log(messages);
     if (e == 'admin') {
       setMessages(allMessages.filter(el => el.admin));
       setTarget(e);
@@ -77,7 +78,6 @@ function Messages(props) {
       .then(() => {
         getAllMessages();
         setInput('');
-        //  document.getElementById(`conv-${people}`).click();
       })
       .then(() => {
         if (props.userType === 'client') {

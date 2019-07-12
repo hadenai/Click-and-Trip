@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
- * * @Vich\Uploadable
+ * @Vich\Uploadable
  */
 class Client implements UserInterface
 {
@@ -303,8 +303,6 @@ class Client implements UserInterface
     public function setImageFile(File $image = null)
     {
         $this->imageFile = $image;
-
-        // VERY IMPORTANT:
         // It is required that at least one field changes if you are using Doctrine,
         // otherwise the event listeners won't be called and the file is lost
         if ($image) {

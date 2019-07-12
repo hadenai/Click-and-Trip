@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Twig;
 
 use App\Entity\Agency;
@@ -17,10 +16,12 @@ class InstanceOfExtension extends AbstractExtension
             new TwigFunction('instanceofAgency', [$this, 'instanceOfAgency']),
         ];
     }
+
     public function instanceOfClient($user)
     {
         return  $user instanceof Client;
     }
+    
     public function instanceOfAgency($user)
     {
         return  $user instanceof Agency;

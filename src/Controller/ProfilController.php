@@ -7,6 +7,8 @@ use App\Entity\Stage;
 use App\Entity\Agency;
 use App\Entity\History;
 use App\Entity\Message;
+use App\Form\AccountAgencyType;
+use App\Form\AccountClientType;
 use App\Repository\PriceRepository;
 use App\Repository\AgencyRepository;
 use App\Repository\ClientRepository;
@@ -15,11 +17,10 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Form\AccountAgencyType;
-use App\Form\AccountClientType;
 
 /**
  * @Route("/profil", name="profil_",
@@ -99,8 +100,9 @@ class ProfilController extends AbstractController
     public function listMessages(): Response
     {
         $user=$this->getUser();
+        $id=$user instanceof User?null:$user->getId();
         return $this->render('mailbox/listmessages.html.twig', [
-            'id' => $user->getId(),
+            'id' => $id,
             'type' => strtolower(explode("\\", get_class($user))[2])
         ]);
     }
