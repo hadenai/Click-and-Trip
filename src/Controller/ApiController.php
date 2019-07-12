@@ -51,16 +51,19 @@ class ApiController extends AbstractController
         switch ($user) {
             case 'client':
                 $messages=$clientRepo->findBy(['id'=>$id])[0]->getMessages();
-                break;
+                return $this->json($messages, 200, [], ['groups'=>'apiMessage']);
+                // break;
             case 'agency':
                 $messages=$agencyRepo->findBy(['id'=>$id])[0]->getMessages();
-                break;
+                return $this->json($messages, 200, [], ['groups'=>'apiMessage']);
+                // break;
             case 'user':
                 $messages=$messageRepo->findBy(['admin'=>true]);
-                break;
+                return $this->json($messages, 200);
+                // break;
             default:
                 throw new HttpException(404, "Adresse introuvable...");
         }
-        return $this->json($messages, 200, [], ['groups'=>'apiMessage']);
+        // return $this->json($messages, 200, [], ['groups'=>'apiMessage']);
     }
 }
