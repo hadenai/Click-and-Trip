@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <h1> Connexion !</h1>
+    <h1 id="padding-for-navbar"> Connexion !</h1>
     <div class="container">
         <div class="col-6">
             <form action="{{ path('compte_connexion') }}" method="post">
@@ -16,9 +16,6 @@
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success"> Connexion </button>
-                </div>
-                <div>
-                    <a href="#" self>Mot de passe oubliée? </a>
                 </div>
             </form>
         </div>

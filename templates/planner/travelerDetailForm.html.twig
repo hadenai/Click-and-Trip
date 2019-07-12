@@ -1,16 +1,11 @@
 {% extends "base.html.twig" %}
-    {% block stylesheets %}
-    {{ encore_entry_link_tags('app') }}
+    {% block stylesheet %}
+    {{ encore_entry_link_tags('travelerDetailForm') }}
     {% endblock %}
 {% block body %}
 <div class="fixNavbar">
 {{ form_start(form) }}
 {{ form_errors(form) }}
-<head>
-{% block stylesheet %}
-    {{ encore_entry_link_tags('travelerDetailForm') }}
-{% endblock %}
-</head>
 <form class="ui form">
 <h1>Commencez à créer votre projet voyage...</h1>
 
@@ -31,10 +26,10 @@
 <h3>Adultes:</h3>
 
 <div class="ui input focus">
-{{ form_row(form.adulte1) }}
-{{ form_row(form.adulte2) }}
-{{ form_row(form.adulte3) }}
-{{ form_row(form.adulte4) }}
+{{ form_row(form.adulte1, {'value' : 0}) }}
+{{ form_row(form.adulte2, {'value' : 0}) }}
+{{ form_row(form.adulte3, {'value' : 0}) }}
+{{ form_row(form.adulte4, {'value' : 0}) }}
 </div>
 
 
@@ -42,10 +37,10 @@
 <h3>Enfants</h3>
 
 <div class="ui input focus">
-{{ form_row(form.enfants1) }}
-{{ form_row(form.enfants2) }}
-{{ form_row(form.enfants3) }}
-{{ form_row(form.enfants4) }}
+{{ form_row(form.enfants1, {'value' : 0}) }}
+{{ form_row(form.enfants2, {'value' : 0}) }}
+{{ form_row(form.enfants3, {'value' : 0}) }}
+{{ form_row(form.enfants4, {'value' : 0}) }}
 </div>
 
 <h2>Quand souhaitez-vous partir ? Merci de cocher la réponse</h2>

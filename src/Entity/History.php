@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\HistoryRepository")
@@ -15,6 +16,7 @@ class History
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("apiMessage")
      */
     private $id;
 
@@ -27,11 +29,6 @@ class History
      * @ORM\Column(type="date")
      */
     private $dateEnd;
-
-    /**
-     * @ORM\Column(type="smallint")
-     */
-    private $stateId;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="histories")
@@ -54,6 +51,17 @@ class History
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="histories")
      */
     private $stages;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\StateHistory", inversedBy="histories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $state;
 
     public function __construct()
     {
@@ -86,18 +94,6 @@ class History
     public function setDateEnd(\DateTimeInterface $dateEnd): self
     {
         $this->dateEnd = $dateEnd;
-
-        return $this;
-    }
-
-    public function getStateId(): ?int
-    {
-        return $this->stateId;
-    }
-
-    public function setStateId(int $stateId): self
-    {
-        $this->stateId = $stateId;
 
         return $this;
     }
@@ -137,7 +133,7 @@ class History
     {
         if (!$this->messages->contains($messages)) {
             $this->messages[] = $messages;
-            $messages->setHistory($this);
+            $messages->setHistories($this);
         }
 
         return $this;
@@ -148,8 +144,8 @@ class History
         if ($this->messages->contains($messages)) {
             $this->messages->removeElement($messages);
             // set the owning side to null (unless already changed)
-            if ($messages->getHistory() === $this) {
-                $messages->setHistory(null);
+            if ($messages->getHistories() === $this) {
+                $messages->setHistories(null);
             }
         }
 
@@ -186,5 +182,29 @@ class History
     public function __toString()
     {
         return strval($this->id);
+    }
+
+    public function getComments(): ?string
+    {
+        return $this->comments;
+    }
+
+    public function setComments(?string $comments): self
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    public function getState(): ?StateHistory
+    {
+        return $this->state;
+    }
+
+    public function setState(?StateHistory $state): self
+    {
+        $this->state = $state;
+
+        return $this;
     }
 }

@@ -1,6 +1,7 @@
 {
     "devDependencies": {
         "@symfony/webpack-encore": "^0.27.0",
+        "bootstrap": "^4.3.1",
         "core-js": "^3.0.0",
         "less-loader": "^4.1.0",
         "webpack-notifier": "^1.6.0"
@@ -22,6 +23,7 @@
         "sass-loader": "^7.1.0",
         "semantic-ui": "^2.4.0",
         "semantic-ui-css": "^2.4.1",
-        "semantic-ui-react": "^0.87.1"
+        "semantic-ui-react": "^0.87.1",
+        "underscore": "^1.9.1"
     }
 }

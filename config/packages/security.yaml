@@ -4,7 +4,7 @@ security:
             algorithm: argon2i
         App\Entity\Agency:
             algorithm: argon2i
-        Symfony\Component\Security\Core\User\User: plaintext
+        Symfony\Component\Security\Core\User\User: argon2i
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -15,7 +15,10 @@ security:
         in_memory:
             memory:
                 users:
-                    admin: {password: adminmdp, roles: ['ROLE_ADMIN']}
+                    admin@cnt.fr: 
+                        password: '$argon2i$v=19$m=1024,t=2,p=2$ZjRiam01dEw3T2lHdXZTag$avm42JsT72ZRK8gf4Bd03lACPeo2PuZfmJgn4L4L7iM'
+                        roles: 'ROLE_ADMIN'
+                    # password not encoded: CandTRIP
         client_provider:
             entity:
                 class: App\Entity\Client

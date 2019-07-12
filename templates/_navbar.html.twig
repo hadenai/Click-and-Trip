@@ -1,17 +1,37 @@
 <nav class="nav container">
-  <img id='mobileLogo' href="#" src='{{ asset("build/images/small-logo.png")}}' alt='logo click & Trip'/>
-  <div id="mainListDiv" class="main_list">
-    <ul class="navlinks">
-      <li><a href="#">Accueil</a></li>
-      <li><a href="#">Inspirations</a></li>
-      <li><a href="#">Destinations</a></li>
-      <li id='laptopLogo'><img id="logo" href="#" src='{{ asset("build/images/small-logo.png")}}' alt='logo click & Trip'/></li>
-      <li><a href="#">Créer Mon Voyage</a></li>
-      <li><a href="#">Mon Compte</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </div>
-  <span class="navTrigger">
+    <img id='mobileLogo' href="#" src='https://i.ibb.co/cNqdNvt/logo-click-and-trip-blanc-petit.png' alt='logo click & Trip'/>
+    <div id="mainListDiv" class="main_list">
+        <ul class="navlinks">
+            <li><a href="#">Accueil</a></li>
+            <li>
+                <div class="dropdown">
+                    <a href="#" id="dropdown" class="dropbtn">Mon compte</a>
+                    <div id="myDropdown" class="dropdown-content">
+                        {% if app.user %}
+                        <a href="#">messages</a>
+                        <a href="#">historiques</a>
+                        {% if instanceofClient(app.user) %}
+                            <a href="profile/editclient"> <option value="Info perso">Info perso </option> </a>
+                        {% endif %}
+                        {% if instanceofAgency(app.user) %}
+                            <a href="/profile/editagency"> <option value="Info perso">Info perso </option> </a>
+                        {% endif %}
+                        <a href="{{ path('compte_deconnexion') }}">déconnexion</a>
+                    </div>
+                    {% else %}
+                        <a href="{{ path('compte_inscription') }}">Inscription</a>
+                        <a href="{{ path('compte_connexion') }}">Connexion</a>
+                    {% endif %}
+                </div>
+            </li>
+            <li><a href="#">Inspirations</a></li>
+            <li id='laptopLogo'><img id="logo" href="#" src='https://i.ibb.co/cNqdNvt/logo-click-and-trip-blanc-petit.png' alt='logo click & Trip'/></li>
+            <li><a href="#">Créer Mon Voyage</a></li>
+            <li><a href="#">Destinations</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+    <span class="navTrigger">
       <i></i>
       <i></i>
       <i></i>

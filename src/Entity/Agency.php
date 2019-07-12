@@ -8,9 +8,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AgencyRepository")
+ * @Vich\Uploadable
  */
 class Agency implements UserInterface
 {
@@ -18,6 +21,7 @@ class Agency implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("apiMessage")
      */
     private $id;
 
@@ -36,12 +40,8 @@ class Agency implements UserInterface
     /**
      * @ORM\Column(type="string")
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimun 8 caractères" )
-     * @Assert\EqualTo
-     * (propertyPath="confirm_password", message="Votre mot de passe doit être le même que celui que vous confirmer")
      */
     private $password;
-
-    public $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -59,14 +59,10 @@ class Agency implements UserInterface
     private $address;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $image;
-
-    /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api")
+     * @Groups({"apiStage", "apiMessage"})
      */
+
     private $company;
 
     /**
@@ -90,29 +86,24 @@ class Agency implements UserInterface
     private $stages;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $yearCreation;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $presentation;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $flagship;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Documents", mappedBy="agency", orphanRemoval=true)
-     */
-    private $documents;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -134,11 +125,33 @@ class Agency implements UserInterface
      */
     private $messages;
 
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="agency_images", fileNameProperty="image", size="image.size")
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true )
+     */
+    private $updatedAt;
+
+    public function serialize()
+    {
+        return [
+            $this->id
+        ];
+    }
+
     public function __construct()
     {
         $this->histories = new ArrayCollection();
         $this->stages = new ArrayCollection();
-        $this->documents = new ArrayCollection();
         $this->messages = new ArrayCollection();
     }
 
@@ -232,18 +245,6 @@ class Agency implements UserInterface
     public function setAddress(string $address): self
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
 
         return $this;
     }
@@ -392,36 +393,6 @@ class Agency implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Documents[]
-     */
-    public function getDocuments(): Collection
-    {
-        return $this->documents;
-    }
-
-    public function addDocument(Documents $document): self
-    {
-        if (!$this->documents->contains($document)) {
-            $this->documents[] = $document;
-            $document->setAgency($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDocument(Documents $document): self
-    {
-        if ($this->documents->contains($document)) {
-            $this->documents->removeElement($document);
-            if ($document->getAgency() === $this) {
-                $document->setAgency(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getDeleted(): ?bool
     {
         return $this->deleted;
@@ -456,7 +427,7 @@ class Agency implements UserInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         return $this->company;
     }
@@ -487,6 +458,33 @@ class Agency implements UserInterface
                 $message->setAgency(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

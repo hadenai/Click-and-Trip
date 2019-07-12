@@ -41,14 +41,34 @@ class Message
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Agency", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("apiMessage")
      */
     private $agency;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("apiMessage")
      */
     private $client;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * @Groups("apiMessage")
+     */
+    private $admin=false;
+
+    /**
+     * @ORM\Column(type="string", length=15)
+     * @Groups("apiMessage")
+     */
+    private $sender;
+
+    /**
+     * @ORM\Column(type="string", length=15)
+     * @Groups("apiMessage")
+     */
+    private $receiver;
 
     public function __construct()
     {
@@ -85,14 +105,14 @@ class Message
         return $this;
     }
 
-    public function getHistory(): ?History
+    public function getHistories(): ?History
     {
         return $this->histories;
     }
 
-    public function setHistory(?History $history): self
+    public function setHistories(?History $histories): self
     {
-        $this->histories = $history;
+        $this->histories = $histories;
 
         return $this;
     }
@@ -119,5 +139,46 @@ class Message
         $this->client = $client;
 
         return $this;
+    }
+
+    public function getAdmin(): ?bool
+    {
+        return $this->admin;
+    }
+
+    public function setAdmin(bool $admin): self
+    {
+        $this->admin = $admin;
+
+        return $this;
+    }
+
+    public function getSender(): ?string
+    {
+        return $this->sender;
+    }
+
+    public function setSender(string $sender): self
+    {
+        $this->sender = $sender;
+
+        return $this;
+    }
+
+    public function getReceiver(): ?string
+    {
+        return $this->receiver;
+    }
+
+    public function setReceiver(string $receiver): self
+    {
+        $this->receiver = $receiver;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return ($this->content.' - envoyé par: '.$this->sender);
     }
 }

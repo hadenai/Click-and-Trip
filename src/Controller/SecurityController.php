@@ -22,7 +22,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/inscription", name="client")
+     * @Route("/inscription", name="inscription")
      */
     public function registrationClient(
         Request $request,

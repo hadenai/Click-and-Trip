@@ -22,7 +22,7 @@ class HistoryRepository extends ServiceEntityRepository
         parent::__construct($registry, History::class);
     }
 
-    public function findAllHistoryInfos(UserInterface $user): string
+    public function findAllHistoryInfos(UserInterface $user): array
     {
         $qb = $this->createQueryBuilder('h');
         if ($user instanceof Agency) {

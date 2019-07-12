@@ -2,19 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Stage;
 use App\Entity\Agency;
 use App\Entity\History;
-use App\Entity\Stage;
+use App\Entity\StateHistory;
+use Doctrine\ORM\EntityManager;
+use App\Repository\StageRepository;
 use App\Form\TravelerDetailFormType;
 use App\Repository\AgencyRepository;
-use App\Repository\StageRepository;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class VoyageController extends AbstractController
 {
@@ -111,15 +112,31 @@ class VoyageController extends AbstractController
             $stage=$stageRepo->findOneBy(['reference'=>$value->reference]);
             $history->addStage($stage);
         }
+        $state=new StateHistory();
+        $state->setState('Attente admin');
         $agency = $stage->getAgency();
         $history->setDateBegin($session->get('dates')[0])
             ->setDateEnd($session->get('dates')[1])
-            ->setStateId(0)
+            ->setState($state)
             ->setClient($this->getUser())
             ->setAgency($agency);
         $manager->persist($history);
         $manager->flush();
 
         return $this->render('planner/success.html.twig');
+    }
+
+    /**
+     * @Route("/mon-voyage/{country}", name="destination")
+     */
+    public function destination($country, StageRepository $stageRepository)
+    {
+        $steps = $stageRepository->findBy(["destination" => $country]);
+        return $this->render(
+            "destination.html.twig",
+            [
+                "steps" => $steps
+            ]
+        );
     }
 }
