@@ -13,8 +13,24 @@
             <div class="description">
                 STATUS: {{ history.state }}
             </div>
+            {% if agencyBool %}
+
+                {% if history.state == "Accepté par admin" %}
+                    <a href="{{ path('profil_confirmationAgence', {'id': history.id }) }}">Accepter le voyage</a>
+                {% endif %}
+
+            {% endif %}
+
             {% if not agencyBool %}
-                <a href="{{ path('invoice', {'id': history.id }) }}" target="_blank">Nouvell facture</a>
+
+                {% if history.state == "Payé" %}
+                <a href="{{ path('invoice', {'id': history.id }) }}" target="_blank">Nouvelle facture</a>
+                {% endif %}
+
+                {% if history.state == "Attente paiement" %}
+                    <a href="{{ path('profil_paiement', {'id': history.id }) }}">Payé</a>
+                {% endif %}
+
             {% endif %}
         </div>
     </div>

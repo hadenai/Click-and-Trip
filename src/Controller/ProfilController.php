@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\StateHistory;
 use DateTime;
 use App\Entity\Stage;
 use App\Entity\Agency;
@@ -48,7 +49,7 @@ class ProfilController extends AbstractController
     ): Response {
         return $this->render('profil/history.html.twig', [
             'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),
-            'agencyBool' => $this->getUser() instanceof Agency
+            'agencyBool' => $this->getUser() instanceof Agency,
         ]);
     }
 
@@ -142,5 +143,43 @@ class ProfilController extends AbstractController
         $manager->persist($message);
         $manager->flush();
         return $this->json([], 200);
+    }
+
+    /**
+     * @Route("/confirmationAgence/{id}", name="confirmationAgence")
+     */
+    public function confirmVoyageAgency(ObjectManager $manager, HistoryRepository $historyRepository, int $id)
+    {
+        $state = new StateHistory();
+        $state->setState('Attente paiement');
+        $history = $historyRepository->findOneBy(['id' => $id]);
+        $history->setState($state);
+        $manager->persist($history);
+        $manager->flush();
+        return $this->redirectToRoute("profil_history");
+    }
+
+    /**
+     * @Route("/paiement/{id}", name="paiement")
+     */
+    public function paiement(HistoryRepository $historyRepository)
+    {
+        return $this->render('profil/paiement.html.twig', [
+            'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),
+        ]);
+    }
+
+    /**
+     * @Route("/paiementAccepter/{id}", name="paiementAccepter")
+     */
+    public function paiementAccepter(ObjectManager $manager, HistoryRepository $historyRepository, int $id)
+    {
+        $state = new StateHistory();
+        $state->setState('Payé');
+        $history = $historyRepository->findOneBy(['id' => $id]);
+        $history->setState($state);
+        $manager->persist($history);
+        $manager->flush();
+        return $this->redirectToRoute("profil_history");
     }
 }
