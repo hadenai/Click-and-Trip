@@ -1,19 +1,47 @@
 {% extends "base.html.twig" %}
  {% block stylesheet %}
      {{ encore_entry_link_tags('stageDetails') }}
+     <style type="text/css">
+         /*GALERIE PHOTO JS*/
+
+         .Galerie{
+             padding:0;
+             background:#fff;
+             font-size: 500px;
+         }
+         .main-img img, .imgs img {
+             width: 100%;
+         }
+         .imgs{
+             display: grid;
+             grid-template-columns: repeat(4, 1fr);
+             margin-top: 5px;
+             grid-gap: 5px;
+         }
+     </style>
 {% endblock %}
 {% block body %}
 <div class="product">
     <div id="productImages">
-        <div id="sliderImages">
-            <div class="productImage" style="background-image: url(//images.pexels.com/photos/414612/pexels-photo-414612.jpeg)"></div>
+            <!--row mosaïque-photos-->
+            <section>
+                <div class="Galerie">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-10 offset-1">
+                                <div class="main-img">
+                                    <img src="/build/images/img1.jpg" id="current" alt="mosaique">
+                                </div>
+                                <div class="imgs" id="container-images">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div id="sliderIndex">
-        </div>
-    </div>
-
     <div class="productInfo">
-        <h1 class="title">{{ stage.nameStage }}</h1>
+        <h1 class="title ui block header">{{ stage.nameStage }}</h1>
         <div class="subProdInfo">
             <span class="price">Durée: {{ stage.duration }} Jours</span>
             <span class="stock">{% for price in stage.prices %}Prix: {{price}} €{% endfor %}</span>
@@ -27,4 +55,37 @@
             Phosfluorescently incentivize go forward sources with client-centered content.</p>
     </div>
 </div>
+{% endblock %}
+{% block javascript %}
+    <script>
+    // Beginning of automatic pictures call
+let images="";
+for(let i=1;i<4;i++){
+    images+=`<img src="/build/images/img${i}.jpg" alt="mosaique">`
+}
+const container=document.getElementById('container-images');
+container.innerHTML=images;
+// End of automatic pictures call
+
+const current = document.getElementById("current");
+const imgs = document.querySelectorAll(".imgs img");
+const opacity = 0.6;
+
+imgs.forEach(img => img.addEventListener("click", imgClick));
+// set first image opacity
+imgs[0].style.opacity = opacity;
+
+function imgClick(e) {
+    // reste the opacity
+    imgs.forEach(img => (img.style.opacity = 1 ));
+    //change current image to src of clicked image//
+    current.src = e.target.src
+    //add fade in class
+    current.classList.add("fade-in");
+    // Remove fade-in class after 0.5s
+    setTimeout(() => current.classList.remove("fade-in"),500);
+    // change the opacity to opacity var//
+    e.target.style.opacity = opacity;
+}
+</script>
 {% endblock %}

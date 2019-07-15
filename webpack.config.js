@@ -35,6 +35,7 @@ Encore
     .addEntry('mailbox', './assets/js/react/Mailbox/Mailbox.js')
     .addEntry('inspiration', './assets/scss/inspiration.scss')
     .addEntry('stageDetails', './assets/scss/stageDetails.scss')
+    .addEntry('stageDetailsJS', './assets/js/stageDetails.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
