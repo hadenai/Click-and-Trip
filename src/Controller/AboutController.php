@@ -7,6 +7,7 @@ use App\Form\PartnerFormType;
 use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AboutController extends AbstractController
 {
     /**
-     * @Route("/contact")
+     * @Route("/contact", name="contact")
      */
     public function contactForm(Request $request, Swift_Mailer $mailer)
     {
@@ -92,8 +93,9 @@ class AboutController extends AbstractController
     {
         return $this->render('about/ourEngagements.html.twig');
     }
+    
     /**
-     * @Route("/services-associe")
+     * @Route("/services-associe", name="services-associe")
      */
     public function affiliateService()
     {
@@ -101,7 +103,7 @@ class AboutController extends AbstractController
     }
 
     /**
-     * @Route("/cgu")
+     * @Route("/cgu", name="cgu")
      */
     public function cgu()
     {
@@ -109,14 +111,14 @@ class AboutController extends AbstractController
     }
 
     /**
-     * @Route("/nos-engagements")
+     * @Route("/nos-engagements", name="nos-engagements")
      */
     public function commitment()
     {
         return $this->render("about/commitment.html.twig");
     }
     /**
-    * @Route("/devenir-partenaire")
+    * @Route("/devenir-partenaire", name="devenir-partenaire")
     */
     public function bePartner(Swift_Mailer $mailer, Request $request)
     {
@@ -144,5 +146,21 @@ class AboutController extends AbstractController
                 "form" => $form->createView()
             ]
         );
+    }
+
+    /**
+     * @Route("politique-confidentialite", name="politique-confidentialite")
+     */
+    public function politiqueConfidentialite() :Response
+    {
+        return $this->render('about/politiqueDeConfidentialité.html.twig');
+    }
+
+    /**
+     * @Route("/merci", name="merci")
+     */
+    public function thank() :Response
+    {
+        return $this->render('about/merci.html.twig');
     }
 }

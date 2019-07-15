@@ -19,7 +19,7 @@
             {{ form_row(clientForm.password, {'label': 'Mot de passe','attr' :{'placeholder':"mot de passe minimun 8 caractères..." }}) }}
             {{ form_row(clientForm.dateOfBirth, {'label': 'date de naissance','attr' :{'placeholder':"Entrez votre date de naissance..." }}) }}
 
-            <button type="submit" class="btn btn-success">Inscription ! </button>
+            <button type="submit">Inscription ! </button>
             {{ form_end(clientForm) }}
         </div>
 
@@ -37,11 +37,11 @@
             {{ form_row(agencyForm.image, {'label': 'Image ', 'attr' :{'placeholder':"Entrez votre image..." }}) }}
             {{ form_row(agencyForm.company, {'label': "Nom de l'Agence ", 'attr' :{'placeholder':"Entrez le nom de l'agence... " }}) }}
 
-            <button type="submit" class="btn btn-success">Inscription  </button>
+            <button type="submit">Inscription  </button>
             {{ form_end(agencyForm) }}
 
         </div>
-        <input id="toggleForm" type="submit" value="s'inscrire en tant qu'Agence" />
+        <button id="toggleForm">S'inscrire en tant qu'agence</button>
     </div>
 {% endblock %}
 
