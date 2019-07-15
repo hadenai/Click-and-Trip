@@ -32,12 +32,15 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
                     ->setSendAt($faker->dateTime())
                     ->setHistories($history)
                     ->setClient($this->getReference('client_'.rand(1, 4)))
-                    ->setAgency($history->getAgency())
-                    ->setSender($type[$rand])
-                    ->setReceiver($type[abs($rand-1)]);
+                    ->setAgency($history->getAgency());
             if ($i%10==0) {
-                $message->setAdmin(true);
-            };
+                $message->setAdmin(true)
+                        ->setSender($rand>0?'admin':$type[$rand])
+                        ->setReceiver($rand>0?$type[$rand]:'admin');
+            }else{
+                $message->setSender($type[$rand])
+                        ->setReceiver($type[abs($rand-1)]);
+            }
             $manager->persist($message);
         }
         $manager->flush();

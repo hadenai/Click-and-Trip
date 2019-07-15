@@ -33,7 +33,15 @@ function Messages(props) {
     setAllMessages(response.data.sort(function (a, b) {
       return new Date(a.sendAt).getTime() - new Date(b.sendAt).getTime();
     }));
-    setConvs(_.uniq(response.data.map((e) => if(props.userType === 'client') ? {'conv': e.agency,  : e.client), obj => obj.id));
+    setConvs(_.uniq(response.data.map((e) =>
+      { switch(props.userType){
+        case 'client': 
+            return e.agency;
+        case 'agency': 
+            return e.client;
+        case 'user':
+            return (e.sender==='admin'?(e.receiver==='client'?e.client:e.agency):(e.sender==='client'?e.client:e.agency))
+      }}), obj => obj.id ));
     if (target == 'admin') {
       setMessages(response.data.filter(el => el.admin));
     } else if (props.userType === 'client') {
@@ -53,6 +61,9 @@ function Messages(props) {
     } else if (props.userType === 'agency') {
       setMessages(allMessages.filter(el => el.client.id == e.id && !el.admin));
       setTarget(e);
+    } else if (props.userType === 'user') {
+      setMessages(allMessages.filter(el => (el.client.id == e.id || el.agency.id == e.id)));
+      setTarget(e);
     }
     
     document.getElementsByClassName('selected')[0].classList.remove('selected');
@@ -65,9 +76,11 @@ function Messages(props) {
     if (props.userType == 'client') {
       info.from = { id: messages[0].client.id, type: 'client' };
       info.to = { id: messages[0].agency.id, type: 'agency' };
-    } else {
+    } else if (props.userType == 'agency') {
       info.from = { id: messages[0].agency.id, type: 'agency' };
       info.to = { id: messages[0].client.id, type: 'client' };
+    } else if (props.userType == 'user'){
+      //
     }
     info.content = input;
     info.adminBool = messages[0].admin;
@@ -93,7 +106,7 @@ function Messages(props) {
     <Fragment>
       <div className="Conversations">
         <List selection verticalAlign="middle">
-          <button onClick={()=>console.log(allMessages)}></button>
+          <button onClick={()=>console.log(convs)}></button>
           {
             props.userType !== 'user' &&
             <List.Item id="conv-0" className="selected" onClick={() => handleConv('admin')}>
@@ -106,18 +119,16 @@ function Messages(props) {
           {
             convs.map((e, i) => {
               return (
-                <List.Item key={i} id={`conv-${e.id}`} onClick={() => handleConv(e)}  className={ props.userType === 'user' && i===1 && "selected" }>
-                  <Image avatar src={e.picture} />
+                <List.Item key={i} id={`conv-${e.id}`} onClick={() => handleConv(e)}>
+                  <Image avatar src={e.avatar} />
                   <List.Content>
-                    <List.Header>{() => {
-                        switch(props.userType){
-                            case 'client': return 'agence';
-                            case 'agency': return 'client'}}}: 
-                        {() => {
-                        switch(props.userType){
-                            case 'client': return e.company;
-                            case 'agency': return e.surname}}}
-                    </List.Header>
+                      <List.Header>{() =>
+                          {switch(props.userType){
+                            case 'client': return `agence: ${e.company}`;
+                            case 'agency': return `client: ${e.surname}`;
+                            case 'user': return (e.agency?`agence: ${e.company}`:`client: ${e.surname}`);
+                          }}}
+                      </List.Header>
                   </List.Content>
                 </List.Item>
               );
@@ -131,6 +142,7 @@ function Messages(props) {
             return (
               <Message key={i} className={props.userType === e.sender ? 'i right' : 'i left'}>
                 {e.content}
+                {()=> {if(props.userType=='user'){return <small>{e.sender}</small>}  }}
               </Message>
             )
           })}
