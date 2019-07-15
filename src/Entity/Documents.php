@@ -22,10 +22,10 @@ class Documents
     private $filename;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Agency", inversedBy="documents")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Stage", inversedBy="documents")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $agency;
+    private $stage;
 
     public function getId(): ?int
     {
@@ -44,14 +44,14 @@ class Documents
         return $this;
     }
 
-    public function getAgency(): ?Agency
+    public function getStage(): ?Stage
     {
-        return $this->agency;
+        return $this->stage;
     }
 
-    public function setAgency(?Agency $agency): self
+    public function setStage(?Stage $stage): self
     {
-        $this->agency = $agency;
+        $this->stage = $stage;
 
         return $this;
     }

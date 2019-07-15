@@ -110,11 +110,6 @@ class Agency implements UserInterface
     private $flagship;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Documents", mappedBy="agency", orphanRemoval=true)
-     */
-    private $documents;
-
-    /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $deleted = false;
@@ -138,7 +133,6 @@ class Agency implements UserInterface
     {
         $this->histories = new ArrayCollection();
         $this->stages = new ArrayCollection();
-        $this->documents = new ArrayCollection();
         $this->messages = new ArrayCollection();
     }
 
@@ -388,36 +382,6 @@ class Agency implements UserInterface
     public function setFlagship(string $flagship): self
     {
         $this->flagship = $flagship;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Documents[]
-     */
-    public function getDocuments(): Collection
-    {
-        return $this->documents;
-    }
-
-    public function addDocument(Documents $document): self
-    {
-        if (!$this->documents->contains($document)) {
-            $this->documents[] = $document;
-            $document->setAgency($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDocument(Documents $document): self
-    {
-        if ($this->documents->contains($document)) {
-            $this->documents->removeElement($document);
-            if ($document->getAgency() === $this) {
-                $document->setAgency(null);
-            }
-        }
 
         return $this;
     }

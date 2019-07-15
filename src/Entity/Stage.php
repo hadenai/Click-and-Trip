@@ -89,6 +89,11 @@ class Stage
      */
     private $deleted=false;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Documents", mappedBy="stage", orphanRemoval=true)
+     */
+    private $documents;
+
     public function __construct()
     {
         $this->histories = new ArrayCollection();
@@ -96,6 +101,7 @@ class Stage
         $this->styles = new ArrayCollection();
         $this->prices = new ArrayCollection();
         $this->sizes = new ArrayCollection();
+        $this->documents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -331,5 +337,36 @@ class Stage
     {
         return strval($this->id);
         // return $this->name.' '.$this->surname;
+    }
+
+    /**
+     * @return Collection|Documents[]
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Documents $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setStage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Documents $document): self
+    {
+        if ($this->documents->contains($document)) {
+            $this->documents->removeElement($document);
+            // set the owning side to null (unless already changed)
+            if ($document->getStage() === $this) {
+                $document->setStage(null);
+            }
+        }
+
+        return $this;
     }
 }
