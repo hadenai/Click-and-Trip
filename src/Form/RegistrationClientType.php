@@ -23,7 +23,6 @@ class RegistrationClientType extends AbstractType
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
             ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
