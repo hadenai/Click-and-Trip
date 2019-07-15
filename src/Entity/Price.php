@@ -18,18 +18,18 @@ class Price
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateBegin;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateEnd;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("api")
+     * @Groups("apiStage")
      */
     private $price;
 
@@ -54,7 +54,7 @@ class Price
         return $this->dateBegin;
     }
 
-    public function setDateBegin(\DateTimeInterface $dateBegin): self
+    public function setDateBegin(?\DateTimeInterface $dateBegin): self
     {
         $this->dateBegin = $dateBegin;
 
@@ -66,7 +66,7 @@ class Price
         return $this->dateEnd;
     }
 
-    public function setDateEnd(\DateTimeInterface $dateEnd): self
+    public function setDateEnd(?\DateTimeInterface $dateEnd): self
     {
         $this->dateEnd = $dateEnd;
 

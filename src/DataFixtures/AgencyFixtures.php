@@ -4,13 +4,19 @@ namespace App\DataFixtures;
 
 use Faker;
 use App\Entity\Agency;
-use App\Entity\User;
-use App\Entity\Client;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AgencyFixtures extends Fixture
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     public function load(ObjectManager $manager): void
     {
         // Make agency accounts
@@ -28,7 +34,10 @@ class AgencyFixtures extends Fixture
                    ->setFlagship($faker->sentence(10))
                    ->setPresentation($faker->sentence(25))
                     ->setEmail($faker->freeEmail())
-                    ->setPassword($faker->password())
+                    ->setPassword($this->passwordEncoder->encodePassword(
+                        $agency,
+                        'agencemdp'
+                    ))
                     ->setRoles(['ROLE_AGENCY'])
                     ->setMobile($faker->phoneNumber());
             $manager->persist($agency);

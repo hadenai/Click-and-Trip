@@ -132,3 +132,6 @@ SOFTWARE.
 ```composer require friendsofsymfony/jsrouting-bundle``` 
 ```bin/console fos:js-routing:dump --format=json --target=public/js/fos_js_routes.json```
 ```yarn encore dev --watch```
+```php bin/console d:d:c```
+```php bin/console d:s:u```
+```php bin/console d:f:l```

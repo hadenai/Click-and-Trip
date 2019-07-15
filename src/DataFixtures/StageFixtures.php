@@ -51,8 +51,8 @@ class StageFixtures extends Fixture implements DependentFixtureInterface
                     $stage->addTheme($this->getReference('theme_5'));
                 } elseif (strpos($theme, "RESPONSABLE")!==false) {
                     $stage->addTheme($this->getReference('theme_6'));
-                };
-            };
+                }
+            }
             $sizes=explode("/", $row["AVEC QUI PARTIR"]);
             foreach ($sizes as $size) {
                 if (strpos($size, "SOLO")!==false) {
@@ -65,8 +65,8 @@ class StageFixtures extends Fixture implements DependentFixtureInterface
                     $stage->addSize($this->getReference('size_3'));
                 } elseif (strpos($size, "GROUPE")!==false) {
                     $stage->addSize($this->getReference('size_4'));
-                };
-            };
+                }
+            }
             $styles=explode("/", $row["STYLE"]);
             foreach ($styles as $style) {
                 if (strpos($style, "STANDARD")!==false) {
@@ -79,8 +79,8 @@ class StageFixtures extends Fixture implements DependentFixtureInterface
                     $stage->addStyle($this->getReference('style_3'));
                 } elseif (strpos($style, "RESPONSABLE")!==false) {
                     $stage->addStyle($this->getReference('style_4'));
-                };
-            };
+                }
+            }
             $stage->setValidate(true)
                   ->setReference($row["Ref"])
                   ->setDestination($row["DESTINATION"])

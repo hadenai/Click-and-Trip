@@ -68,7 +68,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
             ])
             ->add("travelDate2", CheckboxType::class, [
                 'label' => 'J\'ai une idée approximative.',
-                'required'   => false,
+                'required'   => true
             ])
             ->add("mois", TextType::class, [
                 'label' => 'Mois:',
@@ -92,6 +92,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 ],
                 'multiple' => true,
                 'required'   => true,
+                'expanded' => true
             ])
             ->add("disponibilityHour", ChoiceType::class, [
                 'choices' => [
@@ -102,6 +103,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 ],
                 'multiple' => true,
                 'required'   => true,
+                'expanded' => true
             ])
             ->add("phoneNumber", NumberType::class, [
                 'label' => 'Merci de nous indiquer votre numéro de téléphone ',

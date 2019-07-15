@@ -22,8 +22,6 @@ class PriceFixtures extends Fixture implements DependentFixtureInterface
         for ($i=0; $i<50; $i++) {
             $price = new Price();
             $price->setStage($this->getReference('stage_'.strval($i)))
-                  ->setDateBegin(new DateTime(2000-01-01))
-                  ->setDateEnd(new DateTime(2000-12-31))
                   ->setPersons(2)
                   ->setPrice(100);
             $manager->persist($price);

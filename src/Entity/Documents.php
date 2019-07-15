@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DocumentsRepository")
+ * @Vich\Uploadable
  */
 class Documents
 {
@@ -19,7 +22,13 @@ class Documents
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $filename;
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="agency_images", fileNameProperty="image", size="image.size")
+     */
+    private $imageFile;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Stage", inversedBy="documents")
@@ -27,21 +36,29 @@ class Documents
      */
     private $stage;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true )
+     */
+    private $updatedAt;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFilename(): ?string
+    public function setImageFile(File $image = null)
     {
-        return $this->filename;
+        $this->imageFile = $image;
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
-    public function setFilename(string $filename): self
+    public function getImageFile()
     {
-        $this->filename = $filename;
-
-        return $this;
+        return $this->imageFile;
     }
 
     public function getStage(): ?Stage
@@ -52,6 +69,17 @@ class Documents
     public function setStage(?Stage $stage): self
     {
         $this->stage = $stage;
+
+        return $this;
+    }
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
