@@ -25,7 +25,7 @@ class Documents
     private $image;
 
     /**
-     * @Vich\UploadableField(mapping="agency_images", fileNameProperty="image", size="image.size")
+     * @Vich\UploadableField(mapping="documents_images", fileNameProperty="image", size="image.size")
      */
     private $imageFile;
 

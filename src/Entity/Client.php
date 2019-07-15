@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  * @Vich\Uploadable
  */
+
 class Client implements UserInterface
 {
     /**
@@ -89,8 +90,7 @@ class Client implements UserInterface
     private $image;
 
     /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
-     * @var File
+     * @Vich\UploadableField(mapping="client_images", fileNameProperty="image")
      */
     private $imageFile;
 

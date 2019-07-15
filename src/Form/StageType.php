@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Size;
 use App\Entity\Stage;
 use App\Form\PriceType;
+use App\Form\DocumentsType;
 use App\Entity\Style;
 use App\Entity\Theme;
 use App\Entity\Documents;
@@ -13,7 +14,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class StageType extends AbstractType
 {
@@ -49,7 +49,13 @@ class StageType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false
             ))
-            ->add('imageFile', VichImageType::class);
+            ->add('documents', CollectionType::class, array(
+                'entry_type'   => DocumentsType::class,
+                'entry_options' => ['label' => false],
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

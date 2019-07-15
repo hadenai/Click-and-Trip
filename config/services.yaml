@@ -6,7 +6,7 @@
 parameters:
     app.path.agency_images: /uploads/images/agency
     app.path.client_images: /uploads/images/client
-    app.path.stages_images: /uploads/images/stages
+    app.path.documents_images: /uploads/images/documents
     locale: 'fr'
 
 services:
