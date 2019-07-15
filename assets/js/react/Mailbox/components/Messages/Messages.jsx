@@ -33,7 +33,7 @@ function Messages(props) {
     setAllMessages(response.data.sort(function (a, b) {
       return new Date(a.sendAt).getTime() - new Date(b.sendAt).getTime();
     }));
-    setConvs(_.uniq(response.data.map((e) => props.userType === 'client' ? e.agency : e.client), obj => obj.id));
+    setConvs(_.uniq(response.data.map((e) => if(props.userType === 'client') ? {'conv': e.agency,  : e.client), obj => obj.id));
     if (target == 'admin') {
       setMessages(response.data.filter(el => el.admin));
     } else if (props.userType === 'client') {
@@ -93,7 +93,7 @@ function Messages(props) {
     <Fragment>
       <div className="Conversations">
         <List selection verticalAlign="middle">
-          <button onClick={()=>console.log(messages)}></button>
+          <button onClick={()=>console.log(allMessages)}></button>
           {
             props.userType !== 'user' &&
             <List.Item id="conv-0" className="selected" onClick={() => handleConv('admin')}>
@@ -106,10 +106,18 @@ function Messages(props) {
           {
             convs.map((e, i) => {
               return (
-                <List.Item key={i} id={`conv-${e.id}`} onClick={() => handleConv(e)}>
+                <List.Item key={i} id={`conv-${e.id}`} onClick={() => handleConv(e)}  className={ props.userType === 'user' && i===1 && "selected" }>
                   <Image avatar src={e.picture} />
                   <List.Content>
-                    <List.Header>{props.userType === 'client' ? 'agence' : 'client'}: {props.userType === 'client' ? e.company : e.surname}</List.Header>
+                    <List.Header>{() => {
+                        switch(props.userType){
+                            case 'client': return 'agence';
+                            case 'agency': return 'client'}}}: 
+                        {() => {
+                        switch(props.userType){
+                            case 'client': return e.company;
+                            case 'agency': return e.surname}}}
+                    </List.Header>
                   </List.Content>
                 </List.Item>
               );
