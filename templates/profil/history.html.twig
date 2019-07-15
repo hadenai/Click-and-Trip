@@ -9,7 +9,6 @@
             <div class="header">Date de départ: {{ history.dateBegin|date('Y-m-d') }} </div>
             <div class="meta">Date de fin: {{ history.dateEnd|date('Y-m-d') }} </div>
             <div class="meta">Prix:</div>
-            <div class="meta">Nombre de voyageurs:</div>
             <div class="description">
                 STATUS: {{ history.state }}
             </div>
@@ -18,7 +17,6 @@
                 {% if history.state == "Accepté par admin" %}
                     <a href="{{ path('profil_confirmationAgence', {'id': history.id }) }}">Accepter le voyage</a>
                 {% endif %}
-
             {% endif %}
 
             {% if not agencyBool %}
@@ -30,11 +28,9 @@
                 {% if history.state == "Attente paiement" %}
                     <a href="{{ path('profil_paiement', {'id': history.id }) }}">Payé</a>
                 {% endif %}
-
             {% endif %}
         </div>
     </div>
 </div>
-    
 {% endfor %}
 {% endblock %}
