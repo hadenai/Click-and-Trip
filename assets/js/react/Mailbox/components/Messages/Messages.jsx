@@ -45,9 +45,9 @@ function Messages(props) {
     if (target == 'admin') {
       setMessages(response.data.filter(el => el.admin));
     } else if (props.userType === 'client') {
-      setMessages(response.data.filter(el => el.agency.id == target.id && !el.admin));
+      setMessages(response.data.filter(el => el.agency.id == target.id && !el.admin && (el.sender=='client' || el.receiver=='client')));
     } else if (props.userType === 'agency') {
-      setMessages(response.data.filter(el => el.client.id == target.id && !el.admin));
+      setMessages(response.data.filter(el => el.client.id == target.id && !el.admin && (el.sender=='agency' || el.receiver=='agency')));
     }
   };
 
@@ -56,10 +56,10 @@ function Messages(props) {
       setMessages(allMessages.filter(el => el.admin));
       setTarget(e);
     } else if (props.userType === 'client') {
-      setMessages(allMessages.filter(el => el.agency.id == e.id && !el.admin));
+      setMessages(allMessages.filter(el => el.agency.id == e.id && !el.admin && (el.sender=='client' || el.receiver=='client')));
       setTarget(e);
     } else if (props.userType === 'agency') {
-      setMessages(allMessages.filter(el => el.client.id == e.id && !el.admin));
+      setMessages(allMessages.filter(el => el.client.id == e.id && !el.admin && (el.sender=='agency' || el.receiver=='agency')));
       setTarget(e);
     } else if (props.userType === 'user') {
       setMessages(allMessages.filter(el => (el.client.id == e.id || el.agency.id == e.id)));
@@ -98,9 +98,9 @@ function Messages(props) {
       })
       .then(() => {
         if (props.userType === 'client') {
-          setMessages(allMessages.filter(e => e.agency.id === messages[0].agency.id && !e.admin));
+          setMessages(allMessages.filter(e => e.agency.id === messages[0].agency.id && !e.admin && (e.sender=='client' || e.receiver=='client')));
         } else if (props.userType === 'agency') {
-          setMessages(allMessages.filter(e => e.client.id === messages[0].client.id && !e.admin));
+          setMessages(allMessages.filter(e => e.client.id === messages[0].client.id && !e.admin && (e.sender=='agency' || e.receiver=='agency')));
         } else if (props.userType === 'user') {
           if(messages[0].sender=='client' || messages[0].receiver=='client'){
             setMessages(allMessages.filter(e => e.client.id === messages[0].client.id && e.admin));
@@ -147,7 +147,6 @@ function Messages(props) {
       </div>
       <div className="Messages">
         <div className="list-messages">
-          <button onClick={() => {debugger}}></button>
           {messages.map((e, i) => {
             return (
               <Message key={i} className={props.userType === e.sender ? 'i right' : 'i left'}>

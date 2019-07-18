@@ -48,8 +48,8 @@ class SendToMailbox
             idHistory: int,
             content: string,
             adminBool: boolean,
-            from: {id: int, type: "agency"/"client"},
-            to: {id: int, type: "agency"/"client"}
+            from: {id: int, type: "agency"/"client"/"admin"},
+            to: {id: int, type: "agency"/"client"/"admin"}
         }
     */
     public function sendMessage($object): void
@@ -59,23 +59,50 @@ class SendToMailbox
                 ->setSendAt(new DateTime(date("Y-m-d H:i:s")))
                 ->setContent($object->content);
 
-        $to=[$object->to->type, $object->to->id];
-        $from=[$object->from->type, $object->from->id];
+        $to=[$object->to->id, $object->to->type];
+        $from=[$object->from->id, $object->from->type];
 
-        if ($from[0]=='agency') {
-            $client=$this->clientRepo->findOneBy(['id' => $to[1]]);
+        if ($from[1]=='agency') {
             $this->message->setSender('agency')
-                    ->setReceiver('client')
-                    ->setAgency($this->agencyRepo->findOneBy(['id' => $from[1]]))
-                    ->setClient($client);
-            $toMail=$client->getEmail();
-        } else {
-            $agency=$this->agencyRepo->findOneBy(['id' => $to[1]]);
+                          ->setAgency($this->agencyRepo->findOneBy(['id' => $from[0]]));
+            if ($to[1]=='user') {
+                $this->message->setReceiver('user')
+                              ->setClient($this->message->getHistory()->getClient());
+                $toMail=$_ENV['MAILER_ADDRESS'];
+            } else {
+                $client=$this->clientRepo->findOneBy(['id' => $to[0]]);
+                $this->message->setReceiver('client')
+                              ->setClient($client);
+                $toMail=$client->getEmail();
+            }
+        } elseif ($from[1]=='client') {
             $this->message->setSender('client')
-                    ->setReceiver('agency')
-                    ->setClient($this->clientRepo->findOneBy(['id' => $from[1]]))
-                    ->setAgency($agency);
-            $toMail=$agency->getEmail();
+                          ->setClient($this->clientRepo->findOneBy(['id' => $from[0]]));
+            if ($to[1]=='user') {
+                $this->message->setReceiver('user')
+                              ->setAgency($this->message->getHistory()->getAgency());
+                $toMail=$_ENV['MAILER_ADDRESS'];
+            } else {
+                $agency=$this->agencyRepo->findOneBy(['id' => $to[0]]);
+                $this->message->setReceiver('agency')
+                              ->setAgency($agency);
+                $toMail=$agency->getEmail();
+            }
+        } else {
+            $this->message->setSender('user');
+            if ($to[1]=='client') {
+                $client=$this->clientRepo->findOneBy(['id' => $to[0]]);
+                $this->message->setReceiver('client')
+                              ->setClient($client)
+                              ->setAgency($this->message->getHistory()->getAgency());
+                $toMail=$client->getEmail();
+            } else {
+                $agency=$this->agencyRepo->findOneBy(['id' => $to[0]]);
+                $this->message->setReceiver('agency')
+                              ->setAgency($agency)
+                              ->setClient($this->message->getHistory()->getClient());
+                $toMail=$agency->getEmail();
+            }
         }
 
         $this->manager->persist($this->message);
