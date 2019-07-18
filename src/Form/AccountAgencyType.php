@@ -24,8 +24,7 @@ class AccountAgencyType extends AbstractType
             ->add('company')
             ->add('nameAgent')
             ->add('surnameAgent')
-            ->add('imageFile', VichImageType::class)
-        ;
+            ->add('imageFile', VichImageType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -1,6 +1,5 @@
 {% extends "base.html.twig" %}
     {% block stylesheet %}
-<<<<<<< HEAD
     {{ encore_entry_link_tags('travelerDetailForm') }}
     {% endblock %}
 {% block body %}
@@ -10,19 +9,13 @@
 <form class="ui form">
 <h1>Commencez à créer votre projet voyage...</h1>
 
-
 <h2>Qui voyage ?</h2>
 {% block integer_widget %}
 <div class="ui input focus">
     {{ form_row(form.name) }}
 </div>
 
-
-
-
 <p>Combien de participants ? Merci de fournir le nombre de participant et l’âge des voyageurs qui aide notre expert local à personnaliser votre voyage.</p>
-
-
 
 <h3>Adultes:</h3>
 
@@ -32,8 +25,6 @@
 {{ form_row(form.adulte3, {'value' : 0}) }}
 {{ form_row(form.adulte4, {'value' : 0}) }}
 </div>
-
-
 
 <h3>Enfants</h3>
 
@@ -50,21 +41,12 @@
 {{ form_row(form.travelDate1) }}
 </div>
 
-
-
 {{ form_row(form.beginDate) }}
 {{ form_row(form.endDate) }}
-
-
 
 <div class="ui checkbox">
 {{ form_row(form.travelDate2) }}
 </div>
-
-=======
-        {{ encore_entry_link_tags('travelerDetailForm') }}
-    {% endblock %}
->>>>>>> 45deecc678ece53da13a7c7ba63ac8452a75b14d
 
 {% block body %}
 

@@ -133,7 +133,7 @@ class VoyageController extends AbstractController
     {
         $steps = $stageRepository->findBy(["destination" => $country]);
         return $this->render(
-            "destination.html.twig",
+            "stage/destination.html.twig",
             [
                 "steps" => $steps
             ]

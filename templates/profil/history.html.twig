@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-<h1>Historique de mes voyages:</h1>
+<h1 class="ui block header">Historique de mes voyages:</h1>
 {% for history in histories %}
 <div class="ui cards">
     <div class="card">
@@ -9,16 +9,28 @@
             <div class="header">Date de départ: {{ history.dateBegin|date('Y-m-d') }} </div>
             <div class="meta">Date de fin: {{ history.dateEnd|date('Y-m-d') }} </div>
             <div class="meta">Prix:</div>
-            <div class="meta">Nombre de voyageurs:</div>
             <div class="description">
                 STATUS: {{ history.state }}
             </div>
+            {% if agencyBool %}
+
+                {% if history.state == "Accepté par admin" %}
+                    <a href="{{ path('profil_confirmationAgence', {'id': history.id }) }}">Accepter le voyage</a>
+                {% endif %}
+            {% endif %}
+
             {% if not agencyBool %}
-                <a href="{{ path('invoice', {'id': history.id }) }}" target="_blank">Nouvell facture</a>
+
+                {% if history.state == "Payé" %}
+                <a href="{{ path('invoice', {'id': history.id }) }}" target="_blank">Nouvelle facture</a>
+                {% endif %}
+
+                {% if history.state == "Attente paiement" %}
+                    <a href="{{ path('profil_paiement', {'id': history.id }) }}">Payé</a>
+                {% endif %}
             {% endif %}
         </div>
     </div>
 </div>
-    
 {% endfor %}
 {% endblock %}

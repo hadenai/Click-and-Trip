@@ -39,6 +39,7 @@ Encore
     .addEntry("contactForm", "./assets/scss/contactForm.scss")
     .addEntry("editClientForm", "./assets/scss/editClientForm.scss")
     .addEntry("editAgencyForm", "./assets/scss/editAgencyForm.scss")
+    .addEntry('stageDetailsJS', './assets/js/stageDetails.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
