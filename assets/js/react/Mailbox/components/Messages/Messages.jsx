@@ -80,7 +80,12 @@ function Messages(props) {
       info.from = { id: messages[0].agency.id, type: 'agency' };
       info.to = { id: messages[0].client.id, type: 'client' };
     } else if (props.userType == 'user'){
-      //
+      info.from = { id: 0, type: 'user'};
+      if(messages[0].sender=='client' || messages[0].receiver=='client'){
+        info.to = {id: messages[0].client.id, type: 'client'}
+      } else {
+        info.to = {id: messages[0].agency.id, type: 'agency'}
+      }
     }
     info.content = input;
     info.adminBool = messages[0].admin;
@@ -96,8 +101,12 @@ function Messages(props) {
           setMessages(allMessages.filter(e => e.agency.id === messages[0].agency.id && !e.admin));
         } else if (props.userType === 'agency') {
           setMessages(allMessages.filter(e => e.client.id === messages[0].client.id && !e.admin));
-        } else {
-          setMessages(allMessages.filter(e => e.admin));
+        } else if (props.userType === 'user') {
+          if(messages[0].sender=='client' || messages[0].receiver=='client'){
+            setMessages(allMessages.filter(e => e.client.id === messages[0].client.id && e.admin));
+          } else {
+            setMessages(allMessages.filter(e => e.agency.id === messages[0].agency.id && e.admin));
+          }
         }
       });
   };
@@ -126,7 +135,7 @@ function Messages(props) {
                           {switch(props.userType){
                             case 'client': return `agence: ${e.company}`;
                             case 'agency': return `client: ${e.surname}`;
-                            case 'user': return (e.agency?`agence: ${e.company}`:`client: ${e.surname}`);
+                            case 'user': return (e.company!=null?`agence: ${e.company}`:`client: ${e.surname}`);
                           }}}
                       </List.Header>
                   </List.Content>

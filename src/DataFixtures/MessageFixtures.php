@@ -35,9 +35,9 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
                     ->setAgency($history->getAgency());
             if ($i%10==0) {
                 $message->setAdmin(true)
-                        ->setSender($rand>0?'admin':$type[$rand])
-                        ->setReceiver($rand>0?$type[$rand]:'admin');
-            }else{
+                        ->setSender($rand>0?'user':$type[$rand])
+                        ->setReceiver($rand>0?$type[$rand]:'user');
+            } else {
                 $message->setSender($type[$rand])
                         ->setReceiver($type[abs($rand-1)]);
             }
