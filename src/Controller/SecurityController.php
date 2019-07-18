@@ -66,6 +66,7 @@ class SecurityController extends AbstractController
             'clientForm' => $clientForm->createView(),
         ]);
     }
+
     /**
      * @route("/connexion", name="connexion")
      */
@@ -80,6 +81,7 @@ class SecurityController extends AbstractController
             ['last_username' => $lastUsername, 'error' => $error]
         );
     }
+
     /**
      * @route("/deconnexion", name="deconnexion")
      */

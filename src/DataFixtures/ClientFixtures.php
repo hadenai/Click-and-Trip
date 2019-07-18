@@ -10,7 +10,6 @@ use Faker;
 
 class ClientFixtures extends Fixture
 {
-
     private $passwordEncoder;
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)

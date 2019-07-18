@@ -10,12 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/a-propos")
+ * @Route("/a-propos", name="about_")
  */
 class AboutController extends AbstractController
 {
     /**
-     * @Route("/contact")
+     * @Route("/contact", name="contact")
      */
     public function contactForm(Request $request, Swift_Mailer $mailer)
     {
@@ -85,9 +85,8 @@ class AboutController extends AbstractController
         return $this->render('about/legalMention.html.twig');
     }
 
-
     /**
-     * @Route("/services-associe")
+     * @Route("/services-associe", name="affiliate_service")
      */
     public function affiliateService()
     {
@@ -95,7 +94,7 @@ class AboutController extends AbstractController
     }
 
     /**
-     * @Route("/cgu")
+     * @Route("/cgu", name="cgu")
      */
     public function cgu()
     {
@@ -103,14 +102,15 @@ class AboutController extends AbstractController
     }
 
     /**
-     * @Route("/nos-engagements")
+     * @Route("/nos-engagements", name="commitment")
      */
     public function commitment()
     {
         return $this->render("about/commitment.html.twig");
     }
+
     /**
-    * @Route("/devenir-partenaire")
+    * @Route("/devenir-partenaire", name="partner")
     */
     public function bePartner(Swift_Mailer $mailer, Request $request)
     {

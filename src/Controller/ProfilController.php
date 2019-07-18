@@ -8,11 +8,10 @@ use App\Entity\Stage;
 use App\Entity\Agency;
 use App\Entity\History;
 use App\Entity\Message;
+use App\Service\SendToMailbox;
 use App\Form\AccountAgencyType;
 use App\Form\AccountClientType;
 use App\Repository\PriceRepository;
-use App\Repository\AgencyRepository;
-use App\Repository\ClientRepository;
 use App\Repository\HistoryRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\HttpFoundation\Request;
@@ -101,47 +100,25 @@ class ProfilController extends AbstractController
     public function listMessages(): Response
     {
         $user=$this->getUser();
-        $id=$user instanceof User?null:$user->getId();
+        $id=$user instanceof User?0:$user->getId();
+        $directories=explode("\\", get_class($user));
         return $this->render('mailbox/listmessages.html.twig', [
             'id' => $id,
-            'type' => strtolower(explode("\\", get_class($user))[2])
+            'type' => strtolower($directories[count($directories)-1])
         ]);
     }
 
     /**
-     * @Route("/messagerie/nouveau", name="send_message", methods={"POST"},
+     * @Route("/messagerie/nouveau", name="send_message", methods={"GET","POST"},
      * options = {
      *      "expose" = true
      *     })
      */
-    public function newMessage(
-        Request $request,
-        ObjectManager $manager,
-        HistoryRepository $historyRepo,
-        ClientRepository $clientRepo,
-        AgencyRepository $agencyRepo
-    ) : Response {
+    public function newMessage(Request $request, SendToMailbox $sender) : Response
+    {
         $json = json_decode($request->getContent());
-        $message= new Message();
-        $message->setHistories($historyRepo->findOneBy(['id' => $json->idHistory]))
-                ->setAdmin($json->adminBool)
-                ->setSendAt(new DateTime(date("Y-m-d H:i:s")))
-                ->setContent($json->content);
-        $to=[$json->to->type, $json->to->id];
-        $from=[$json->from->type, $json->from->id];
-        if ($from[0]=='agency') {
-            $message->setSender('agency')
-                    ->setReceiver('client')
-                    ->setAgency($agencyRepo->findOneBy(['id' => $from[1]]))
-                    ->setClient($clientRepo->findOneBy(['id' => $to[1]]));
-        } else {
-            $message->setSender('client')
-                    ->setReceiver('agency')
-                    ->setClient($clientRepo->findOneBy(['id' => $from[1]]))
-                    ->setAgency($agencyRepo->findOneBy(['id' => $to[1]]));
-        }
-        $manager->persist($message);
-        $manager->flush();
+        $sender->sendMessage($json);
+
         return $this->json([], 200);
     }
 

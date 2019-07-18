@@ -23,6 +23,4 @@ function Mailbox() {
     </div>
   );
 }
-
-
 ReactDOM.render(<Mailbox />, document.getElementById('root'));

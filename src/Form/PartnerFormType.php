@@ -80,7 +80,6 @@ class PartnerFormType extends AbstractType
             ->add("companyMoreInfo", TextAreaType::class, [
                 'label' => 'Souhaitez-vous fournir d\'autres informations ?',
                 'required' => false,
-            ])
-        ;
+            ]);
     }
 }
