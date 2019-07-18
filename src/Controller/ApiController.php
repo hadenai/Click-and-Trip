@@ -47,7 +47,7 @@ class ApiController extends AbstractController
         AgencyRepository $agencyRepo,
         MessageRepository $messageRepo,
         string $user,
-        int $id
+        int $id = null
     ) {
         switch ($user) {
             case 'client':

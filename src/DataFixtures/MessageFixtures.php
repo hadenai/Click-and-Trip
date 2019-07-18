@@ -28,16 +28,20 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
             $type=['client', 'agency'];
             $rand=rand(0, 1);
             $history=$this->getReference("history_".strval(rand(1, 3)));
-            $message->setContent($faker->sentence)
-                    ->setSendAt($faker->dateTime())
+            $message->setSendAt($faker->dateTime())
                     ->setHistories($history)
                     ->setClient($this->getReference('client_'.rand(1, 4)))
-                    ->setAgency($history->getAgency())
-                    ->setSender($type[$rand])
-                    ->setReceiver($type[abs($rand-1)]);
-            if ($i%10==0) {
-                $message->setAdmin(true);
-            };
+                    ->setAgency($history->getAgency());
+            if ($i%7==0) {
+                $message->setAdmin(true)
+                        ->setSender($rand>0?'user':$type[$rand])
+                        ->setReceiver($rand>0?$type[$rand]:'user')
+                        ->setContent('message in Admin conv');
+            } else {
+                $message->setSender($type[$rand])
+                        ->setReceiver($type[abs($rand-1)])
+                        ->setContent('message not for admin');
+            }
             $manager->persist($message);
         }
         $manager->flush();

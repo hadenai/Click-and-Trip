@@ -33,13 +33,23 @@ function Messages(props) {
     setAllMessages(response.data.sort(function (a, b) {
       return new Date(a.sendAt).getTime() - new Date(b.sendAt).getTime();
     }));
-    setConvs(_.uniq(response.data.map((e) => props.userType === 'client' ? e.agency : e.client), obj => obj.id));
-    if (target == 'admin') {
+    setConvs(_.uniq(response.data.map((e) =>
+      { switch(props.userType){
+        case 'client': 
+            return e.agency;
+        case 'agency': 
+            return e.client;
+        case 'user':
+            return (e.sender==='admin'?(e.receiver==='client'?e.client:e.agency):(e.sender==='client'?e.client:e.agency))
+      }}), obj => obj.id ));
+    if (target == 'admin' && props.userType!=='user') {
       setMessages(response.data.filter(el => el.admin));
     } else if (props.userType === 'client') {
-      setMessages(response.data.filter(el => el.agency.id == target.id && !el.admin));
+      setMessages(response.data.filter(el => el.agency.id == target.id && !el.admin && (el.sender=='client' || el.receiver=='client')));
     } else if (props.userType === 'agency') {
-      setMessages(response.data.filter(el => el.client.id == target.id && !el.admin));
+      setMessages(response.data.filter(el => el.client.id == target.id && !el.admin && (el.sender=='agency' || el.receiver=='agency')));
+    } else if (props.userType === 'user') {
+      setMessages(allMessages.filter(el => (el.client.id === target.id && (el.sender==='client' || el.receiver==='client') ) || (el.agency.id === e.id  && (el.sender ==='agency' || el.receiver ==='agency') ) ));
     }
   };
 
@@ -48,14 +58,21 @@ function Messages(props) {
       setMessages(allMessages.filter(el => el.admin));
       setTarget(e);
     } else if (props.userType === 'client') {
-      setMessages(allMessages.filter(el => el.agency.id == e.id && !el.admin));
+      setMessages(allMessages.filter(el => el.agency.id == e.id && !el.admin && (el.sender=='client' || el.receiver=='client')));
       setTarget(e);
     } else if (props.userType === 'agency') {
-      setMessages(allMessages.filter(el => el.client.id == e.id && !el.admin));
+      setMessages(allMessages.filter(el => el.client.id == e.id && !el.admin && (el.sender=='agency' || el.receiver=='agency')));
+      setTarget(e);
+    } else if (props.userType === 'user') {
+      setMessages(allMessages.filter(el => (el.client.id === e.id && (el.sender==='client' || el.receiver==='client') ) || (el.agency.id === e.id  && (el.sender==='agency' || el.receiver==='agency') ) ));
       setTarget(e);
     }
-    
-    document.getElementsByClassName('selected')[0].classList.remove('selected');
+
+    document.getElementsByClassName('item').forEach(element => {
+        if(element.classList.contains('selected')){
+          document.getElementsByClassName('selected')[0].classList.remove('selected');
+        }
+    });
     document.getElementById(`conv-${e.id}`).classList.add('selected');
     viewDown();
   };
@@ -65,9 +82,16 @@ function Messages(props) {
     if (props.userType == 'client') {
       info.from = { id: messages[0].client.id, type: 'client' };
       info.to = { id: messages[0].agency.id, type: 'agency' };
-    } else {
+    } else if (props.userType == 'agency') {
       info.from = { id: messages[0].agency.id, type: 'agency' };
       info.to = { id: messages[0].client.id, type: 'client' };
+    } else if (props.userType == 'user'){
+      info.from = { id: 0, type: 'user'};
+      if(messages[0].sender=='client' || messages[0].receiver=='client'){
+        info.to = {id: messages[0].client.id, type: 'client'}
+      } else {
+        info.to = {id: messages[0].agency.id, type: 'agency'}
+      }
     }
     info.content = input;
     info.adminBool = messages[0].admin;
@@ -80,20 +104,39 @@ function Messages(props) {
       })
       .then(() => {
         if (props.userType === 'client') {
-          setMessages(allMessages.filter(e => e.agency.id === messages[0].agency.id && !e.admin));
+          setMessages(allMessages.filter(e => e.agency.id === messages[0].agency.id && !e.admin && (e.sender=='client' || e.receiver=='client')));
         } else if (props.userType === 'agency') {
-          setMessages(allMessages.filter(e => e.client.id === messages[0].client.id && !e.admin));
-        } else {
-          setMessages(allMessages.filter(e => e.admin));
+          setMessages(allMessages.filter(e => e.client.id === messages[0].client.id && !e.admin && (e.sender=='agency' || e.receiver=='agency')));
+        } else if (props.userType === 'user') {
+          if(messages[0].sender=='client' || messages[0].receiver=='client'){
+            setMessages(allMessages.filter(e => e.client.id === messages[0].client.id && e.admin));
+          } else {
+            setMessages(allMessages.filter(e => e.agency.id === messages[0].agency.id && e.admin));
+          }
         }
       });
   };
 
+  const convDisplay=(e) =>
+  { 
+    if(props.userType==='client'){
+      return `agence: ${e.company}`;
+    }
+    if(props.userType==='agency'){
+      return `client: ${e.surname}`;
+    }
+    if(props.userType==='user'){
+      return (e.company!=null?`agence: ${e.company}`:`client: ${e.surname}`);
+    }
+  }
+
+
+
   return (
     <Fragment>
       <div className="Conversations">
+        <button onClick={()=> console.log('messages:', messages)}></button>
         <List selection verticalAlign="middle">
-          <button onClick={()=>console.log(messages)}></button>
           {
             props.userType !== 'user' &&
             <List.Item id="conv-0" className="selected" onClick={() => handleConv('admin')}>
@@ -107,9 +150,11 @@ function Messages(props) {
             convs.map((e, i) => {
               return (
                 <List.Item key={i} id={`conv-${e.id}`} onClick={() => handleConv(e)}>
-                  <Image avatar src={e.picture} />
+                  <Image avatar src={e.avatar} />
                   <List.Content>
-                    <List.Header>{props.userType === 'client' ? 'agence' : 'client'}: {props.userType === 'client' ? e.company : e.surname}</List.Header>
+                      <List.Header>
+                        {convDisplay(e)}
+                      </List.Header>
                   </List.Content>
                 </List.Item>
               );
@@ -122,8 +167,9 @@ function Messages(props) {
           <button onClick={() => {debugger}}></button>
           {messages.map((e, i) => {
             return (
-              <Message key={i} className={props.userType === e.sender ? 'i right' : 'i left'}>
+              <Message key={i} className={props.userType === e.sender ? ' right' : ' left'}>
                 {e.content}
+                {()=> {if(props.userType=='user'){return <small>{e.sender}</small>}  }}
               </Message>
             )
           })}
