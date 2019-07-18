@@ -31,6 +31,7 @@ class Client implements UserInterface
      * @Assert\Email(  message = "The email '{{ value }}' is not a valid email.")
      */
     private $email;
+
     /**
      * @ORM\Column(type="json")
      */
@@ -326,5 +327,12 @@ class Client implements UserInterface
         $this->image = $image;
 
         return $this;
+    }
+
+    public function serialize()
+    {
+        return [
+            $this->id
+        ];
     }
 }
