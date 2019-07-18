@@ -32,6 +32,7 @@ class ApiController extends AbstractController
 
         return $this->json($stages, 200, [], ['groups'=>'apiStage']);
     }
+
     /**
      * @Route(
      *   "/api/messages/{user}/{id}",

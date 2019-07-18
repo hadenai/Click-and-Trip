@@ -68,7 +68,10 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
             ])
             ->add("travelDate2", CheckboxType::class, [
                 'label' => 'J\'ai une idée approximative.',
-                'required'   => true
+                // 'required'   => false,
+                'multiple' => false,
+                'required'   => true,
+                'expanded' => true
             ])
             ->add("mois", TextType::class, [
                 'label' => 'Mois:',
@@ -116,7 +119,6 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
             ->add("cgu", CheckboxType::class, [
                 'label' => 'J\'ai lu et j\'accepte les conditions générales d\'utilisation.',
                 'required'   => false,
-            ])
-        ;
+            ]);
     }
 }

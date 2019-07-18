@@ -47,7 +47,6 @@ class StageType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false
             ));
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

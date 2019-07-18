@@ -24,8 +24,7 @@ class PriceType extends AbstractType
                     '8 pers' => 8,
                     '10 pers' => 10
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

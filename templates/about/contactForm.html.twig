@@ -1,8 +1,5 @@
 
 {% extends "base.html.twig" %}
-    {% block stylesheets %}
-        {{ encore_entry_link_links('app') }}
-    {% endblock %}
 {% block body %}
     <div class="fixNavbar">
     {{ form_start(contactForm) }}
@@ -19,8 +16,5 @@
             <button type="submit">Envoyé</button>
             {{ form_end(contactForm) }}
         </div>
-        </div>
-{% endblock %}
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
+    </div>
 {% endblock %}
