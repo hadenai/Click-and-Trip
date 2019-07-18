@@ -1,12 +1,9 @@
-.fixNavbar{
-  margin-top: 65px;
-}
-
 .formContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  min-height: 87vh;
 }
 
 .formulaire {
@@ -14,9 +11,9 @@
   border-radius: 4px;
   width: 50vw;
   padding: 50px;
-  margin: 50px 50px 300px 50px;
+  margin: 50px;
 }
 
-#details {
-  text-align: justify;
+.titre {
+  margin-top: 50px !important;
 }

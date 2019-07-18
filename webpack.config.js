@@ -35,6 +35,10 @@ Encore
     .addEntry('mailbox', './assets/js/react/Mailbox/Mailbox.js')
     .addEntry('inspiration', './assets/scss/inspiration.scss')
     .addEntry('stageDetails', './assets/scss/stageDetails.scss')
+    .addEntry("login", "./assets/scss/login.scss")
+    .addEntry("contactForm", "./assets/scss/contactForm.scss")
+    .addEntry("editClientForm", "./assets/scss/editClientForm.scss")
+    .addEntry("editAgencyForm", "./assets/scss/editAgencyForm.scss")
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

@@ -1,8 +1,9 @@
-.fixNavbar{
-  margin-top: 65px;
+.titre {
+  margin-top: 200px !important;
 }
 
 .formContainer {
+  height: 87vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,8 +16,4 @@
   width: 50vw;
   padding: 50px;
   margin: 50px 50px 300px 50px;
-}
-
-#details {
-  text-align: justify;
 }
