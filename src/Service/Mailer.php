@@ -16,7 +16,7 @@ class Mailer
     public function sendMail(string $subject, string $to): void
     {
         $message = (new \Swift_Message($subject))
-                ->setFrom($_ENV['MAILER_FROM_ADRESS'])
+                ->setFrom($_ENV['MAILER_FROM_ADDRESS'])
                 ->setTo($to)
                 ->setBody($this->environment->render('email/articleAdded.html.twig'), 'text/html');
         $this->mailer->send($message);

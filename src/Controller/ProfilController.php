@@ -115,7 +115,7 @@ class ProfilController extends AbstractController
      */
     public function newMessage(Request $request, SendToMailbox $sender) : Response
     {
-        $json = json_decode($request->getContent());
+        $json = json_decode($request->getContent(), true);
         $sender->sendMessage($json);
 
         return $this->json([], 200);
