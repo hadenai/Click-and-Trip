@@ -111,11 +111,24 @@ function Messages(props) {
       });
   };
 
+  const convDisplay=(e) =>
+  { 
+    console.log('props.userType :', props.userType)
+    if(props.userType==='client'){
+      return `agence: ${e.company}`;
+    }
+    if(props.userType==='agency'){
+      return `client: ${e.surname}`;
+    }
+    if(props.userType==='user'){
+      return (e.company!=null?`agence: ${e.company}`:`client: ${e.surname}`);
+    }
+  }
+
   return (
     <Fragment>
       <div className="Conversations">
         <List selection verticalAlign="middle">
-          <button onClick={()=>console.log(convs)}></button>
           {
             props.userType !== 'user' &&
             <List.Item id="conv-0" className="selected" onClick={() => handleConv('admin')}>
@@ -131,12 +144,8 @@ function Messages(props) {
                 <List.Item key={i} id={`conv-${e.id}`} onClick={() => handleConv(e)}>
                   <Image avatar src={e.avatar} />
                   <List.Content>
-                      <List.Header>{() =>
-                          {switch(props.userType){
-                            case 'client': return `agence: ${e.company}`;
-                            case 'agency': return `client: ${e.surname}`;
-                            case 'user': return (e.company!=null?`agence: ${e.company}`:`client: ${e.surname}`);
-                          }}}
+                      <List.Header>
+                        {convDisplay(e)}
                       </List.Header>
                   </List.Content>
                 </List.Item>
