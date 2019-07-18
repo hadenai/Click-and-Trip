@@ -11,8 +11,8 @@
     <div id="slogan">
         <h2>Créez votre voyage authentique & plus responsable</h2>
         <div class="large ui buttons" id="choice-buttons">
-            <button class="ui button" id="button-voyage"><a href="#">Où souhaitez-vous partir ?</a></button>
-            <button class="ui button" id="button-inspiration"><a href="#">Inspirations</a></button>
+            <button class="ui button" id="button-voyage"><a href="{{ path('planner') }}">Où souhaitez-vous partir ?</a></button>
+            <button class="ui button" id="button-inspiration"><a href="{{ path('inspiration') }}">Inspirations</a></button>
         </div>
     </div>
 </div>
@@ -30,7 +30,7 @@
     <span><p>Prix juste</p><img src="{{ asset("build/images/3-tv-screen.svg") }}" alt="#"></span>
     <span><img src="{{ asset("build/images/4-place.svg") }}" alt="#"><p>Favoriser l'économie locale</p></span>
   </div>
-  <button class="ui button big" id="button-voyage"><a href="#">Créer mon itinéraire sur mesure</a></button>
+  <button class="ui button big" id="button-voyage"><a href="{{ path('planner') }}">Créer mon itinéraire sur mesure</a></button>
 </div>
 </div>
 <h2 class="block">Inspirations - Explorer de nouvelles étapes</h2>
@@ -184,7 +184,7 @@
 </div>
 <div id="commitment">
   <img src="{{ asset("build/images/nos-engagements.jpg") }}" alt="engagements entreprise click and trip">
-  <button class="ui button big" id="button-commitment"><a href="#">Nos Engagements</a></button>
+  <button class="ui button big" id="button-commitment"><a href="{{ path('nos-engagements') }}">Nos Engagements</a></button>
 </div>
 
 {% endblock %}

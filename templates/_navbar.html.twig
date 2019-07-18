@@ -1,15 +1,15 @@
 <nav class="nav container">
-    <img id='mobileLogo' href="#" src='https://i.ibb.co/cNqdNvt/logo-click-and-trip-blanc-petit.png' alt='logo click & Trip'/>
+      <img id='mobileLogo' src='https://i.ibb.co/cNqdNvt/logo-click-and-trip-blanc-petit.png' alt='logo click & Trip' a/>
     <div id="mainListDiv" class="main_list">
         <ul class="navlinks">
-            <li><a href="#">Accueil</a></li>
+            <li><a href="{{ path('homepage') }}">Accueil</a></li>
             <li>
                 <div class="dropdown">
                     <a href="#" id="dropdown" class="dropbtn">Mon compte</a>
                     <div id="myDropdown" class="dropdown-content">
                         {% if app.user %}
-                        <a href="#">messages</a>
-                        <a href="#">historiques</a>
+                        <a href="{{ path('profil_mailbox') }}">messages</a>
+                        <a href="{{ path('profil_history') }}">historiques</a>
                         {% if instanceofClient(app.user) %}
                             <a href="{{ path('profil_edit_client') }}"> <option value="Info perso">Info perso </option> </a>
                         {% endif %}
@@ -24,11 +24,11 @@
                     {% endif %}
                 </div>
             </li>
-            <li><a href="#">Inspirations</a></li>
-            <li id='laptopLogo'><img id="logo" href="#" src='https://i.ibb.co/cNqdNvt/logo-click-and-trip-blanc-petit.png' alt='logo click & Trip'/></li>
-            <li><a href="#">Créer Mon Voyage</a></li>
+            <li><a href="{{ path('inspiration') }}">Inspirations</a></li>
+            <li  id='laptopLogo'><a href="{{ path('homepage') }}"> <img id="logo" src='https://i.ibb.co/cNqdNvt/logo-click-and-trip-blanc-petit.png' alt='logo click & Trip'/></a></li>
+            <li><a href="{{ path('details') }}">Créer Mon Voyage</a></li>
             <li><a href="#">Destinations</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="{{ path('contact') }}">Contact</a></li>
         </ul>
     </div>
     <span class="navTrigger">

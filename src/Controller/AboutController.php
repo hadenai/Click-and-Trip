@@ -7,6 +7,7 @@ use App\Form\PartnerFormType;
 use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -84,9 +85,9 @@ class AboutController extends AbstractController
     {
         return $this->render('about/legalMention.html.twig');
     }
-
+    
     /**
-     * @Route("/services-associe", name="affiliate_service")
+     * @Route("/services-associe", name="services-associe")
      */
     public function affiliateService()
     {
@@ -102,7 +103,7 @@ class AboutController extends AbstractController
     }
 
     /**
-     * @Route("/nos-engagements", name="commitment")
+     * @Route("/nos-engagements", name="nos-engagements")
      */
     public function commitment()
     {
@@ -110,7 +111,7 @@ class AboutController extends AbstractController
     }
 
     /**
-    * @Route("/devenir-partenaire", name="partner")
+    * @Route("/devenir-partenaire", name="devenir-partenaire")
     */
     public function bePartner(Swift_Mailer $mailer, Request $request)
     {
@@ -138,5 +139,21 @@ class AboutController extends AbstractController
                 "form" => $form->createView()
             ]
         );
+    }
+
+    /**
+     * @Route("politique-confidentialite", name="politique-confidentialite")
+     */
+    public function politiqueConfidentialite() :Response
+    {
+        return $this->render('about/politiqueDeConfidentialité.html.twig');
+    }
+
+    /**
+     * @Route("/merci", name="merci")
+     */
+    public function thank() :Response
+    {
+        return $this->render('about/merci.html.twig');
     }
 }
