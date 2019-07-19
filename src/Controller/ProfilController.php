@@ -63,6 +63,7 @@ class ProfilController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
             $manager->persist($client);
             $manager->flush();
             $this->redirectToRoute('homepage');

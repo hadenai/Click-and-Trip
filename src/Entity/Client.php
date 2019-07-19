@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Serializable;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -16,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @Vich\Uploadable
  */
 
-class Client implements UserInterface
+class Client implements UserInterface, Serializable
 {
     /**
      * @ORM\Id()
@@ -334,5 +335,10 @@ class Client implements UserInterface
         return [
             $this->id
         ];
+    }
+
+    public function unserialize($serialized) :void
+    {
+        // TODO: Implement unserialize() method.
     }
 }
