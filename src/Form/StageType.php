@@ -5,8 +5,10 @@ namespace App\Form;
 use App\Entity\Size;
 use App\Entity\Stage;
 use App\Form\PriceType;
+use App\Form\DocumentsType;
 use App\Entity\Style;
 use App\Entity\Theme;
+use App\Entity\Documents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -45,9 +47,17 @@ class StageType extends AbstractType
                 'entry_options' => ['label' => false],
                 'allow_add'    => true,
                 'allow_delete' => true,
-                'by_reference' => false
+                'by_reference' => false,
+                'label' => ' ',
+            ))
+            ->add('documents', CollectionType::class, array(
+                'entry_type'   => DocumentsType::class,
+                'entry_options' => ['label' => false],
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'label' => ' ',
             ));
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

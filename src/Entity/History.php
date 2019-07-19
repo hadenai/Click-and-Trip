@@ -58,7 +58,7 @@ class History
     private $comments;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\StateHistory", inversedBy="histories")
+     * @ORM\ManyToOne(targetEntity="App\Entity\StateHistory", inversedBy="histories", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $state;

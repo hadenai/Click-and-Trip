@@ -1,9 +1,37 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheet %}
+    {{ encore_entry_link_tags('editClientForm') }}
+{% endblock %}
+
 {% block body %}
- <h3>Modification du profil</h3>
-    <div class="container" id="padding-for-navbar">
-    {{ form_start(form) }}
+<div class="container" id="padding-for-navbar">
+    <div class="formContainer">
+        <h1>Modification du profil</h1>
+        
+        {{ form_start(form, {
+                        'attr': {
+                            'class' : 'ui form formulaire'
+                        }
+                    }) }}
+        <div class="field">
+            {{ form_row(form.name, {'label': 'Nom ', 'attr' :{'placeholder':"Entrez votre Nom de famille... " }}) }}
+        </div>
+        <div class="field">
+            {{ form_row(form.surname, {'label': 'Prénom', 'attr' :{'placeholder':"Entrez votre Prénom... " }}) }}
+        </div>
+        <div class="field">
+            {{ form_row(form.email, {'label': 'Email','attr' :{'placeholder':"Entrez votre email..." }}) }}
+        </div>
+        <div class="field">
+            {{ form_row(form.address, {'label': 'adresse', 'attr' :{'placeholder':"Entrez votre adresse... " }}) }}
+        </div>
+        <div class="field">
+            {{ form_row(form.mobile, {'label': 'numéro','attr' :{'placeholder':"votre numéro de téléphone..." }}) }}
+        </div>
+        <div class="field">
+            {{ form_row(form.password, {'label': 'password','attr' :{'placeholder':"entrez votre mot de passe..." }}) }}
+        </div>
 
     {{ form_row(form.name, {'label': 'Nom ', 'attr' :{'placeholder':"Entrez votre Nom de famille... " }}) }}
     {{ form_row(form.surname, {'label': 'Prénom', 'attr' :{'placeholder':"Entrez votre Prénom... " }}) }}
@@ -11,9 +39,15 @@
     {{ form_row(form.address, {'label': 'adresse', 'attr' :{'placeholder':"Entrez votre adresse... " }}) }}
     {{ form_row(form.mobile, {'label': 'numéro','attr' :{'placeholder':"votre numéro de téléphone..." }}) }}
     {{ form_row(form.password, {'label': 'password','attr' :{'placeholder':"entrez votre mot de passe..." }}) }}
+    {{ form_row(form.imageFile, {'label': "Image ", 'attr' :{'placeholder':"Charger votre image... " }}) }}
 
-    <button type="submit">Enregistrer les modifications   </button>
+        <div class="field">
+            <button type="submit" class="ui secondary button">Enregistrer les modifications</button>
+        </div>
+
     {{ form_end(form) }}
+
+    </div>
 </div>
 
 {% endblock %}

@@ -22,8 +22,7 @@ class RegistrationAgencyType extends AbstractType
             ->add('company')
             ->add('nameAgent')
             ->add('surnameAgent')
-            ->add('mobile')
-        ;
+            ->add('mobile');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

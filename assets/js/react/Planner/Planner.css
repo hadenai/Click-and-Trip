@@ -4,5 +4,4 @@
   grid-template-columns: 70vw 30vw;
   grid-template-areas: "filters filters"
                         "steps mysteps";
-  margin-top: 65px;
 }

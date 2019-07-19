@@ -2,16 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\StateHistory;
 use DateTime;
 use App\Entity\Stage;
 use App\Entity\Agency;
 use App\Entity\History;
 use App\Entity\Message;
+use App\Service\SendToMailbox;
 use App\Form\AccountAgencyType;
 use App\Form\AccountClientType;
 use App\Repository\PriceRepository;
-use App\Repository\AgencyRepository;
-use App\Repository\ClientRepository;
 use App\Repository\HistoryRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +48,7 @@ class ProfilController extends AbstractController
     ): Response {
         return $this->render('profil/history.html.twig', [
             'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),
-            'agencyBool' => $this->getUser() instanceof Agency
+            'agencyBool' => $this->getUser() instanceof Agency,
         ]);
     }
 
@@ -58,19 +58,24 @@ class ProfilController extends AbstractController
     public function editProfileClient(Request $request, ObjectManager $manager) :Response
     {
         $client = $this->getUser();
-
+        
         $form = $this->createForm(AccountClientType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('imageFile')->getData();
+            if ($file !== null) {
+                $fileName = md5(uniqid('', true)) . '.' . $file->guessExtension();
+                $file->move($this->getParameter('app.path.client_images'), $fileName);
+                $client->setImage($fileName);
+            }
             $manager->persist($client);
             $manager->flush();
             $this->redirectToRoute('homepage');
         }
-
-        return $this->render('profil/editClient.html.twig', [
-            'form' => $form->createView()
-        ]);
+            return $this->render('profil/editClient.html.twig', [
+                'form' => $form->createView()
+            ]);
     }
 
     /**
@@ -109,39 +114,54 @@ class ProfilController extends AbstractController
     }
 
     /**
-     * @Route("/messagerie/nouveau", name="send_message", methods={"POST"},
+     * @Route("/messagerie/nouveau", name="send_message", methods={"GET","POST"},
      * options = {
      *      "expose" = true
      *     })
      */
-    public function newMessage(
-        Request $request,
-        ObjectManager $manager,
-        HistoryRepository $historyRepo,
-        ClientRepository $clientRepo,
-        AgencyRepository $agencyRepo
-    ) : Response {
-        $json = json_decode($request->getContent());
-        $message= new Message();
-        $message->setHistories($historyRepo->findOneBy(['id' => $json->idHistory]))
-                ->setAdmin($json->adminBool)
-                ->setSendAt(new DateTime(date("Y-m-d H:i:s")))
-                ->setContent($json->content);
-        $to=[$json->to->type, $json->to->id];
-        $from=[$json->from->type, $json->from->id];
-        if ($from[0]=='agency') {
-            $message->setSender('agency')
-                    ->setReceiver('client')
-                    ->setAgency($agencyRepo->findOneBy(['id' => $from[1]]))
-                    ->setClient($clientRepo->findOneBy(['id' => $to[1]]));
-        } else {
-            $message->setSender('client')
-                    ->setReceiver('agency')
-                    ->setClient($clientRepo->findOneBy(['id' => $from[1]]))
-                    ->setAgency($agencyRepo->findOneBy(['id' => $to[1]]));
-        }
-        $manager->persist($message);
-        $manager->flush();
+    public function newMessage(Request $request, SendToMailbox $sender) : Response
+    {
+        $json = json_decode($request->getContent(), true);
+        $sender->sendMessage($json);
+
         return $this->json([], 200);
+    }
+
+    /**
+     * @Route("/confirmationAgence/{id}", name="confirmationAgence")
+     */
+    public function confirmVoyageAgency(ObjectManager $manager, HistoryRepository $historyRepository, int $id)
+    {
+        $state = new StateHistory();
+        $state->setState('Attente paiement');
+        $history = $historyRepository->findOneBy(['id' => $id]);
+        $history->setState($state);
+        $manager->persist($history);
+        $manager->flush();
+        return $this->redirectToRoute("profil_history");
+    }
+
+    /**
+     * @Route("/paiement/{id}", name="paiement")
+     */
+    public function paiement(HistoryRepository $historyRepository)
+    {
+        return $this->render('profil/paiement.html.twig', [
+            'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),
+        ]);
+    }
+
+    /**
+     * @Route("/paiementAccepter/{id}", name="paiementAccepter")
+     */
+    public function paiementAccepter(ObjectManager $manager, HistoryRepository $historyRepository, int $id)
+    {
+        $state = new StateHistory();
+        $state->setState('Payé');
+        $history = $historyRepository->findOneBy(['id' => $id]);
+        $history->setState($state);
+        $manager->persist($history);
+        $manager->flush();
+        return $this->redirectToRoute("profil_history");
     }
 }
