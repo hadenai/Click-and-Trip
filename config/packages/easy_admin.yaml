@@ -12,6 +12,7 @@ easy_admin:
                 title: 'Agences'
                 fields:
                     - 'id'
+                    - 'email'
                     - { property: 'country', label: 'Pays' }
                     - { property: 'city', label: 'Ville' }
                     - { property: 'company', label: 'Agence' }

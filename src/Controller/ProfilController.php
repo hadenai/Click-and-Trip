@@ -58,7 +58,7 @@ class ProfilController extends AbstractController
     public function editProfileClient(Request $request, ObjectManager $manager) :Response
     {
         $client = $this->getUser();
-
+        
         $form = $this->createForm(AccountClientType::class, $client);
         $form->handleRequest($request);
 
