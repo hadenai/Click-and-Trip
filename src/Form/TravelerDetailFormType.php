@@ -71,8 +71,6 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'label' => 'J\'ai une idée approximative.',
                 'required'   => false,
                 'attr' => ['class' => 'hidden'],
-                'multiple' => false,
-                'expanded' => true
             ])
             ->add("mois", TextType::class, [
                 'label' => 'Mois:',

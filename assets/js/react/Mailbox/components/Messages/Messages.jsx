@@ -49,7 +49,7 @@ function Messages(props) {
     } else if (props.userType === 'agency') {
       setMessages(response.data.filter(el => el.client.id == target.id && !el.admin && (el.sender=='agency' || el.receiver=='agency')));
     } else if (props.userType === 'user') {
-      setMessages(allMessages.filter(el => (el.client.id === target.id && (el.sender==='client' || el.receiver==='client') ) || (el.agency.id === e.id  && (el.sender ==='agency' || el.receiver ==='agency') ) ));
+      setMessages(allMessages.filter(el => (el.client.id === target.id && (el.sender==='client' || el.receiver==='client') ) || (el.agency.id === target.id  && (el.sender ==='agency' || el.receiver ==='agency') ) ));
     }
   };
 
@@ -99,6 +99,7 @@ function Messages(props) {
 
     axios.post(Routing.generate('profil_send_message'), info)
       .then(() => {
+        let lastMessage = messages[0]; 
         getAllMessages();
         setInput('');
       })
@@ -108,11 +109,7 @@ function Messages(props) {
         } else if (props.userType === 'agency') {
           setMessages(allMessages.filter(e => e.client.id === messages[0].client.id && !e.admin && (e.sender=='agency' || e.receiver=='agency')));
         } else if (props.userType === 'user') {
-          if(messages[0].sender=='client' || messages[0].receiver=='client'){
-            setMessages(allMessages.filter(e => e.client.id === messages[0].client.id && e.admin));
-          } else {
-            setMessages(allMessages.filter(e => e.agency.id === messages[0].agency.id && e.admin));
-          }
+          setMessages(allMessages.filter(el => (el.client.id === lastMessage.client.id && (el.sender==='client' || el.receiver==='client') ) || (el.agency.id === lastMessage.agency.id  && (el.sender==='agency' || el.receiver==='agency') ) ));
         }
       });
   };
@@ -135,7 +132,6 @@ function Messages(props) {
   return (
     <Fragment>
       <div className="Conversations">
-        <button onClick={()=> console.log('messages:', messages)}></button>
         <List selection verticalAlign="middle">
           {
             props.userType !== 'user' &&

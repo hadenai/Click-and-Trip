@@ -6,9 +6,10 @@
     {% endblock %}
 
 {% block body %}
-    <div class="fixNavbar">
+    <div id="padding-for-navbar"></div>
+    <div>
         <div class="formContainer">
-            <h1 id="padding-for-navbar" class="titre">Contact</h1>
+            <h1 class="titre">Contact</h1>
             {{ form_start(contactForm, {
                     'attr': {
                         'class' : 'ui form formulaire'
