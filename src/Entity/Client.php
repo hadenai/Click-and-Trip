@@ -335,5 +335,4 @@ class Client implements UserInterface
             $this->id
         ];
     }
-
 }
