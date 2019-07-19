@@ -164,7 +164,6 @@ function Messages(props) {
       </div>
       <div className="Messages">
         <div className="list-messages">
-          <button onClick={() => {debugger}}></button>
           {messages.map((e, i) => {
             return (
               <Message key={i} className={props.userType === e.sender ? ' right' : ' left'}>

@@ -25,7 +25,8 @@ class StageFixtures extends Fixture implements DependentFixtureInterface
         return [
             SizeFixtures::class,
             StyleFixtures::class,
-            ThemeFixtures::class
+            ThemeFixtures::class,
+            AgencyFixtures::class
         ];
     }
 
