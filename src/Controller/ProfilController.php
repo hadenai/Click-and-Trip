@@ -47,8 +47,8 @@ class ProfilController extends AbstractController
         PriceRepository $priceRepository
     ): Response {
         return $this->render('profil/history.html.twig', [
-        'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),
-        'agencyBool' => $this->getUser() instanceof Agency,
+            'histories' => $historyRepository->findAllHistoryInfos($this->getUser()),
+            'agencyBool' => $this->getUser() instanceof Agency,
         ]);
     }
 
@@ -63,15 +63,19 @@ class ProfilController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            $file = $form->get('imageFile')->getData();
+            if ($file !== null) {
+                $fileName = md5(uniqid('', true)) . '.' . $file->guessExtension();
+                $file->move($this->getParameter('app.path.client_images'), $fileName);
+                $client->setImage($fileName);
+            }
             $manager->persist($client);
             $manager->flush();
             $this->redirectToRoute('homepage');
         }
-
-        return $this->render('profil/editClient.html.twig', [
-        'form' => $form->createView()
-        ]);
+            return $this->render('profil/editClient.html.twig', [
+                'form' => $form->createView()
+            ]);
     }
 
     /**
@@ -91,7 +95,7 @@ class ProfilController extends AbstractController
         }
 
         return $this->render('profil/editAgency.html.twig', [
-        'form' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
 
@@ -104,8 +108,8 @@ class ProfilController extends AbstractController
         $id=$user instanceof User?0:$user->getId();
         $directories=explode("\\", get_class($user));
         return $this->render('mailbox/listmessages.html.twig', [
-        'id' => $id,
-        'type' => strtolower($directories[count($directories)-1])
+            'id' => $id,
+            'type' => strtolower($directories[count($directories)-1])
         ]);
     }
 
