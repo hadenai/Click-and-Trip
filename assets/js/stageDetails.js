@@ -1,4 +1,4 @@
-/*// Beginning of automatic pictures call
+// Beginning of automatic pictures call
 let images="";
 for(let i=1;i<4;i++){
     images+=`<img src="/build/images/img${i}.jpg" alt="mosaique">`
@@ -26,4 +26,4 @@ function imgClick(e) {
     setTimeout(() => current.classList.remove("fade-in"),500);
     // change the opacity to opacity var//
     e.target.style.opacity = opacity;
-}*/
+}
