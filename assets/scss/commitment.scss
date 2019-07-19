@@ -14,6 +14,7 @@
 .commitmentButton{
   display: flex;
   justify-content: center;
+  margin: 50px;
 }
 
 .ctnr {
@@ -26,3 +27,14 @@
   width: 80vw;
 }
 
+#commitmentButton{
+  background-color: #ff8080;
+}
+
+.commitmentList{
+  margin: 50px;
+}
+
+.commitmentTitle{
+  text-align: center;
+}
