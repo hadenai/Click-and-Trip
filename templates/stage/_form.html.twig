@@ -1,4 +1,5 @@
 {{ form_start(form) }}
     <ul class="prices" data-prototype="{{ form_widget(form.prices.vars.prototype)|e('html_attr') }}"></ul>
+    <ul class="documents" data-prototype="{{ form_widget(form.documents.vars.prototype)|e('html_attr') }}"></ul>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
