@@ -3,52 +3,6 @@
     {{ encore_entry_link_tags('travelerDetailForm') }}
     {% endblock %}
 {% block body %}
-<div class="fixNavbar">
-{{ form_start(form) }}
-{{ form_errors(form) }}
-<form class="ui form">
-<h1>Commencez à créer votre projet voyage...</h1>
-
-<h2>Qui voyage ?</h2>
-{% block integer_widget %}
-<div class="ui input focus">
-    {{ form_row(form.name) }}
-</div>
-
-<p>Combien de participants ? Merci de fournir le nombre de participant et l’âge des voyageurs qui aide notre expert local à personnaliser votre voyage.</p>
-
-<h3>Adultes:</h3>
-
-<div class="ui input focus">
-{{ form_row(form.adulte1, {'value' : 0}) }}
-{{ form_row(form.adulte2, {'value' : 0}) }}
-{{ form_row(form.adulte3, {'value' : 0}) }}
-{{ form_row(form.adulte4, {'value' : 0}) }}
-</div>
-
-<h3>Enfants</h3>
-
-<div class="ui input focus">
-{{ form_row(form.enfants1, {'value' : 0}) }}
-{{ form_row(form.enfants2, {'value' : 0}) }}
-{{ form_row(form.enfants3, {'value' : 0}) }}
-{{ form_row(form.enfants4, {'value' : 0}) }}
-</div>
-
-<h2>Quand souhaitez-vous partir ? Merci de cocher la réponse</h2>
-
-<div class="ui checkbox">
-{{ form_row(form.travelDate1) }}
-</div>
-
-{{ form_row(form.beginDate) }}
-{{ form_row(form.endDate) }}
-
-<div class="ui checkbox">
-{{ form_row(form.travelDate2) }}
-</div>
-
-{% block body %}
 
     <div class="fixNavbar">
         <div class="formContainer">
@@ -89,9 +43,7 @@
 
         <h2>Quand souhaitez-vous partir ? Merci de cocher la réponse</h2>
         <div class="field">
-            <div class="ui checkbox">
                 {{ form_row(form.travelDate1) }}
-            </div>
         </div>
 
         {{ form_row(form.beginDate, {
@@ -106,9 +58,7 @@
         }) }}
 
         <div class="field">
-            <div class="ui checkbox">
                 {{ form_row(form.travelDate2) }}
-            </div>
         </div>
 
         <div class="fields">
@@ -121,20 +71,14 @@
         </div>
 
         <div class="field">
-            <div class="ui checkbox">
                 {{ form_row(form.travelDate3) }}
-            </div>
         </div>
 
         <h2>Quelles sont vos disponibilités pour un rendez-vous téléphonique?</h2>
 
         <div class="field">
-            <div class="ui checkbox">
                 {{ form_row(form.disponibilityDays) }}
-            </div>
-            <div class="ui checkbox">
                 {{ form_row(form.disponibilityHour) }}
-            </div>
         </div>
         
         {{ form_row(form.phoneNumber) }}
@@ -154,24 +98,21 @@
                     }})
                 }}
             </div>
-
-            <div class="field">
-                <div class="ui checkbox">
-                    {{ form_row(form.cgu) }}
-                </div>
+            <div class="field" style="display: inline-block">
+                {{ form_row(form.cgu) }}
+            </div>
+            <div style="display: inline-block">
+               <p>J'accepte <a target="_blank" href="{{ path("about_cgu") }}">les conditions générale d'utilisation</a></p>
+            </div>
+            <div id="detailsButton">
+                <button type="submit" class="ui secondary button">J'envoie ma demande</button>
             </div>
 
-            <button type="submit" class="ui secondary button">J'envoie ma demande</button>
             {{ form_end(form) }}
         </div>
     </div>
-
     {# <script>
         $('.ui.checkbox').checkbox();
     </script> #}
 
-{% endblock %}
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
 {% endblock %}
