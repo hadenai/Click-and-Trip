@@ -18,7 +18,6 @@ security:
                     admin@cnt.fr: 
                         password: '$argon2i$v=19$m=1024,t=2,p=2$ZjRiam01dEw3T2lHdXZTag$avm42JsT72ZRK8gf4Bd03lACPeo2PuZfmJgn4L4L7iM'
                         roles: 'ROLE_ADMIN'
-                    # password not encoded: CandTRIP
         client_provider:
             entity:
                 class: App\Entity\Client

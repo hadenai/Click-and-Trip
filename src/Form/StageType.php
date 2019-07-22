@@ -24,6 +24,7 @@ class StageType extends AbstractType
             ->add('reference')
             ->add('nameStage')
             ->add('duration')
+            ->add('details')
             ->add('themes', EntityType::class, [
                 'expanded'=>true,
                 'multiple'=>true,
