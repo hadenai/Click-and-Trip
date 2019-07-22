@@ -49,7 +49,7 @@ class StageType extends AbstractType
                 'allow_add'    => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                'label' => ' ',
+                'label' => 'Prix',
             ))
             ->add('documents', CollectionType::class, array(
                 'entry_type'   => DocumentsType::class,
