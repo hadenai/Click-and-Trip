@@ -8,15 +8,16 @@
                     <a href="#" id="dropdown" class="dropbtn">Mon compte</a>
                     <div id="myDropdown" class="dropdown-content">
                         {% if app.user %}
-                        <a href="{{ path('profil_mailbox') }}">messages</a>
-                        <a href="{{ path('profil_history') }}">historiques</a>
+                        <a href="{{ path('profil_mailbox') }}">Messagerie</a>
+                        <a href="{{ path('profil_history') }}">Mes Voyages</a>
                         {% if instanceofClient(app.user) %}
-                            <a href="{{ path('profil_edit_client') }}"> <option value="Info perso">Info perso </option> </a>
+                            <a href="{{ path('profil_edit_client') }}">
                         {% endif %}
                         {% if instanceofAgency(app.user) %}
-                            <a href="{{ path('profil_edit_agency') }}"> <option value="Info perso">Info perso </option> </a>
+                            <a href="{{ path('profil_edit_agency') }}">
                         {% endif %}
-                        <a href="{{ path('compte_deconnexion') }}">déconnexion</a>
+                                <option value="Info perso">Mon Profil</option></a>
+                        <a href="{{ path('compte_deconnexion') }}">Déconnexion</a>
                     </div>
                     {% else %}
                         <a href="{{ path('compte_inscription') }}">Inscription</a>
