@@ -32,7 +32,7 @@ class Documents
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Stage", inversedBy="documents", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Stage", inversedBy="documents")
      * @ORM\JoinColumn(nullable=false)
      */
     private $stage;
