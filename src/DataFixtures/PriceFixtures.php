@@ -22,7 +22,7 @@ class PriceFixtures extends Fixture implements DependentFixtureInterface
         for ($i=0; $i<105; $i++) {
             $price = new Price();
             $price->setStage($this->getReference('stage_'.strval($i)))
-                  ->setPrice(100+$i/2);
+                  ->setPrice(200+(-1)**($i)*($i%14)*(1.3)**($i%8));
             $manager->persist($price);
         };
         $manager->flush();
