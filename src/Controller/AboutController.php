@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\ContactFormType;
 use App\Form\PartnerFormType;
+use App\Repository\StageRepository;
 use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,9 +50,12 @@ class AboutController extends AbstractController
     /**
      * @Route("/inspiration", name="inspiration")
      */
-    public function inspiration()
+    public function inspiration(StageRepository $repository)
     {
-        return $this->render('about/inspiration.html.twig');
+        $stages = $repository->findAll();
+        return $this->render('about/inspiration.html.twig', [
+            "stages" => $stages,
+        ]);
     }
 
     /**
@@ -121,7 +125,7 @@ class AboutController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $message = (new \Swift_Message('Une nouvelle demande de partenariat a été soumise.'))
                 ->setFrom($_ENV['MAILER_FROM_ADDRESS'])
-                ->setTo($_ENV['MAILER_TO_ADDRESS'])
+                ->setTo("vincent.mallard5@gmail.com")
                 ->setBody(
                     $this->renderView(
                         "about/bePartnerMail.html.twig",

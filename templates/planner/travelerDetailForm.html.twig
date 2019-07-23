@@ -2,12 +2,11 @@
     {% block stylesheet %}
     {{ encore_entry_link_tags('travelerDetailForm') }}
     {% endblock %}
-
 {% block body %}
 
-    <div class="fixNavbar">
+    <div id="padding-for-navbar">
         <div class="formContainer">
-        <h1>Commencez à créer votre projet voyage...</h1>
+        <h1 class="ui block header travelerDetailsTitle">Commencez à créer votre projet voyage...</h1>
         {{ form_start(form, {
             'attr': {
                 'class' : 'ui form formulaire'
@@ -44,9 +43,7 @@
 
         <h2>Quand souhaitez-vous partir ? Merci de cocher la réponse</h2>
         <div class="field">
-            <div class="ui checkbox">
                 {{ form_row(form.travelDate1) }}
-            </div>
         </div>
 
         {{ form_row(form.beginDate, {
@@ -61,9 +58,7 @@
         }) }}
 
         <div class="field">
-            <div class="ui checkbox">
                 {{ form_row(form.travelDate2) }}
-            </div>
         </div>
 
         <div class="fields">
@@ -76,20 +71,15 @@
         </div>
 
         <div class="field">
-            <div class="ui checkbox">
                 {{ form_row(form.travelDate3) }}
-            </div>
         </div>
 
         <h2>Quelles sont vos disponibilités pour un rendez-vous téléphonique?</h2>
 
         <div class="field">
-            <div class="ui checkbox">
                 {{ form_row(form.disponibilityDays) }}
-            </div>
-            <div class="ui checkbox">
+            <br/>
                 {{ form_row(form.disponibilityHour) }}
-            </div>
         </div>
         
         {{ form_row(form.phoneNumber) }}
@@ -109,24 +99,21 @@
                     }})
                 }}
             </div>
-
-            <div class="field">
-                <div class="ui checkbox">
-                    {{ form_row(form.cgu) }}
-                </div>
+            <div class="field" style="display: inline-block">
+                {{ form_row(form.cgu) }}
+            </div>
+            <div style="display: inline-block">
+               <p>J'accepte <a target="_blank" href="{{ path("about_cgu") }}">les conditions générale d'utilisation</a></p>
+            </div>
+            <div id="detailsButton">
+                <button type="submit" class="ui secondary button">J'envoie ma demande</button>
             </div>
 
-            <button type="submit" class="ui secondary button">J'envoie ma demande</button>
             {{ form_end(form) }}
         </div>
     </div>
-
     {# <script>
         $('.ui.checkbox').checkbox();
     </script> #}
 
-{% endblock %}
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
 {% endblock %}

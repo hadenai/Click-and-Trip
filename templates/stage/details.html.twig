@@ -44,7 +44,7 @@
         <h1 class="title ui block header">{{ stage.nameStage }}</h1>
         <div class="subProdInfo">
             <span class="price">Durée: {{ stage.duration }} Jours</span>
-            <span class="stock">{% for price in stage.prices %}Prix: {{stage.price}} €{% endfor %}</span>
+            <span class="stock">{% for price in stage.prices %}à partir de {{ price }} €{% endfor %}</span>
 
         </div>
 

@@ -27,3 +27,9 @@ document.getElementById('dropdown').addEventListener('click', (event) => {
 
     document.getElementById("myDropdown").classList.toggle("show");
 });
+
+document.getElementById('dropdown2').addEventListener('click', (event) => {
+
+    document.getElementById("myDropdown2").classList.toggle("show");
+});
+
