@@ -97,7 +97,7 @@ class Stage
     private $deleted=false;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Documents", mappedBy="stage", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Documents", mappedBy="stage", orphanRemoval=true, cascade={"persist"})
      */
     private $documents;
 

@@ -22,9 +22,10 @@ class VoyageController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(): Response
+    public function index(StageRepository $stageRepo): Response
     {
-        return $this->render('homepage/index.html.twig');
+        $inspirations = $stageRepo->findBy([], null, 6);
+        return $this->render('homepage/index.html.twig', ['inspirations' => $inspirations]);
     }
 
     /**

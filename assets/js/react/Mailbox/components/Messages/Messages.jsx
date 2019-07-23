@@ -14,7 +14,7 @@ function Messages(props) {
   const [convs, setConvs] = useState([]);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
-  const [target, setTarget] = useState('admin'); 
+  const [target, setTarget] = useState('admin');
 
   useEffect(() => {
     getAllMessages();
@@ -54,6 +54,9 @@ function Messages(props) {
   };
 
   const handleConv = (e) => {
+    document.getElementById('popup').style.display='none';
+    document.getElementById('welcome').style.display='none';
+    document.getElementById('well-sent').style.display='block';
     if (e == 'admin') {
       setMessages(allMessages.filter(el => el.admin));
       setTarget(e);
@@ -99,7 +102,6 @@ function Messages(props) {
 
     axios.post(Routing.generate('profil_send_message'), info)
       .then(() => {
-        debugger
         getAllMessages();
         setInput('');
       })
@@ -109,6 +111,9 @@ function Messages(props) {
         } else if (props.userType === 'agency') {
           setMessages(allMessages.filter(e => e.client.id === messages.slice(-1)[0].client.id && !e.admin && (e.sender=='agency' || e.receiver=='agency')));
         }
+      })
+      .then(()=> {
+          document.getElementById('popup').style.display='flex';
       });
   };
 
@@ -134,9 +139,9 @@ function Messages(props) {
           {
             props.userType !== 'user' &&
             <List.Item id="conv-0" className="selected" onClick={() => handleConv('admin')}>
-              <Image avatar src="../images/small-logo.png" />
+              <Image avatar src="/build/images/small-logo.jpg" />
               <List.Content>
-                <List.Header>admin</List.Header>
+                <List.Header>Click and Trip</List.Header>
               </List.Content>
             </List.Item>
           }
@@ -157,6 +162,19 @@ function Messages(props) {
         </List>
       </div>
       <div className="Messages">
+        {
+            props.userType === 'user' &&
+          <div id="popup">
+            <div id="welcome" className="flex-display">
+              <h3>Bienvenue sur votre messagerie administrateur.</h3>
+              <h3>Veuillez sélectionner une conversation pour accéder aux messages.</h3>
+            </div>
+            <div id="well-sent" className="flex-display">
+              <h3>Message a bien été envoyé.</h3>
+              <h3>Veuillez sélectionner une conversation pour accéder de nouveaux aux messages.</h3>
+            </div>
+          </div>
+        }
         <div className="list-messages">
           {messages.map((e, i) => {
             return (

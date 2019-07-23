@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @Vich\Uploadable
  */
 
-class Client implements UserInterface
+class Client implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -331,8 +331,20 @@ class Client implements UserInterface
 
     public function serialize()
     {
-        return [
-            $this->id
-        ];
+        return serialize([
+            $this->id,
+            $this->email,
+            $this->password
+        ]);
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+                $this->id,
+                $this->email,
+                $this->password
+                ) = unserialize($serialized);
     }
 }
