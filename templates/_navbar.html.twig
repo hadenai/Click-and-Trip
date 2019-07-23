@@ -13,6 +13,8 @@
                         {% elseif instanceofAgency(app.user) %}
                         <a href="{{ path('profil_edit_agency') }}">Mon Profil</a>
                         <a href="{{ path('stage_index') }}">Mes Etapes</a>
+                        {% else %}
+                        <a href="{{ path('easyadmin') }}">Gestion admin</a>
                         {% endif %}
                         <a href="{{ path('profil_history') }}">Mes Voyages</a>
                         <a href="{{ path('profil_mailbox') }}">Messagerie</a>
