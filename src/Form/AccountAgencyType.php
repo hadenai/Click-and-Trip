@@ -15,12 +15,9 @@ class AccountAgencyType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('password')
-            ->add('password', PasswordType::class)
             ->add('country')
             ->add('city')
             ->add('address')
-            ->add('image')
             ->add('company')
             ->add('nameAgent')
             ->add('surnameAgent')
