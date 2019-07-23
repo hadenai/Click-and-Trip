@@ -14,7 +14,7 @@ function Messages(props) {
   const [convs, setConvs] = useState([]);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
-  const [target, setTarget] = useState('admin');
+  const [target, setTarget] = useState('admin'); 
 
   useEffect(() => {
     getAllMessages();
@@ -99,17 +99,15 @@ function Messages(props) {
 
     axios.post(Routing.generate('profil_send_message'), info)
       .then(() => {
-        let lastMessage = messages[0]; 
+        debugger
         getAllMessages();
         setInput('');
       })
       .then(() => {
         if (props.userType === 'client') {
-          setMessages(allMessages.filter(e => e.agency.id === messages[0].agency.id && !e.admin && (e.sender=='client' || e.receiver=='client')));
+          setMessages(allMessages.filter(e => e.agency.id === messages.slice(-1)[0].agency.id && !e.admin && (e.sender=='client' || e.receiver=='client')));
         } else if (props.userType === 'agency') {
-          setMessages(allMessages.filter(e => e.client.id === messages[0].client.id && !e.admin && (e.sender=='agency' || e.receiver=='agency')));
-        } else if (props.userType === 'user') {
-          setMessages(allMessages.filter(el => (el.client.id === lastMessage.client.id && (el.sender==='client' || el.receiver==='client') ) || (el.agency.id === lastMessage.agency.id  && (el.sender==='agency' || el.receiver==='agency') ) ));
+          setMessages(allMessages.filter(e => e.client.id === messages.slice(-1)[0].client.id && !e.admin && (e.sender=='agency' || e.receiver=='agency')));
         }
       });
   };

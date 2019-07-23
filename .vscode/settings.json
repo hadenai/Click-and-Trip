@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "connectionTimeout": 30,
+            "database": "clickAndTrip",
+            "dialect": "MySQL",
+            "name": "test",
+            "password": "4yamYsql",
+            "port": 3306,
+            "server": "127.0.0.1",
+            "username": "nateoverd12"
+        }
+    ]
+}

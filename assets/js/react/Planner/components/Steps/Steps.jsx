@@ -271,7 +271,8 @@ function Steps() {
         <Select fluid placeholder="Theme" options={themeOptions} onChange={(e, { value }) => filterSteps(1, value)} />
         <Select fluid placeholder="Style" options={styleOptions} onChange={(e, { value }) => filterSteps(2, value)} />
         <Select fluid placeholder="Taille du groupe" options={sizeOptions} onChange={(e, { value }) => filterSteps(3, value)} />
-        <Select fluid placeholder="Agence" options={agencyOptions} onChange={(e, { value }) => filterSteps(4, value)} />
+        {/* just in case of debug :
+        <Select fluid placeholder="Agence" options={agencyOptions} onChange={(e, { value }) => filterSteps(4, value)} /> */}
       </div>
       <div className="Steps">
         <Card.Group centered>

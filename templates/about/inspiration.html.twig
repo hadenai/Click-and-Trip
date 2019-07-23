@@ -10,8 +10,11 @@
         <h1 class="ui block header inspirationTitle">Les étapes que nous vous conseillons pour chaque mois:</h1>
         <h2 class="h3Title">Janvier</h2>
         <div class="ui three column grid">
-        {% for stage in stages|slice(-6) %}
+
+                {% for stage in stages %}
+                    {% if loop.index  %}
             {% if stage.bestMonth == 1 %}
+
             <div class="column">
                 <div class="ui fluid card">
                     <div class="image">
@@ -22,12 +25,15 @@
                     </div>
                 </div>
             </div>
+
             {% endif %}
-        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+
             </div>
-        <h3>Février</h3>
+        <h2 class="h3Title">Février</h2>
         <div class="ui three column grid">
-            {% for stage in stages|slice(1, 20) %}
+            {% for stage in stages %}
                 {% if stage.bestMonth == 2 %}
                     <div class="column">
                         <div class="ui fluid card">
@@ -42,9 +48,9 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <h3>Mars</h3>
+        <h2 class="h3Title">Mars</h2>
         <div class="ui three column grid">
-            {% for stage in stages|slice(1, 40) %}
+            {% for stage in stages %}
                 {% if stage.bestMonth == 3 %}
                     <div class="column">
                         <div class="ui fluid card">
@@ -59,9 +65,9 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <h3>Avril</h3>
+        <h2 class="h3Title">Avril</h2>
         <div class="ui three column grid">
-            {% for stage in stages|slice(1, 25) %}
+            {% for stage in stages %}
                 {% if stage.bestMonth == 4 %}
                     <div class="column">
                         <div class="ui fluid card">
@@ -76,9 +82,9 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <h3>Mai</h3>
+        <h2 class="h3Title">Mai</h2>
         <div class="ui three column grid">
-            {% for stage in stages|slice(1, 80) %}
+            {% for stage in stages %}
                 {% if stage.bestMonth == 5 %}
                     <div class="column">
                         <div class="ui fluid card">
@@ -93,9 +99,9 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <h3>Juin</h3>
+        <h2 class="h3Title">Juin</h2>
         <div class="ui three column grid">
-            {% for stage in stages|slice(1, 15) %}
+            {% for stage in stages %}
                 {% if stage.bestMonth == 6 %}
                     <div class="column">
                         <div class="ui fluid card">
@@ -110,9 +116,9 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <h3>Juillet</h3>
+        <h2 class="h3Title">Juillet</h2>
         <div class="ui three column grid">
-            {% for stage in stages|slice(1, 25) %}
+            {% for stage in stages %}
                 {% if stage.bestMonth == 7 %}
                     <div class="column">
                         <div class="ui fluid card">
@@ -127,9 +133,9 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <h3>Août</h3>
+        <h2 class="h3Title">Août</h2>
         <div class="ui three column grid">
-            {% for stage in stages|slice(1, 85) %}
+            {% for stage in stages %}
                 {% if stage.bestMonth == 8 %}
                     <div class="column">
                         <div class="ui fluid card">
@@ -144,9 +150,9 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <h3>Septembre</h3>
+        <h2 class="h3Title">Septembre</h2>
         <div class="ui three column grid">
-            {% for stage in stages|slice(1, 60) %}
+            {% for stage in stages %}
                 {% if stage.bestMonth == 9 %}
                     <div class="column">
                         <div class="ui fluid card">
@@ -161,9 +167,9 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <h3>Octobre</h3>
+        <h2 class="h3Title">Octobre</h2>
         <div class="ui three column grid">
-            {% for stage in stages|slice(1, 10) %}
+            {% for stage in stages %}
                 {% if stage.bestMonth == 10 %}
                     <div class="column">
                         <div class="ui fluid card">
@@ -178,9 +184,9 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <h3>Novembre</h3>
+        <h2 class="h3Title">Novembre</h2>
         <div class="ui three column grid">
-            {% for stage in stages|slice(1, 40) %}
+            {% for stage in stages %}
                 {% if stage.bestMonth == 11 %}
                     <div class="column">
                         <div class="ui fluid card">
@@ -195,9 +201,9 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <h3>Décembre</h3>
+        <h2 class="h3Title">Décembre</h2>
         <div class="ui three column grid">
-            {% for stage in stages|slice(1, 44) %}
+            {% for stage in stages %}
                 {% if stage.bestMonth == 12 %}
                     <div class="column">
                         <div class="ui fluid card">

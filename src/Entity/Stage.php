@@ -106,6 +106,11 @@ class Stage
      */
     private $bestMonth;
 
+    /**
+     * @ORM\Column(type="string", length=10000)
+     */
+    private $details;
+
     public function __construct()
     {
         $this->histories = new ArrayCollection();
@@ -401,6 +406,18 @@ class Stage
     public function setBestMonth(int $bestMonth): self
     {
         $this->bestMonth = $bestMonth;
+
+        return $this;
+    }
+
+    public function getDetails(): ?string
+    {
+        return $this->details;
+    }
+
+    public function setDetails(string $details): self
+    {
+        $this->details = $details;
 
         return $this;
     }
