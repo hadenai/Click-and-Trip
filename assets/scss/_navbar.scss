@@ -395,10 +395,13 @@
 
 .dropdown-content a {
     color: black;
-    padding: 12px 16px;
+    padding: 1%;
     text-decoration: none;
     display: block;
     background-color: #111;
+}
+.dropdown-content a:hover {
+    background-color: grey;
 }
 
 .show {display: block;}
