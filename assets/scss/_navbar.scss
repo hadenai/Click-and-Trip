@@ -389,6 +389,8 @@
     min-width: 160px;
     overflow: auto;
     box-shadow: 1px 8px 16px 1px rgba(0,0,0,0.2);
+    border-radius: 0 0 5% 5%;
+    border: solid #ff8080;
 }
 
 .dropdown-content a {
@@ -400,5 +402,3 @@
 }
 
 .show {display: block;}
-
-.ytp-watermark.yt-uix-sessionlink { display:none !important}
