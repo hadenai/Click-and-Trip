@@ -2,56 +2,59 @@
 
 {% block title %}Stage index{% endblock %}
 {% block stylesheet %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {{ encore_entry_link_tags('stageIndex') }}
 {% endblock %}
 
 {% block body %}
-    <h1 id="padding-for-navbar">Stage index</h1>
+<div class="formContainer">
+    <div class="formContent">
+    <h1 id="padding-for-navbar">Liste de vos étapes</h1>
 
-    <a href="{{ path('stage_new') }}">Create new</a>
+    <a href="{{ path('stage_new') }}" class="ui button createBtn green">Ajouter une étape</a>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id
                     <a href="{{ path('stage_index', {'sortField': 'id', 'sortDirection': 'ASC'}) }}">
-                        <i class="far fa-sort"></i>
+                        <i class="fa fa-sort"></i>
                     </a>
                 </th>
-                <th>Validate</th>
+                <th>Validé</th>
                 <th>Destination</th>
-                <th>Reference
+                <th>Référence
                     <a href="{{ path('stage_index', {'sortField': 'reference', 'sortDirection': 'ASC'}) }}">
-                        <i class="far fa-sort"></i>
+                        <i class="fa fa-sort"></i>
                     </a>
                 </th>
-                <th>NameStage
+                <th>Description
                     <a href="{{ path('stage_index', {'sortField': 'nameStage', 'sortDirection': 'ASC'}) }}">
-                        <i class="far fa-sort"></i>
+                        <i class="fa fa-sort"></i>
                     </a>
                 </th>
-                <th>Duration
+                <th>Durée
                     <a href="{{ path('stage_index', {'sortField': 'duration', 'sortDirection': 'ASC'}) }}">
-                        <i class="far fa-sort"></i>
+                        <i class="fa fa-sort"></i>
                     </a>
                 </th>
-                <th>Deleted</th>
-                <th>actions</th>
+                <th>Supprimé</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for stage in stages %}
             <tr>
                 <td>{{ stage.id }}</td>
-                <td>{{ stage.validate ? 'Yes' : 'No' }}</td>
+                <td>{{ stage.validate ? 'Oui' : 'Non' }}</td>
                 <td>{{ stage.destination }}</td>
                 <td>{{ stage.reference }}</td>
                 <td>{{ stage.nameStage }}</td>
                 <td>{{ stage.duration }}</td>
-                <td>{{ stage.deleted ? 'Yes' : 'No' }}</td>
+                <td>{{ stage.deleted ? 'Oui' : 'Non' }}</td>
                 <td>
-                    <a href="{{ path('stage_show', {'id': stage.id}) }}">show</a>
-                    <a href="{{ path('stage_edit', {'id': stage.id}) }}">edit</a>
+                    <a href="{{ path('stage_show', {'id': stage.id}) }}" class="ui label teal">Voir</a>
+                    <a href="{{ path('stage_edit', {'id': stage.id}) }}" class="ui label orange">Editer</a>
                 </td>
             </tr>
         {% else %}
@@ -61,6 +64,9 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
+</div>
+
 {% endblock %}
 {% block javascript %}
 <script src="https://kit.fontawesome.com/f62deca48c.js"></script>
