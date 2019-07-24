@@ -279,11 +279,16 @@ function Steps() {
           {
             filterResult.map((step, index) => {
               return (
-                <Card key={index} color="green" onClick={() => addStep(index)}>
+                <Card key={index} color="green">
                   <Card.Content>
                     <Card.Header>{step.destination}</Card.Header>
                     <Card.Meta>{step.duration} jours</Card.Meta>
                     <Card.Description>{step.nameStage}</Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    <Label color="teal" onClick={() => addStep(index)}>
+                      Ajouter l'étape
+                    </Label>
                   </Card.Content>
                 </Card>
               );
@@ -301,11 +306,16 @@ function Steps() {
           {
             mySteps.map((step, index) => {
               return (
-                <Card key={index} fluid color="red" onClick={() => removeStep(index)}>
+                <Card key={index} fluid color="red">
                   <Card.Content>
                     <Card.Header>{step.destination}</Card.Header>
                     <Card.Meta>{step.duration} jours</Card.Meta>
                     <Card.Description>{step.nameStage}</Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    <Label color="orange" onClick={() => removeStep(index)}>
+                      Retirer l'étape
+                    </Label>
                   </Card.Content>
                 </Card>
               );
