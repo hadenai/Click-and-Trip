@@ -130,6 +130,16 @@ function Messages(props) {
     }
   }
 
+  const logoDisplay=(e) => 
+  {
+    if(e.image){
+      return `/uploads/images/avatar/${e.image}`
+    }else if (e.company){
+      return "https://ui-avatars.com/api/?name="+(e.company).split(" ")[0]+"&color=000&background=F08080"
+    }else{
+      return "https://ui-avatars.com/api/?name="+(e.surname)+"&color=000&background=7FFFD4"
+    }
+  }
 
 
   return (
@@ -149,7 +159,7 @@ function Messages(props) {
             convs.map((e, i) => {
               return (
                 <List.Item key={i} id={`conv-${e.id}`} onClick={() => handleConv(e)}>
-                  <Image avatar src={`/uploads/images/avatar/${e.image}`} />
+                  <Image avatar src={logoDisplay(e)}/>
                   <List.Content>
                       <List.Header>
                         {convDisplay(e)}
