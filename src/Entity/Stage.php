@@ -46,6 +46,7 @@ class Stage
     /**
      * @Gedmo\Slug(fields={"nameStage"})
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Groups("apiStage")
      */
     private $slug;
 

@@ -264,6 +264,11 @@ function Steps() {
     setFilters(newFilters);
   };
 
+  const link=(step) => {
+    let url="/etapes/"+step.destination+"/"+step.slug;
+    return url
+  }
+
   return (
     <Fragment>
       <div className="Filters">
@@ -286,8 +291,8 @@ function Steps() {
                     <Card.Description>{step.nameStage}</Card.Description>
                   </Card.Content>
                   <Card.Content extra>
-                    <Label color="teal" as="a" onClick={() => console.log('hello')}>
-                      Plus de détails
+                    <Label className="plannerButton" as="a" onClick={() => console.log('hello')}>
+                      <a target="_blank" href={link(step)}>Plus de détails</a>
                     </Label>
                   </Card.Content>
                 </Card>
@@ -313,8 +318,8 @@ function Steps() {
                     <Card.Description>{step.nameStage}</Card.Description>
                   </Card.Content>
                   <Card.Content extra>
-                    <Label color="teal" as="a">
-                      Plus de détails
+                    <Label className="plannerButton" as="a">
+                      <a target="_blank" href={link(step)}>Plus de détails</a>
                     </Label>
                   </Card.Content>
                 </Card>
