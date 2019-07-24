@@ -149,7 +149,7 @@ function Messages(props) {
             convs.map((e, i) => {
               return (
                 <List.Item key={i} id={`conv-${e.id}`} onClick={() => handleConv(e)}>
-                  <Image avatar src={e.avatar} />
+                  <Image avatar src={`/uploads/images/avatar/${e.image}`} />
                   <List.Content>
                       <List.Header>
                         {convDisplay(e)}

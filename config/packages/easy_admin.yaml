@@ -26,7 +26,6 @@ easy_admin:
                     - 'city'
                     - {property: 'address', label: 'Adresse de domicile'}
                     - {property: 'mobile', label: 'N° tel.'}
-                    - 'image'
                     - 'company'
                     - {property: 'nameAgent', label: "Prénom de l'agent"}
                     - {property: 'surnameAgent', label: "Nom de l'agent"}
@@ -36,7 +35,6 @@ easy_admin:
                     - {property: 'flagship', label: "Coup de coeur"}
                     - {property: 'deleted', label: ": compte supprimé ?"}
                     - {property: 'stages', label: "N° des étapes"}
-                    - 'documents'
            
         Client:
             class: App\Entity\Client
@@ -81,7 +79,7 @@ easy_admin:
             list:
                 title: 'Voyages'
 
-    site_name: 'Mon nom est <b style="color:blue">à changer</b> dans <i>config/packages/easy_admin.yaml</i>'
+    site_name: '<b style="color:black">Gestionnaire Administrateur </b><i>Click And Trip</i>'
     formats:
         datetime: 'd/m/Y'
         date: 'd/m/Y'

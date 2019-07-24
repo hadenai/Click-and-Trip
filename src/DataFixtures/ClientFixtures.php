@@ -34,6 +34,33 @@ class ClientFixtures extends Fixture
                         'clientmdp'
                     ))
                     ->setRoles(['ROLE_CLIENTS']);
+            $image='client-'.strval($i).'.jpeg';
+            if ($i==1) {
+                copy(
+                    __DIR__.'/../../assets/fixturesImages/'.$image,
+                    __DIR__.'/../../assets/fixturesImages/client-'.strval($i-10).'.jpeg'
+                );
+                rename(
+                    __DIR__.'/../../assets/fixturesImages/client-12.jpeg',
+                    __DIR__.'/../../assets/fixturesImages/client-2.jpeg'
+                );
+            } else {
+                copy(
+                    __DIR__.'/../../assets/fixturesImages/'.$image,
+                    __DIR__.'/../../assets/fixturesImages/client-'.strval($i+2).'.jpeg'
+                );
+            }
+            $file = new UploadedFile(
+                __DIR__.'/../../assets/fixturesImages/'.$image,
+                $image,
+                'image/jpeg',
+                null,
+                null,
+                true /*  Set test mode true !!!
+                " Local files are used in test mode hence
+                the code should not enforce HTTP uploads." */
+            );
+            $client->setImageFile($file);
             $manager->persist($client);
             $this->addReference('client_'.strval($i), $client);
         }

@@ -40,6 +40,7 @@ Encore
     .addEntry("editClientForm", "./assets/scss/editClientForm.scss")
     .addEntry("editAgencyForm", "./assets/scss/editAgencyForm.scss")
     .addEntry('stageDetailsJS', './assets/js/stageDetails.js')
+    .addEntry('stageIndex', './assets/scss/stageIndex.scss')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
