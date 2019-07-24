@@ -19,7 +19,6 @@ class AccountClientType extends AbstractType
             ->add('name')
             ->add('surname')
             ->add('address')
-            ->add('password', PasswordType::class)
             ->add('imageFile', VichImageType::class);
     }
 

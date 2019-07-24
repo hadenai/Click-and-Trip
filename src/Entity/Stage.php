@@ -97,9 +97,14 @@ class Stage
     private $deleted=false;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Documents", mappedBy="stage", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Documents", mappedBy="stage", orphanRemoval=true, cascade={"persist"})
      */
     private $documents;
+
+    /**
+     * @ORM\Column(type="string", length=10000)
+     */
+    private $details;
 
     public function __construct()
     {
@@ -384,6 +389,18 @@ class Stage
                 $document->setStage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDetails(): ?string
+    {
+        return $this->details;
+    }
+
+    public function setDetails(string $details): self
+    {
+        $this->details = $details;
 
         return $this;
     }

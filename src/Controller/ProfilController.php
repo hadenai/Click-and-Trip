@@ -63,12 +63,6 @@ class ProfilController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('imageFile')->getData();
-            if ($file !== null) {
-                $fileName = md5(uniqid('', true)) . '.' . $file->guessExtension();
-                $file->move($this->getParameter('app.path.client_images'), $fileName);
-                $client->setImage($fileName);
-            }
             $manager->persist($client);
             $manager->flush();
             $this->redirectToRoute('homepage');
