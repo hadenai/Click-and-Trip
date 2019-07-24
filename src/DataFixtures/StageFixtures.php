@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\Stage;
+use App\Entity\Documents;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Serializer\Serializer;
 use Doctrine\Common\Persistence\ObjectManager;

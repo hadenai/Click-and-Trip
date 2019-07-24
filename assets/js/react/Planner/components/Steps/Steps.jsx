@@ -4,7 +4,7 @@ import _ from 'underscore';
 import Routing from '../../../../../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
 // COMPONENTS
-import { Card, Button, Select } from 'semantic-ui-react';
+import { Label, Card, Button, Select } from 'semantic-ui-react';
 
 // CSS
 import './Steps.css';
