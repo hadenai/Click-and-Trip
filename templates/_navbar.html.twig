@@ -29,7 +29,13 @@
             <li><a href="{{ path('about_inspiration') }}">Inspirations</a></li>
             <li  id='laptopLogo'><a href="{{ path('homepage') }}"> <img id="logo" src='https://i.ibb.co/cNqdNvt/logo-click-and-trip-blanc-petit.png' alt='logo click & Trip'/></a></li>
             <li><a href="{{ path('planner') }}">Créer Mon Voyage</a></li>
-            <li><a href="#">Destinations</a></li>
+            <li>
+                <div class="dropdown">
+                    <a href="#" id="dropdown2" class="dropbtn"  onclick="getCountries()">Destinations</a>
+                    <div id="myDropdown2" class="dropdown-content">
+                    </div>
+                </div>
+            </li>
             <li><a href="{{ path('about_contact') }}">Contact</a></li>
         </ul>
     </div>
@@ -39,3 +45,19 @@
       <i></i>
   </span>
 </nav>
+<script>
+    function getCountries() {
+        fetch('http://localhost:8000/api/stages')
+            .then(results => results.json())
+            .then(data => {
+                let dest = data.map(stage => stage.destination);
+                let unique = [...new Set(dest)];
+                const dropdown = document.getElementById('myDropdown2');
+                let html = '';
+                unique.forEach(country =>
+                    html += `<a href='/mon-voyage/${country}'> ${country} </a>`);
+                dropdown.innerHTML = html;
+
+            })
+    }
+</script>

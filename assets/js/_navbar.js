@@ -39,6 +39,8 @@ document.getElementById('dropdown').addEventListener('click', (event) => {
     document.getElementById("myDropdown").classList.toggle("show");
 });
 
-window.onload = () => {
-    document.getElementById("ytp-id-9").style.display="none"
-}
+document.getElementById('dropdown2').addEventListener('click', (event) => {
+
+    document.getElementById("myDropdown2").classList.toggle("show");
+});
+

@@ -55,7 +55,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'required'   => true,
             ])
             ->add("travelDate1", CheckboxType::class, [
-                'label' => 'J\'ai des dates exactes. Choisissez une date de début et une date de fin.',
+                'label' => 'J\'ai des dates exactes. Choisissez une date de début et une date de fin  ',
                 'required'   => false,
                 'attr' => ['class' => 'hidden'],
             ])
@@ -68,7 +68,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'required'   => false,
             ])
             ->add("travelDate2", CheckboxType::class, [
-                'label' => 'J\'ai une idée approximative.',
+                'label' => 'J\'ai une idée approximative  ',
                 'required'   => false,
                 'attr' => ['class' => 'hidden'],
             ])
@@ -81,7 +81,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'required'   => false,
             ])
             ->add("travelDate3", CheckboxType::class, [
-                'label' => 'Je n\'ai pas décidé',
+                'label' => 'Je n\'ai pas décidé  ',
                 'required'   => false,
                 'attr' => ['class' => 'hidden'],
             ])
@@ -97,6 +97,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'required'   => true,
                 'expanded' => true,
                 'attr' => ['class' => 'checkbox'],
+                'label' => 'Jours de disponibilité:'
             ])
             ->add("disponibilityHour", ChoiceType::class, [
                 'choices' => [
@@ -109,6 +110,7 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'required'   => true,
                 'expanded' => true,
                 'attr' => ['class' => 'checkbox'],
+                'label' => 'Heure de disponibilité:'
                 ])
             ->add("phoneNumber", NumberType::class, [
                 'label' => 'Merci de nous indiquer votre numéro de téléphone ',
@@ -119,8 +121,8 @@ class TravelerDetailFormType extends AbstractType implements FormTypeInterface
                 'required'   => true,
             ])
             ->add("cgu", CheckboxType::class, [
-                'label' => 'J\'ai lu et j\'accepte les conditions générales d\'utilisation.',
-                'required'   => false,
+                'label' => ' ',
+                'required'   => true,
                 'attr' => ['class' => 'hidden'],
             ])
         ;

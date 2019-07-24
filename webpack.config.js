@@ -23,6 +23,7 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     .enableReactPreset()
+    .addEntry("destination", "./assets/scss/destination.scss")
     .addEntry("affiliateService", "./assets/scss/affiliateService.scss")
     .addEntry("cgu", "./assets/scss/cgu.scss")
     .addEntry("commitment", "./assets/scss/commitment.scss")

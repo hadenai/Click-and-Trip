@@ -30,3 +30,11 @@
 .validateButton {
   margin-bottom: 20px !important;
 }
+
+.plannerButton{
+  background-color: #ff8080 !important;
+}
+
+.plannerButton a {
+  color: white !important;
+}

@@ -8,19 +8,19 @@
     {% block stylesheet %}{% endblock %}
     <link rel="icon" href="{{ asset("build/images/small-logo.png")}}" style="color:#000000">
 </head>
+<body>
+    <header>
+        {% include "_navbar.html.twig" %}
+    </header>
 
-<div class="container">
-    <body>
-        <header>
-            {% include "_navbar.html.twig" %}
-        </header>
-            {% block body %}{% endblock %}
-        <footer>
-            {% include '_footer.html.twig'  %}
-        </footer>
-        {{ encore_entry_script_tags('index') }}
-        {% block javascript %}{% endblock %}
-    </body>
-</div>
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+    <footer>
+        {% include '_footer.html.twig'  %}
+    </footer>
+    {{ encore_entry_script_tags('index') }}
+    {% block javascript %}{% endblock %}
+</body>
 
 </html>

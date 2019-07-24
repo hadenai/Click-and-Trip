@@ -46,6 +46,7 @@ class Stage
     /**
      * @Gedmo\Slug(fields={"nameStage"})
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Groups("apiStage")
      */
     private $slug;
 
@@ -100,6 +101,11 @@ class Stage
      * @ORM\OneToMany(targetEntity="App\Entity\Documents", mappedBy="stage", orphanRemoval=true, cascade={"persist"})
      */
     private $documents;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $bestMonth;
 
     /**
      * @ORM\Column(type="string", length=10000)
@@ -389,6 +395,18 @@ class Stage
                 $document->setStage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBestMonth(): ?int
+    {
+        return $this->bestMonth;
+    }
+
+    public function setBestMonth(int $bestMonth): self
+    {
+        $this->bestMonth = $bestMonth;
 
         return $this;
     }
