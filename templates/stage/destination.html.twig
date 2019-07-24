@@ -9,7 +9,7 @@
         <div class="column">
             <div class="ui fluid card">
                 <div class="image">
-                    <img src="http://placehold.it/1000x400" alt="">
+                    <img src="{{ vich_uploader_asset(step.documents|first, 'imageFile' ) }}" alt="">
                 </div>
                 <div class="content">
                     <a class="header">{{ step.nameStage }}</a>

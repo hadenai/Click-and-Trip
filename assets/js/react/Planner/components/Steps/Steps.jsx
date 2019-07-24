@@ -4,7 +4,7 @@ import _ from 'underscore';
 import Routing from '../../../../../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
 // COMPONENTS
-import { Label, Card, Button, Select } from 'semantic-ui-react';
+import { Card, Button, Select, Label } from 'semantic-ui-react';
 
 // CSS
 import './Steps.css';
@@ -280,14 +280,14 @@ function Steps() {
             filterResult.map((step, index) => {
               return (
                 <Card key={index} color="green">
-                  <Card.Content>
+                  <Card.Content onClick={() => addStep(index)} as="a">
                     <Card.Header>{step.destination}</Card.Header>
                     <Card.Meta>{step.duration} jours</Card.Meta>
                     <Card.Description>{step.nameStage}</Card.Description>
                   </Card.Content>
                   <Card.Content extra>
-                    <Label color="teal" onClick={() => addStep(index)}>
-                      Ajouter l'étape
+                    <Label color="teal" as="a" onClick={() => console.log('hello')}>
+                      Plus de détails
                     </Label>
                   </Card.Content>
                 </Card>
@@ -307,14 +307,14 @@ function Steps() {
             mySteps.map((step, index) => {
               return (
                 <Card key={index} fluid color="red">
-                  <Card.Content>
+                  <Card.Content onClick={() => removeStep(index)} as="a">
                     <Card.Header>{step.destination}</Card.Header>
                     <Card.Meta>{step.duration} jours</Card.Meta>
                     <Card.Description>{step.nameStage}</Card.Description>
                   </Card.Content>
                   <Card.Content extra>
-                    <Label color="orange" onClick={() => removeStep(index)}>
-                      Retirer l'étape
+                    <Label color="teal" as="a">
+                      Plus de détails
                     </Label>
                   </Card.Content>
                 </Card>
