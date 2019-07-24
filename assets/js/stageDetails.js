@@ -4,7 +4,7 @@ for(let i=1;i<4;i++){
     images+=`<img src="/build/images/img${i}.jpg" alt="mosaique">`
 imgs.forEach(img => img.addEventListener("click", imgClick));
 // set first image opacity
-imgs[0].style.opacity = opacity;
+imgs[0].style.opacity = opacity;}
 
 function imgClick(e) {
     // reste the opacity

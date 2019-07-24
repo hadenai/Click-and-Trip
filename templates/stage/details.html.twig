@@ -46,16 +46,12 @@
     <div class="productInfo">
         <h1 class="title ui block header">{{ stage.nameStage }}</h1>
         <div class="subProdInfo">
-            <span class="price">Durée: {{ stage.duration }} Jours</span>
+            <span class="price">Durée:{{ stage.duration }}Jours</span>
             <span class="stock">{% for price in stage.prices %}à partir de {{ price }} €{% endfor %}</span>
 
         </div>
 
-        <p>Compellingly empower bricks-and-clicks growth strategies and sticky ROI.
-            Compellingly leverage other's high-payoff collaboration and idea-sharing through cost effective functionalities.
-            Competently drive revolutionary materials before efficient mindshare.
-            Holisticly architect next-generation value with timely methods of empowerment.
-            Phosfluorescently incentivize go forward sources with client-centered content.</p>
+        <p>{{ stage.details }}</p>
     </div>
 </div>
 {% endblock %}
