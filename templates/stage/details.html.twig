@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col-10 offset-1">
                                 <div class="main-img">
-                                    <img src="{{ vich_uploader_asset(stage.documents[0], 'imageFile' ) }}" id="current" alt="mosaique">
+                                    <img src="{{ vich_uploader_asset(stage.documents|first, 'imageFile' ) }}" id="current" alt="mosaique">
                                 </div>
                                 <div class="imgs" id="container-images">
                                     {% for photo in stage.documents %}
