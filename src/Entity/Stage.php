@@ -102,7 +102,7 @@ class Stage
     private $documents;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $bestMonth;
 

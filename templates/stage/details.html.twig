@@ -30,9 +30,12 @@
                         <div class="row">
                             <div class="col-10 offset-1">
                                 <div class="main-img">
-                                    <img src="/build/images/img1.jpg" id="current" alt="mosaique">
+                                    <img src="{{ vich_uploader_asset(stage.documents[0], 'imageFile' ) }}" id="current" alt="mosaique">
                                 </div>
                                 <div class="imgs" id="container-images">
+                                    {% for photo in stage.documents %}
+                                        <img class="imgDetail" src="{{ vich_uploader_asset(photo, 'imageFile' ) }}" alt="mosaique" />
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -59,12 +62,12 @@
 {% block javascript %}
     <script>
     // Beginning of automatic pictures call
-let images="";
-for(let i=1;i<4;i++){
-    images+=`<img src="/build/images/img${i}.jpg" alt="mosaique">`
-}
+/*let images="";
+for(let i=0;i<4;i++) {
+    images += '<img src="{{ vich_uploader_asset(stage.documents[0], "imageFile" ) }}" alt="mosaique" />';
+ }
 const container=document.getElementById('container-images');
-container.innerHTML=images;
+container.innerHTML=images;*/
 // End of automatic pictures call
 
 const current = document.getElementById("current");
