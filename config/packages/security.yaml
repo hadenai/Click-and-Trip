@@ -16,7 +16,7 @@ security:
             memory:
                 users:
                     admin@cnt.fr: 
-                        password: '$argon2i$v=19$m=1024,t=2,p=2$ZjRiam01dEw3T2lHdXZTag$avm42JsT72ZRK8gf4Bd03lACPeo2PuZfmJgn4L4L7iM'
+                        password: '$2y$12$9j7LeVXvysViVR4uHHQRL.wmzhqu9DoLBUuy40Ft2DCPtTpqssfCy'
                         roles: 'ROLE_ADMIN'
         client_provider:
             entity:
