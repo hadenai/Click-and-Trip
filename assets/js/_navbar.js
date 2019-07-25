@@ -1,3 +1,8 @@
+// ROUTING
+import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
+const routes = require('../../public/js/fos_js_routes.json');
+Routing.setRoutingData(routes);
+
 if(document.getElementById("padding-for-navbar")){
     document.getElementsByTagName("nav")[0].className = "nav container affix";
     document.getElementById("padding-for-navbar").style.paddingTop="65px";
@@ -33,8 +38,7 @@ document.getElementById('dropdown2').addEventListener('click', (event) => {
     document.getElementById("myDropdown2").classList.toggle("show");
 });
 
-
-function getCountries() {
+document.getElementById('dropdown2').addEventListener('click', (event) => {
     fetch(Routing.generate('api_stages'))
         .then(results => results.json())
         .then(data => {
@@ -45,6 +49,5 @@ function getCountries() {
             unique.forEach(country =>
                 html += `<a href='/mon-voyage/${country}'> ${country} </a>`);
             dropdown.innerHTML = html;
-
         })
-}
+})
