@@ -17,7 +17,6 @@ easy_admin:
                     - { property: 'city', label: 'Ville' }
                     - { property: 'company', label: 'Agence' }
                     - { property: 'validate', label: 'Validé ?' }
-                    # - { property: 'deleted', label: 'Supprimé ?' }
             edit:
                 title: "Détails d'une agence"
                 fields: 
@@ -33,7 +32,6 @@ easy_admin:
                     - 'description'
                     - {property: 'presentation', label: 'Présentation'}
                     - {property: 'flagship', label: "Coup de coeur"}
-                    # - {property: 'deleted', label: ": compte supprimé ?"}
                     - {property: 'stages', label: "N° des étapes"}
            
         Client:

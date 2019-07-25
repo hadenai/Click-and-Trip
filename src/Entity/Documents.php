@@ -52,9 +52,6 @@ class Documents
         $this->imageFile = $imageFile;
         // It is required that at least one field changes if you are using Doctrine,
         // otherwise the event listeners won't be called and the file is lost
-        // if ($image) {
-        //     $this->updatedAt = new \DateTime('now');
-        // }
         if ($this->imageFile instanceof UploadedFile) {
             $this->updatedAt = new \DateTime('now');
         }

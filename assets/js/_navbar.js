@@ -44,3 +44,18 @@ document.getElementById('dropdown2').addEventListener('click', (event) => {
     document.getElementById("myDropdown2").classList.toggle("show");
 });
 
+
+function getCountries() {
+    fetch(Routing.generate('api_stages'))
+        .then(results => results.json())
+        .then(data => {
+            let dest = data.map(stage => stage.destination);
+            let unique = [...new Set(dest)];
+            const dropdown = document.getElementById('myDropdown2');
+            let html = '';
+            unique.forEach(country =>
+                html += `<a href='/mon-voyage/${country}'> ${country} </a>`);
+            dropdown.innerHTML = html;
+
+        })
+}
