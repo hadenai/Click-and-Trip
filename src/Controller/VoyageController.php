@@ -22,9 +22,10 @@ class VoyageController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(): Response
+    public function index(StageRepository $stageRepo): Response
     {
-        return $this->render('homepage/index.html.twig');
+        $inspirations = $stageRepo->findBy([], null, 6);
+        return $this->render('homepage/index.html.twig', ['inspirations' => $inspirations]);
     }
 
     /**
@@ -77,7 +78,11 @@ class VoyageController extends AbstractController
                     'text/html'
                 );
             $mailer->send($message);
-            $dates=[$data['beginDate'], $data['endDate']];
+            if ($data['beginDate'] && $data['endDate']) {
+                $dates=[$data['beginDate'], $data['endDate']];
+            } else {
+                $dates=[];
+            };
             $session->set('dates', $dates);
             return $this->redirectToRoute("success");
         }
@@ -115,9 +120,11 @@ class VoyageController extends AbstractController
         $state=new StateHistory();
         $state->setState('Attente admin');
         $agency = $stage->getAgency();
-        $history->setDateBegin($session->get('dates')[0])
-            ->setDateEnd($session->get('dates')[1])
-            ->setState($state)
+        if (!empty($session->get('dates'))) {
+            $history->setDateBegin($session->get('dates')[0])
+            ->setDateEnd($session->get('dates')[1]);
+        };
+        $history->setState($state)
             ->setClient($this->getUser())
             ->setAgency($agency);
         $manager->persist($history);

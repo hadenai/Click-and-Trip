@@ -23,6 +23,7 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     .enableReactPreset()
+    .addEntry("destination", "./assets/scss/destination.scss")
     .addEntry("affiliateService", "./assets/scss/affiliateService.scss")
     .addEntry("cgu", "./assets/scss/cgu.scss")
     .addEntry("commitment", "./assets/scss/commitment.scss")
@@ -40,6 +41,11 @@ Encore
     .addEntry("editClientForm", "./assets/scss/editClientForm.scss")
     .addEntry("editAgencyForm", "./assets/scss/editAgencyForm.scss")
     .addEntry('stageDetailsJS', './assets/js/stageDetails.js')
+    .addEntry('stageIndex', './assets/scss/stageIndex.scss')
+    .addEntry('stageShow', './assets/scss/stageShow.scss')
+    .addEntry('stageEdit', './assets/scss/stageEdit.scss')
+    .addEntry('success', './assets/scss/success.scss')
+    .addEntry('galery', './assets/js/galery.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

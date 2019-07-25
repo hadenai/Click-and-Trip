@@ -2,35 +2,39 @@
 
 {% block title %}Stage{% endblock %}
 {% block stylesheet %}
+{{ encore_entry_link_tags('stageShow') }}
 {% endblock %}
 
 {% block body %}
-    <h1 id="padding-for-navbar">Stage</h1>
 
-    <table class="table">
+<div class="formContainer">
+<div class="formContent">
+    <h1 id="padding-for-navbar">Etape</h1>
+
+    <table class="ui celled table">
         <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ stage.id }}</td>
             </tr>
             <tr>
-                <th>Validate</th>
-                <td>{{ stage.validate ? 'Yes' : 'No' }}</td>
+                <th>Validé</th>
+                <td>{{ stage.validate ? 'Oui' : 'Non' }}</td>
             </tr>
             <tr>
                 <th>Destination</th>
                 <td>{{ stage.destination }}</td>
             </tr>
             <tr>
-                <th>Reference</th>
+                <th>Référence</th>
                 <td>{{ stage.reference }}</td>
             </tr>
             <tr>
-                <th>NameStage</th>
+                <th>Description</th>
                 <td>{{ stage.nameStage }}</td>
             </tr>
             <tr>
-                <th>Duration</th>
+                <th>Durée</th>
                 <td>{{ stage.duration }}</td>
             </tr>
             <tr>
@@ -56,15 +60,18 @@
                 </table>
             </tr>
             <tr>
-                <th>Deleted</th>
-                <td>{{ stage.deleted ? 'Yes' : 'No' }}</td>
+                <th>Supprimé ?</th>
+                <td>{{ stage.deleted ? 'Oui' : 'Non' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('stage_index') }}">back to list</a>
+    <a href="{{ path('stage_index') }}" class="ui label teal">Retourner a la liste</a>
 
-    <a href="{{ path('stage_edit', {'id': stage.id}) }}">edit</a>
+    <a href="{{ path('stage_edit', {'id': stage.id}) }}" class="ui label orange">Editer</a>
+
 
     {{ include('stage/_delete_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}

@@ -8,9 +8,6 @@
 .Messages {
     grid-area: ms;
     position: relative;
-    padding: 1.4% 0;
-    /* height: 100vh;
-    width: 100%; */
     overflow-y: auto;
     scroll-behavior: smooth;
 }
@@ -55,3 +52,22 @@
 }
 
 .ui.selection.list > .item.selected {background-color: burlywood}
+
+#popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 20;
+    background-color: whitesmoke;
+}
+
+#popup .flex-display {
+    color:black;
+    text-align: center;
+}
+
+#well-sent {display: none}

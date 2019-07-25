@@ -24,6 +24,7 @@ class StageType extends AbstractType
             ->add('reference')
             ->add('nameStage')
             ->add('duration')
+            ->add('details')
             ->add('themes', EntityType::class, [
                 'expanded'=>true,
                 'multiple'=>true,
@@ -48,7 +49,7 @@ class StageType extends AbstractType
                 'allow_add'    => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                'label' => ' ',
+                'label' => 'Prix',
             ))
             ->add('documents', CollectionType::class, array(
                 'entry_type'   => DocumentsType::class,

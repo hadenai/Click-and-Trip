@@ -2,11 +2,12 @@
 
 namespace App\DataFixtures;
 
+use Faker;
 use App\Entity\Client;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Faker;
 
 class ClientFixtures extends Fixture
 {
@@ -34,7 +35,45 @@ class ClientFixtures extends Fixture
                         'clientmdp'
                     ))
                     ->setRoles(['ROLE_CLIENTS']);
+            $image='client-'.strval($i).'.jpeg';
+            if ($i==1) {
+                copy(
+                    __DIR__.'/../../assets/fixturesImages/'.$image,
+                    __DIR__.'/../../assets/fixturesImages/client-3.jpeg'
+                );
+            }
+            if ($i==2) {
+                copy(
+                    __DIR__.'/../../assets/fixturesImages/'.$image,
+                    __DIR__.'/../../assets/fixturesImages/client-4.jpeg'
+                );
+            }
+            if ($i==1 || $i==2) {
+                $file = new UploadedFile(
+                    __DIR__.'/../../assets/fixturesImages/'.$image,
+                    $image,
+                    'image/jpeg',
+                    null,
+                    null,
+                    true /*  Set test mode true !!!
+                    " Local files are used in test mode hence
+                    the code should not enforce HTTP uploads." */
+                );
+                $client->setImageFile($file);
+            }
             $manager->persist($client);
+            if ($i==1) {
+                rename(
+                    __DIR__.'/../../assets/fixturesImages/client-3.jpeg',
+                    __DIR__.'/../../assets/fixturesImages/client-1.jpeg'
+                );
+            }
+            if ($i==2) {
+                rename(
+                    __DIR__.'/../../assets/fixturesImages/client-4.jpeg',
+                    __DIR__.'/../../assets/fixturesImages/client-2.jpeg'
+                );
+            }
             $this->addReference('client_'.strval($i), $client);
         }
 

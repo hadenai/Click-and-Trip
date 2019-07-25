@@ -2,7 +2,9 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use App\Entity\Stage;
+use App\Entity\Documents;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Serializer\Serializer;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -82,11 +84,15 @@ class StageFixtures extends Fixture implements DependentFixtureInterface
                     $stage->addStyle($this->getReference('style_4'));
                 }
             }
+            $faker = Factory::create('fr_FR');
             $stage->setValidate(true)
                   ->setReference($row["Ref"])
                   ->setDestination($row["DESTINATION"])
                   ->setNameStage($row["nameStage"])
                   ->setDuration(strval(trim($row["Duration"])))
+                  ->setAgency($this->getReference('agency_'.$row["agency_id"]))
+                  ->setBestMonth(rand(1, 12))
+                  ->setDetails($faker->text(2000))
                   ->setAgency($this->getReference('agency_'.$row["agency_id"]));
                   $this->addReference('stage_'.strval($key), $stage);
             $manager->persist($stage);
