@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\File;
  * @ORM\Entity(repositoryClass="App\Repository\AgencyRepository")
  * @Vich\Uploadable
  */
-class Agency implements UserInterface
+class Agency implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -128,11 +128,12 @@ class Agency implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("apiMessage")
      */
     private $image;
 
     /**
-     * @Vich\UploadableField(mapping="agency_images", fileNameProperty="image", size="image.size")
+     * @Vich\UploadableField(mapping="agency_images", fileNameProperty="image")
      */
     private $imageFile;
 
@@ -143,9 +144,21 @@ class Agency implements UserInterface
 
     public function serialize()
     {
-        return [
-            $this->id
-        ];
+        return serialize([
+            $this->id,
+            $this->email,
+            $this->password
+        ]);
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+                $this->id,
+                $this->email,
+                $this->password
+                ) = unserialize($serialized);
     }
 
     public function __construct()

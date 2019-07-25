@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DocumentsRepository")
@@ -25,7 +26,7 @@ class Documents
     private $image;
 
     /**
-     * @Vich\UploadableField(mapping="documents_images", fileNameProperty="image", size="image.size")
+     * @Vich\UploadableField(mapping="documents_images", fileNameProperty="image")
      */
     private $imageFile;
 
@@ -46,14 +47,15 @@ class Documents
         return $this->id;
     }
 
-    public function setImageFile(File $image = null)
+    public function setImageFile(?File $imageFile = null)
     {
-        $this->imageFile = $image;
+        $this->imageFile = $imageFile;
         // It is required that at least one field changes if you are using Doctrine,
         // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
+        if ($this->imageFile instanceof UploadedFile) {
             $this->updatedAt = new \DateTime('now');
         }
+        return $this;
     }
 
     public function getImageFile()

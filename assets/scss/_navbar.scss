@@ -389,14 +389,19 @@
     min-width: 160px;
     overflow: auto;
     box-shadow: 1px 8px 16px 1px rgba(0,0,0,0.2);
+    border-radius: 0 0 5% 5%;
+    border: solid #ff8080;
 }
 
 .dropdown-content a {
     color: black;
-    padding: 12px 16px;
+    padding: 1%;
     text-decoration: none;
     display: block;
     background-color: #111;
+}
+.dropdown-content a:hover {
+    background-color: grey;
 }
 
 .show {display: block;}

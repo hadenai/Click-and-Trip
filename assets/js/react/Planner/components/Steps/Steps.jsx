@@ -4,7 +4,7 @@ import _ from 'underscore';
 import Routing from '../../../../../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
 // COMPONENTS
-import { Card, Button, Select } from 'semantic-ui-react';
+import { Label, Card, Button, Select } from 'semantic-ui-react';
 
 // CSS
 import './Steps.css';
@@ -264,6 +264,11 @@ function Steps() {
     setFilters(newFilters);
   };
 
+  const link=(step) => {
+    let url="/etapes/"+step.destination+"/"+step.slug;
+    return url
+  }
+
   return (
     <Fragment>
       <div className="Filters">
@@ -271,18 +276,23 @@ function Steps() {
         <Select fluid placeholder="Theme" options={themeOptions} onChange={(e, { value }) => filterSteps(1, value)} />
         <Select fluid placeholder="Style" options={styleOptions} onChange={(e, { value }) => filterSteps(2, value)} />
         <Select fluid placeholder="Taille du groupe" options={sizeOptions} onChange={(e, { value }) => filterSteps(3, value)} />
-        <Select fluid placeholder="Agence" options={agencyOptions} onChange={(e, { value }) => filterSteps(4, value)} />
+        <Select fluid placeholder="Agence" options={agencyOptions} onChange={(e, { value }) => filterSteps(4, value)} /> */}
       </div>
       <div className="Steps">
         <Card.Group centered>
           {
             filterResult.map((step, index) => {
               return (
-                <Card key={index} color="green" onClick={() => addStep(index)}>
-                  <Card.Content>
+                <Card key={index} color="green">
+                  <Card.Content onClick={() => addStep(index)} as="a">
                     <Card.Header>{step.destination}</Card.Header>
                     <Card.Meta>{step.duration} jours</Card.Meta>
                     <Card.Description>{step.nameStage}</Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    <Label className="plannerButton" as="a" onClick={() => console.log('hello')}>
+                      <a target="_blank" href={link(step)}>Plus de détails</a>
+                    </Label>
                   </Card.Content>
                 </Card>
               );
@@ -300,11 +310,16 @@ function Steps() {
           {
             mySteps.map((step, index) => {
               return (
-                <Card key={index} fluid color="red" onClick={() => removeStep(index)}>
-                  <Card.Content>
+                <Card key={index} fluid color="red">
+                  <Card.Content onClick={() => removeStep(index)} as="a">
                     <Card.Header>{step.destination}</Card.Header>
                     <Card.Meta>{step.duration} jours</Card.Meta>
                     <Card.Description>{step.nameStage}</Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    <Label className="plannerButton" as="a">
+                      <a target="_blank" href={link(step)}>Plus de détails</a>
+                    </Label>
                   </Card.Content>
                 </Card>
               );

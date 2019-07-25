@@ -16,9 +16,8 @@ security:
             memory:
                 users:
                     admin@cnt.fr: 
-                        password: '$argon2i$v=19$m=1024,t=2,p=2$ZjRiam01dEw3T2lHdXZTag$avm42JsT72ZRK8gf4Bd03lACPeo2PuZfmJgn4L4L7iM'
+                        password: '$2y$12$9j7LeVXvysViVR4uHHQRL.wmzhqu9DoLBUuy40Ft2DCPtTpqssfCy'
                         roles: 'ROLE_ADMIN'
-                    # password not encoded: CandTRIP
         client_provider:
             entity:
                 class: App\Entity\Client
@@ -47,6 +46,10 @@ security:
                 path:   compte_deconnexion
                 target: /
 
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        # ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
     access_control:
-    # - { path: ^/admin, roles: ROLE_ADMIN }
-    # - { path: ^/profile, roles: ROLE_USER }
+    - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/profil, roles: ROLE_USER }
