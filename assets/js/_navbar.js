@@ -10,17 +10,6 @@ if(document.getElementById("padding-for-navbar")){
         }
     };
 }
-const hostvideo = document.getElementById('host-video');
-
-// Not all browsers return promise from .play().
-const playPromise = hostvideo.play() || Promise.reject('');
-playPromise.then(() => {
-    // Video could be autoplayed, do nothing.
-}).catch(err => {
-    // Video couldn't be autoplayed because of autoplay policy. Mute it and play.
-    hostvideo.muted = true;
-    hostvideo.play();
-});
 
 $('.navTrigger').click(function () {
     $(this).toggleClass('active');
