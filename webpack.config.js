@@ -45,6 +45,7 @@ Encore
     .addEntry('stageShow', './assets/scss/stageShow.scss')
     .addEntry('stageEdit', './assets/scss/stageEdit.scss')
     .addEntry('success', './assets/scss/success.scss')
+    .addEntry('galery', './assets/js/galery.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
