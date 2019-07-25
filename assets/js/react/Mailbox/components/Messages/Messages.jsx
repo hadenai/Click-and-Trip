@@ -54,9 +54,11 @@ function Messages(props) {
   };
 
   const handleConv = (e) => {
-    document.getElementById('popup').style.display='none';
-    document.getElementById('welcome').style.display='none';
-    document.getElementById('well-sent').style.display='block';
+    if(props.userType==='user'){
+      document.getElementById('popup').style.display='none';
+      document.getElementById('welcome').style.display='none';
+      document.getElementById('well-sent').style.display='block';
+    }
     if (e == 'admin') {
       setMessages(allMessages.filter(el => el.admin));
       setTarget(e);
@@ -113,7 +115,8 @@ function Messages(props) {
         }
       })
       .then(()=> {
-          document.getElementById('popup').style.display='flex';
+        if(props.userType==='user'){
+          document.getElementById('popup').style.display='flex';}
       });
   };
 

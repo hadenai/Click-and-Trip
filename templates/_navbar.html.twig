@@ -47,7 +47,7 @@
 </nav>
 <script>
     function getCountries() {
-        fetch('http://localhost:8000/api/stages')
+        fetch('http://127.0.0.1:8000/api/stages')
             .then(results => results.json())
             .then(data => {
                 let dest = data.map(stage => stage.destination);
